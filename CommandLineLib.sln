@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineLib", "CommandLineLib\CommandLineLib.csproj", "{1A53C000-9D73-461D-B8C5-AD326612C051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineTest", "CommandLineTest\CommandLineTest.csproj", "{8C00B96E-63C1-49F3-8F33-13E0867670B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFramework", "TestFramework\TestFramework.csproj", "{5ED42040-FEC9-4EFB-A32E-1D4031013F14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A53C000-9D73-461D-B8C5-AD326612C051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A53C000-9D73-461D-B8C5-AD326612C051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A53C000-9D73-461D-B8C5-AD326612C051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A53C000-9D73-461D-B8C5-AD326612C051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C00B96E-63C1-49F3-8F33-13E0867670B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C00B96E-63C1-49F3-8F33-13E0867670B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C00B96E-63C1-49F3-8F33-13E0867670B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C00B96E-63C1-49F3-8F33-13E0867670B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ED42040-FEC9-4EFB-A32E-1D4031013F14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ED42040-FEC9-4EFB-A32E-1D4031013F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ED42040-FEC9-4EFB-A32E-1D4031013F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ED42040-FEC9-4EFB-A32E-1D4031013F14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
