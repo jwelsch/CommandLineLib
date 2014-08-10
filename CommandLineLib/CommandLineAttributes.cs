@@ -28,6 +28,12 @@ namespace CommandLineLib
          get;
          set;
       }
+
+      string Description
+      {
+         get;
+         set;
+      }
    }
 
    public abstract class BaseArgument : System.Attribute, IBaseArgument
@@ -68,6 +74,12 @@ namespace CommandLineLib
          get;
          set;
       }
+
+      public abstract string Description
+      {
+         get;
+         set;
+      }
    }
 
    public interface ISwitchArgument : IBaseArgument
@@ -98,6 +110,12 @@ namespace CommandLineLib
          get;
          set;
       }
+
+      public string Description
+      {
+         get { return this.Prefix + this.Label; }
+         set { }
+      }
    }
 
    public interface IValueArgument
@@ -112,6 +130,12 @@ namespace CommandLineLib
    public class Value : BaseArgument, IValueArgument
    {
       public string[] AcceptableValues
+      {
+         get;
+         set;
+      }
+
+      public string Description
       {
          get;
          set;
@@ -140,6 +164,12 @@ namespace CommandLineLib
       {
          get;
          set;
+      }
+
+      public string Description
+      {
+         get { return this.Prefix + this.Label; }
+         set { }
       }
    }
 }

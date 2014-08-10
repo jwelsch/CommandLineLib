@@ -34,7 +34,7 @@ namespace TestFramework
       /// <param name="message">The message associated with the exception.</param>
       /// <param name="innerException">Another exception associated with the TestException.</param>
       public TestException( string message, Exception innerException, int stackUnwind = 1 )
-         : base( String.Format( "{0}; line {1}: {2}", ( new StackTrace() ).GetFrame( stackUnwind + 1 ).GetMethod().Name, ( new StackTrace() ).GetFrame( stackUnwind + 1 ).GetFileLineNumber(), message ), innerException )
+         : base( String.Format( "{0}; line {1}: {2}", ( new StackTrace() ).GetFrame( stackUnwind + 1 ).GetMethod().Name, ( new StackTrace( true ) ).GetFrame( stackUnwind + 1 ).GetFileLineNumber(), message ), innerException )
       {
       }
 

@@ -102,7 +102,7 @@ namespace CommandLineLib
          {
             if ( !argInfo.Argument.Optional && !argInfo.Property.WasSet )
             {
-               throw new CommandLineException( String.Format( "A mandatory argument was not found. TODO: Need more information." ) );
+               throw new CommandLineException( String.Format( "The mandatory argument \"{0}\" was not found.", argInfo.Argument. ) );
             }
          }
 

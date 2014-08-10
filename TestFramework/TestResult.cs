@@ -8,9 +8,6 @@ namespace TestFramework
       Fail
    }
 
-   /// <summary>
-   /// 
-   /// </summary>
    public class TestResult
    {
       public string Name
