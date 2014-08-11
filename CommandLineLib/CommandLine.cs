@@ -110,29 +110,16 @@ namespace CommandLineLib
             acceptedGroups.AddRange( argumentGroups );
             result = true;
          }
-         else if ( acceptedGroups.Count > argumentGroups.Length )
-         {
-            for ( var i = acceptedGroups.Count; i >= 0; i-- )
-            {
-               if ( 0 < Array.IndexOf<int>( argumentGroups, acceptedGroups[i] ) )
-               {
-                  acceptedGroups.RemoveAt( i );
-               }
-               else
-               {
-                  result = true;
-               }
-            }
-         }
          else
          {
-            foreach ( var group in argumentGroups )
+            var common = acceptedGroups.Common<int>( argumentGroups );
+
+            result = common.Count > 0;
+
+            if ( result )
             {
-               if ( acceptedGroups.Contains( group ) )
-               {
-                  result = true;
-                  break;
-               }
+               acceptedGroups.Clear();
+               acceptedGroups.AddRange( common );
             }
          }
 
