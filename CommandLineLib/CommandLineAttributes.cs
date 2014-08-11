@@ -5,56 +5,59 @@ namespace CommandLineLib
 {
    public interface IBaseArgument
    {
-      bool CaseSensitive
-      {
-         get;
-         set;
-      }
-
+      /// <summary>
+      /// <=0 is any order.
+      /// >0 is ascending order.
+      /// If no ordinal is specified, the default is 0.
+      /// Can have multiple arguments with the same ordinal.  Those with the
+      /// same ordinal can be in any order within that ordinal number.
+      /// </summary>
       int Ordinal
       {
          get;
-         set;
       }
 
       bool Optional
       {
          get;
-         set;
       }
 
-      int Group
+      /// <summary>
+      /// Can be any integer.
+      /// Can belong to multiple groups.
+      /// If no group is specified, the default is to only belong to the 0
+      /// group.
+      /// Arguments in the same group are allowed to be specified together on
+      /// the command line.  Arguments NOT in the same group are not allowed to
+      /// be specified together on the command line.
+      /// 
+      /// Example:
+      ///   -a (group 1)
+      ///   -b (group 2)
+      ///   -c (group 1)
+      ///   
+      /// Allowed:
+      ///   app.exe -a -c
+      ///   
+      /// Not allowed:
+      ///   app.exe -a -b
+      /// </summary>
+      int[] Groups
       {
          get;
-         set;
       }
 
       string Description
       {
          get;
-         set;
       }
    }
 
    public abstract class BaseArgument : System.Attribute, IBaseArgument
    {
-      //public enum ArgumentType
-      //{
-      //   Switch,
-      //   Raw,
-      //   Compound
-      //}
-
-      //public ArgumentType ArgumentType
-      //{
-      //   get;
-      //   set;
-      //}
-
-      public bool CaseSensitive
+      public BaseArgument()
       {
-         get;
-         set;
+         this.Groups = new int[] { 0 };
       }
 
       public int Ordinal
@@ -69,13 +72,13 @@ namespace CommandLineLib
          set;
       }
 
-      public int Group
+      public int[] Groups
       {
          get;
          set;
       }
 
-      public abstract string Description
+      public virtual string Description
       {
          get;
          set;
@@ -84,21 +87,31 @@ namespace CommandLineLib
 
    public interface ISwitchArgument : IBaseArgument
    {
-      string Prefix
+      bool CaseSensitive
       {
          get;
          set;
+      }
+
+      string Prefix
+      {
+         get;
       }
 
       string Label
       {
          get;
-         set;
       }
    }
 
    public class Switch : BaseArgument, ISwitchArgument
    {
+      public bool CaseSensitive
+      {
+         get;
+         set;
+      }
+
       public string Prefix
       {
          get;
@@ -111,10 +124,9 @@ namespace CommandLineLib
          set;
       }
 
-      public string Description
+      public override string Description
       {
          get { return this.Prefix + this.Label; }
-         set { }
       }
    }
 
@@ -135,7 +147,7 @@ namespace CommandLineLib
          set;
       }
 
-      public string Description
+      public override string Description
       {
          get;
          set;
@@ -148,28 +160,36 @@ namespace CommandLineLib
 
    public class Compound : BaseArgument, ICompoundArgument
    {
+      private Switch @switch = new Switch();
+      private Value value = new Value();
+
+      public bool CaseSensitive
+      {
+         get { return this.@switch.CaseSensitive; }
+         set { this.@switch.CaseSensitive = value; }
+      }
+
       public string Prefix
       {
-         get;
-         set;
+         get { return this.@switch.Prefix; }
+         set { this.@switch.Prefix = value; }
       }
 
       public string Label
       {
-         get;
-         set;
+         get { return this.@switch.Label; }
+         set { this.@switch.Label = value; }
       }
 
       public string[] AcceptableValues
       {
-         get;
-         set;
+         get { return this.value.AcceptableValues; }
+         set { this.value.AcceptableValues = value; }
       }
 
-      public string Description
+      public override string Description
       {
-         get { return this.Prefix + this.Label; }
-         set { }
+         get { return this.@switch.Description; }
       }
    }
 }
