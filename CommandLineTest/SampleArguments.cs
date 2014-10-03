@@ -118,4 +118,34 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class SimpleValueArgument
+   {
+      [Int32Value()]
+      public Int32 Int32Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class AcceptableValueArgument
+   {
+      [Int32Value( AcceptableValues = new object[] { 1, 3, 5, 8 } )]
+      public Int32 Int32Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class RangeValueArgument
+   {
+      [Int32Value( RangeMax = 47, RangeMin = -3 )]
+      public Int32 Int32Value
+      {
+         get;
+         private set;
+      }
+   }
 }

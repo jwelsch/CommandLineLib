@@ -5,7 +5,7 @@ namespace CommandLineLib
 {
    public class ArgumentInfo
    {
-      public ArgumentInfo( IBaseArgument argument, ArgumentPropertyBinding property )
+      public ArgumentInfo( IBaseArgument argument, IArgumentPropertyBinding property )
       {
          this.Argument = argument;
          this.Property = property;
@@ -17,7 +17,7 @@ namespace CommandLineLib
          private set;
       }
 
-      public ArgumentPropertyBinding Property
+      public IArgumentPropertyBinding Property
       {
          get;
          private set;

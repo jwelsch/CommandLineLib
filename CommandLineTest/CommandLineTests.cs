@@ -150,5 +150,65 @@ namespace CommandLineTest
             arguments = commandLine.Parse( new string[] { "-red", "-green", "-blue" } );
          } );
       }
+
+      [TestMethod]
+      public void SimpleValueArgument()
+      {
+         var simpleValue = 29;
+
+         var commandLine = new CommandLine<SimpleValueArgument>();
+         var arguments = commandLine.Parse( new string[] { simpleValue.ToString() } );
+
+         TestHelper.Expected<Int32>( simpleValue, () =>
+            {
+               return arguments.Int32Value;
+            } );
+      }
+
+      [TestMethod]
+      public void AcceptableValueArgument()
+      {
+         var acceptableValue = 3;
+         var notAcceptableValue = 9;
+
+         var commandLine = new CommandLine<AcceptableValueArgument>();
+
+         var arguments = commandLine.Parse( acceptableValue.ToString() );
+         TestHelper.Expected<Int32>( acceptableValue, () =>
+         {
+            return arguments.Int32Value;
+         } );
+
+         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+            {
+               arguments = commandLine.Parse( notAcceptableValue.ToString() );
+            } );
+      }
+
+      [TestMethod]
+      public void RangeValueArgument()
+      {
+         var withInRange = new Int32[] { 11, 0, -3, 47 };
+         var outOfRange = new Int32[] { -4, 48 };
+
+         var commandLine = new CommandLine<RangeValueArgument>();
+
+         foreach ( var value in withInRange )
+         {
+            var arguments = commandLine.Parse( value.ToString() );
+            TestHelper.Expected<Int32>( value, () =>
+            {
+               return arguments.Int32Value;
+            } );
+         }
+
+         foreach ( var value in outOfRange )
+         {
+            TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+            {
+               var arguments = commandLine.Parse( value.ToString() );
+            } );
+         }
+      }
    }
 }

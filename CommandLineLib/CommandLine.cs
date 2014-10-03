@@ -33,6 +33,11 @@ namespace CommandLineLib
          Value
       }
 
+      public T Parse( string arg )
+      {
+         return this.Parse( new string[] { arg } );
+      }
+
       public T Parse( string[] args )
       {
          var commandLineArguments = (T) Activator.CreateInstance( typeof( T ) );
@@ -43,7 +48,7 @@ namespace CommandLineLib
             throw new CommandLineException( String.Format( "No command line attributes found on class \"{0}\".", typeof( T ).Name ) );
          }
 
-         var state = argumentInfo[0].Argument as Value != null ? State.Value : State.Switch;
+         var state = argumentInfo[0].Argument as IValueArgument != null ? State.Value : State.Switch;
          var currentOrdinal = 0;
          var acceptedGroups = new List<int>();
 
@@ -53,6 +58,18 @@ namespace CommandLineLib
             {
                if ( state == State.Value )
                {
+                  try
+                  {
+                     argumentInfo[i].Property.Value = arg;
+                  }
+                  catch ( UnacceptableArgumentException )
+                  {
+                     throw new CommandLineException( String.Format( "Unacceptable value \"{0}\" for argument \"{1}\"", arg, argumentInfo[i].Argument.Description ) );
+                  }
+                  catch ( ArgumentOutOfRangeException )
+                  {
+                     throw new CommandLineException( String.Format( "Value \"{0}\" is out of range for argument \"{1}\"", arg, argumentInfo[i].Argument.Description ) );
+                  }
                }
                else if ( state == State.Switch )
                {
@@ -84,6 +101,7 @@ namespace CommandLineLib
                      }
 
                      argumentInfo[i].Property.Value = true;
+
                      break;
                   }
                }
@@ -138,7 +156,8 @@ namespace CommandLineLib
             if ( allAttributes.Length > 0 )
             {
                var attribute = (IBaseArgument) allAttributes[0];
-               arguments.Add( new ArgumentInfo( attribute, new ArgumentPropertyBinding( commandLineArguments, property ) ) );
+               var binding = attribute.GetBinding( commandLineArguments, property );
+               arguments.Add( new ArgumentInfo( attribute, binding ) );
             }
          }
 
