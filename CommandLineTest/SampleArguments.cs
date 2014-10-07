@@ -121,7 +121,7 @@ namespace CommandLineTest
 
    public class SimpleValueArgument
    {
-      [Int32Value()]
+      [Int32Value( 1 )]
       public Int32 Int32Value
       {
          get;
@@ -131,7 +131,7 @@ namespace CommandLineTest
 
    public class AcceptableValueArgument
    {
-      [Int32Value( AcceptableValues = new object[] { 1, 3, 5, 8 } )]
+      [Int32Value( 1, AcceptableValues = new int[] { 1, 3, 5, 8 } )]
       public Int32 Int32Value
       {
          get;
@@ -141,8 +141,38 @@ namespace CommandLineTest
 
    public class RangeValueArgument
    {
-      [Int32Value( RangeMax = 47, RangeMin = -3 )]
+      [Int32Value( 1, RangeMax = 47, RangeMin = -3 )]
       public Int32 Int32Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidRangeValueArgument
+   {
+      [Int32Value( 1, RangeMin = 47, RangeMax = -3 )]
+      public Int32 Int32Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class StringValueArgument
+   {
+      [StringValue( 1 )]
+      public String StringValue
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class AcceptableStringValueArgument
+   {
+      [StringValue( 1, AcceptableValues = new string[] { "foo", "bar" } )]
+      public String StringValue
       {
          get;
          private set;

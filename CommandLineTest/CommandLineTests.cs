@@ -6,6 +6,7 @@ namespace CommandLineTest
 {
    public class CommandLineTests
    {
+//#if false
       [TestMethod]
       public void NoCommandLineAttributes()
       {
@@ -209,6 +210,46 @@ namespace CommandLineTest
                var arguments = commandLine.Parse( value.ToString() );
             } );
          }
+      }
+
+      [TestMethod]
+      public void StringValueArgument()
+      {
+         var stringValue = "foobar";
+         var commandLine = new CommandLine<StringValueArgument>();
+         var arguments = commandLine.Parse( stringValue );
+
+         TestHelper.Expected<string>( stringValue, () =>
+            {
+               return arguments.StringValue;
+            } );
+      }
+//#endif
+
+      [TestMethod]
+      public void AcceptableStringValueArgument()
+      {
+         var acceptableValue1 = "foo";
+         var acceptableValue2 = "bar";
+         var unacceptableValue = "far";
+         var commandLine = new CommandLine<AcceptableStringValueArgument>();
+
+         var arguments = commandLine.Parse( acceptableValue1 );
+         TestHelper.Expected<string>( acceptableValue1, () =>
+         {
+            return arguments.StringValue;
+         } );
+
+         arguments = commandLine.Parse( acceptableValue2 );
+         TestHelper.Expected<string>( acceptableValue2, () =>
+         {
+            return arguments.StringValue;
+         } );
+
+         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+            {
+               arguments = commandLine.Parse( unacceptableValue );
+            } );
       }
    }
 }

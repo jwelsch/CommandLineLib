@@ -39,18 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArgumentInfo.cs" />
-    <Compile Include="ArgumentPropertyBinding.cs" />
+    <Compile Include="Arguments.cs" />
     <Compile Include="ArgumentTypeMismatchException.cs" />
     <Compile Include="CommandLine.cs" />
     <Compile Include="CommandLineAttributes.cs" />
     <Compile Include="CommandLineException.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="IAcceptableArgument.cs" />
-    <Compile Include="IConvertibleArgument.cs" />
-    <Compile Include="IRangeableArgument.cs" />
+    <Compile Include="BaseArgument.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyAccessor.cs" />
+    <Compile Include="RangeValueArgument.cs" />
+    <Compile Include="SwitchArgument.cs" />
     <Compile Include="UnacceptableArgumentException.cs" />
+    <Compile Include="ValueArgument.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

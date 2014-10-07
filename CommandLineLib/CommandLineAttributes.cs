@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace CommandLineLib
 {
-   public interface IBaseArgument
+   public interface IBaseAttribute
    {
       /// <summary>
       /// <=0 is any order.
@@ -52,12 +53,12 @@ namespace CommandLineLib
          get;
       }
 
-      IArgumentPropertyBinding GetBinding( object argument, PropertyInfo property );
+      IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo );
    }
 
-   public abstract class BaseArgument : System.Attribute, IBaseArgument
+   public abstract class BaseAttribute : System.Attribute, IBaseAttribute
    {
-      public BaseArgument()
+      public BaseAttribute()
       {
          this.Groups = new int[] { 0 };
       }
@@ -86,13 +87,10 @@ namespace CommandLineLib
          set;
       }
 
-      public virtual IArgumentPropertyBinding GetBinding( object argument, PropertyInfo property )
-      {
-         return new ArgumentPropertyBinding( argument, property );
-      }
+      public abstract IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo );
    }
 
-   public interface ISwitchArgument : IBaseArgument
+   public interface ISwitchAttribute : IBaseAttribute
    {
       bool CaseSensitive
       {
@@ -111,7 +109,7 @@ namespace CommandLineLib
       }
    }
 
-   public class Switch : BaseArgument, ISwitchArgument
+   public class Switch : BaseAttribute, ISwitchAttribute
    {
       public bool CaseSensitive
       {
@@ -135,163 +133,87 @@ namespace CommandLineLib
       {
          get { return this.Prefix + this.Label; }
       }
+
+      public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
+      {
+         return new SwitchArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.CaseSensitive, this.Prefix, this.Label );
+      }
    }
 
-   public interface IValueArgument : IConvertibleArgument, IAcceptableArgument
+   public interface IValueAttribute : IBaseAttribute
    {
    }
 
-   public abstract class Value : BaseArgument, IValueArgument
+   public abstract class Value : BaseAttribute, IValueAttribute
    {
-      protected Type ArgumentType
+      public Value( int ordinal )
+      {
+         this.Ordinal = ordinal;
+      }
+   }
+
+   public class StringValue : Value
+   {
+      public StringValue( int ordinal )
+         : base( ordinal )
+      {
+      }
+
+      public String[] AcceptableValues
       {
          get;
          set;
       }
 
-      private MethodInfo parseMethodInfo;
-
-      private object[] acceptableValues = new object[0];
-      public virtual object[] AcceptableValues
+      public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         get { return this.acceptableValues; }
-         set
-         {
-            this.CheckType( value );
-
-            this.acceptableValues = value;
-         }
-      }
-
-      public override string Description
-      {
-         get;
-         set;
-      }
-
-      public override IArgumentPropertyBinding GetBinding( object argument, PropertyInfo property )
-      {
-         return new ValueArgumentPropertyBinding( argument, property, this, this );
-      }
-
-      protected void CheckType( object value )
-      {
-         if ( value.GetType() != this.ArgumentType )
-         {
-            throw new ArgumentTypeMismatchException( String.Format( "The parameter type \"{0}\" does match the value argument type \"{1}\".", value.GetType().Name, this.ArgumentType.Name ) );
-         }
-      }
-
-      public object Convert( object value )
-      {
-         this.CheckType( value );
-
-         if ( this.parseMethodInfo == null )
-         {
-            this.parseMethodInfo = this.ArgumentType.GetMethod( "Parse", BindingFlags.Static | BindingFlags.Public );
-         }
-
-         return this.parseMethodInfo.Invoke( null, new object[] { value } );
-      }
-
-      public bool IsAcceptable( object value )
-      {
-         this.CheckType( value );
-
-         if ( ( this.AcceptableValues == null ) || ( this.AcceptableValues.Length == 0 ) )
-         {
-            return true;
-         }
-
-         return 0 < Array.IndexOf<object>( this.AcceptableValues, value );
+         return new StringValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues );
       }
    }
 
-   public abstract class RangeValue : Value, IRangeableArgument
+   public interface IRangeValueAttribute : IValueAttribute
    {
-      public override IArgumentPropertyBinding GetBinding( object argument, PropertyInfo property )
+   }
+
+   public abstract class RangeValue : Value, IRangeValueAttribute
+   {
+      public RangeValue( int ordinal )
+         : base( ordinal )
       {
-         return new RangeValueArgumentPropertyBinding( argument, property, this, this, this );
-      }
-
-      public bool IsInRange( object value )
-      {
-         this.CheckType( value );
-
-         return value.InRange( this.RangeMin, this.RangeMax );
-      }
-
-      public override object[] AcceptableValues
-      {
-         set
-         {
-            foreach ( var item in value )
-            {
-               if ( !this.IsInRange( item ) )
-               {
-                  throw new ArgumentOutOfRangeException( "AcceptableValues", String.Format( "The value \"{0}\" in the AcceptedValues is out of the specified range ({1}, {2}).", item, this.RangeMin, this.RangeMax ) );
-               }
-            }
-
-            base.AcceptableValues = value;
-         }
-      }
-
-      private object rangeMin;
-      public object RangeMin
-      {
-         get { return this.rangeMin; }
-         set
-         {
-            if ( value.IsGreater( this.RangeMax ) )
-            {
-               throw new ArgumentOutOfRangeException( "RangeMin", String.Format( "The minimum value of the range cannot be greater than the maximum value of the range." ) );
-            }
-
-            if ( this.AcceptableValues != null )
-            {
-               foreach ( var item in this.AcceptableValues )
-               {
-                  if ( !item.InRange( value, this.RangeMax ) )
-                  {
-                     throw new ArgumentOutOfRangeException( "RangeMin", String.Format( "The value \"{0}\" in the AcceptedValues would be out of the specified range ({1}, {2}).", item, value, this.RangeMax ) );
-                  }
-               }
-            }
-
-            this.rangeMin = value;
-         }
-      }
-
-      private object rangeMax;
-      public object RangeMax
-      {
-         get { return this.rangeMax; }
-         set
-         {
-            if ( value.IsLess( this.RangeMin ) )
-            {
-               throw new ArgumentOutOfRangeException( "RangeMax", String.Format( "The maximum value of the range cannot be less than the minimum value of the range." ) );
-            }
-
-            if ( this.AcceptableValues != null )
-            {
-               foreach ( var item in this.AcceptableValues )
-               {
-                  if ( !item.InRange( this.RangeMin, value ) )
-                  {
-                     throw new ArgumentOutOfRangeException( "RangeMax", String.Format( "The value \"{0}\" in the AcceptedValues would be out of the specified range ({1}, {2}).", item, this.RangeMin, value ) );
-                  }
-               }
-            }
-
-            this.rangeMax = value;
-         }
       }
    }
 
    public class Int32Value : RangeValue
    {
+      public Int32Value( int ordinal )
+         : base( ordinal )
+      {
+         this.RangeMin = Int32.MinValue;
+         this.RangeMax = Int32.MaxValue;
+      }
+
+      public Int32[] AcceptableValues
+      {
+         get;
+         set;
+      }
+
+      public Int32 RangeMin
+      {
+         get;
+         set;
+      }
+
+      public Int32 RangeMax
+      {
+         get;
+         set;
+      }
+
+      public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
+      {
+         return new Int32ValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
+      }
    }
 
    //public interface ICompoundArgument<V> : ISwitchArgument, IValueArgument<V>

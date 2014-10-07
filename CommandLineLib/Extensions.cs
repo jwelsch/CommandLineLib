@@ -150,62 +150,62 @@ namespace CommandLineLib
       {
          if ( value.GetType() == typeof( SByte ) )
          {
-            return ( (SByte) value ).IsGreater( than );
+            return ( (SByte) value ).IsGreater( (SByte) than );
          }
 
          if ( value.GetType() == typeof( Int16 ) )
          {
-            return ( (Int16) value ).IsGreater( than );
+            return ( (Int16) value ).IsGreater( (Int16) than );
          }
 
          if ( value.GetType() == typeof( Int32 ) )
          {
-            return ( (Int32) value ).IsGreater( than );
+            return ( (Int32) value ).IsGreater( (Int32) than );
          }
 
          if ( value.GetType() == typeof( Int64 ) )
          {
-            return ( (Int64) value ).IsGreater( than );
+            return ( (Int64) value ).IsGreater( (Int64) than );
          }
 
          if ( value.GetType() == typeof( Byte ) )
          {
-            return ( (Byte) value ).IsGreater( than );
+            return ( (Byte) value ).IsGreater( (Byte) than );
          }
 
          if ( value.GetType() == typeof( UInt16 ) )
          {
-            return ( (UInt16) value ).IsGreater( than );
+            return ( (UInt16) value ).IsGreater( (UInt16) than );
          }
 
          if ( value.GetType() == typeof( UInt32 ) )
          {
-            return ( (UInt32) value ).IsGreater( than );
+            return ( (UInt32) value ).IsGreater( (UInt32) than );
          }
 
          if ( value.GetType() == typeof( UInt64 ) )
          {
-            return ( (UInt64) value ).IsGreater( than );
+            return ( (UInt64) value ).IsGreater( (UInt64) than );
          }
 
          if ( value.GetType() == typeof( Single ) )
          {
-            return ( (Single) value ).IsGreater( than );
+            return ( (Single) value ).IsGreater( (Single) than );
          }
 
          if ( value.GetType() == typeof( Double ) )
          {
-            return ( (Double) value ).IsGreater( than );
+            return ( (Double) value ).IsGreater( (Double) than );
          }
 
          if ( value.GetType() == typeof( Decimal ) )
          {
-            return ( (Decimal) value ).IsGreater( than );
+            return ( (Decimal) value ).IsGreater( (Decimal) than );
          }
 
          if ( value.GetType() == typeof( DateTime ) )
          {
-            return ( (DateTime) value ).IsGreater( than );
+            return ( (DateTime) value ).IsGreater( (DateTime) than );
          }
 
          throw new ArgumentException( String.Format( "The type \"{0}\" of the \"value\" argument is not supported by the IsGreater method.", value.GetType().Name ), "value" );
@@ -275,62 +275,62 @@ namespace CommandLineLib
       {
          if ( value.GetType() == typeof( SByte ) )
          {
-            return ( (SByte) value ).IsLess( than );
+            return ( (SByte) value ).IsLess( (SByte) than );
          }
 
          if ( value.GetType() == typeof( Int16 ) )
          {
-            return ( (Int16) value ).IsLess( than );
+            return ( (Int16) value ).IsLess( (Int16) than );
          }
 
          if ( value.GetType() == typeof( Int32 ) )
          {
-            return ( (Int32) value ).IsLess( than );
+            return ( (Int32) value ).IsLess( (Int32) than );
          }
 
          if ( value.GetType() == typeof( Int64 ) )
          {
-            return ( (Int64) value ).IsLess( than );
+            return ( (Int64) value ).IsLess( (Int64) than );
          }
 
          if ( value.GetType() == typeof( Byte ) )
          {
-            return ( (Byte) value ).IsLess( than );
+            return ( (Byte) value ).IsLess( (Byte) than );
          }
 
          if ( value.GetType() == typeof( UInt16 ) )
          {
-            return ( (UInt16) value ).IsLess( than );
+            return ( (UInt16) value ).IsLess( (UInt16) than );
          }
 
          if ( value.GetType() == typeof( UInt32 ) )
          {
-            return ( (UInt32) value ).IsLess( than );
+            return ( (UInt32) value ).IsLess( (UInt32) than );
          }
 
          if ( value.GetType() == typeof( UInt64 ) )
          {
-            return ( (UInt64) value ).IsLess( than );
+            return ( (UInt64) value ).IsLess( (UInt64) than );
          }
 
          if ( value.GetType() == typeof( Single ) )
          {
-            return ( (Single) value ).IsLess( than );
+            return ( (Single) value ).IsLess( (Single) than );
          }
 
          if ( value.GetType() == typeof( Double ) )
          {
-            return ( (Double) value ).IsLess( than );
+            return ( (Double) value ).IsLess( (Double) than );
          }
 
          if ( value.GetType() == typeof( Decimal ) )
          {
-            return ( (Decimal) value ).IsLess( than );
+            return ( (Decimal) value ).IsLess( (Decimal) than );
          }
 
          if ( value.GetType() == typeof( DateTime ) )
          {
-            return ( (DateTime) value ).IsLess( than );
+            return ( (DateTime) value ).IsLess( (DateTime) than );
          }
 
          throw new ArgumentException( String.Format( "The type \"{0}\" of the \"value\" argument is not supported by the IsLess method.", value.GetType().Name ), "value" );
@@ -338,62 +338,87 @@ namespace CommandLineLib
 
       public static bool IsLess( this SByte value, SByte than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this Int16 value, Int16 than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this Int32 value, Int32 than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this Int64 value, Int64 than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this Byte value, Byte than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this UInt16 value, UInt16 than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this UInt32 value, UInt32 than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this UInt64 value, UInt64 than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this Single value, Single than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this Double value, Double than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this Decimal value, Decimal than )
       {
-         return value > than;
+         return value < than;
       }
 
       public static bool IsLess( this DateTime value, DateTime than )
       {
-         return value > than;
+         return value < than;
+      }
+
+      public static object Convert( this Type target, object value )
+      {
+         if ( target == typeof( SByte ) )
+         {
+            return (SByte) value;
+         }
+
+         if ( target == typeof( Int16 ) )
+         {
+            return (Int16) value;
+         }
+
+         if ( target == typeof( Int32 ) )
+         {
+            return (Int32) value;
+         }
+
+         if ( target == typeof( Int64 ) )
+         {
+            return (Int64) value;
+         }
+
+         return value;
       }
    }
 }
