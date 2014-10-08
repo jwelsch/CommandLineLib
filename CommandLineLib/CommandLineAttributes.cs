@@ -10,8 +10,10 @@ namespace CommandLineLib
       /// <=0 is any order.
       /// >0 is ascending order.
       /// If no ordinal is specified, the default is 0.
-      /// Can have multiple arguments with the same ordinal.  Those with the
-      /// same ordinal can be in any order within that ordinal number.
+      /// Can have multiple switch arguments with the same ordinal.  Those with
+      /// the same ordinal can be in any order within that ordinal number.
+      /// Only one argument (switch or value) can have a specific ordinal if
+      /// that ordinal is assigned to a value argument.
       /// </summary>
       int Ordinal
       {
@@ -63,10 +65,21 @@ namespace CommandLineLib
          this.Groups = new int[] { 0 };
       }
 
+      private int ordinal;
       public int Ordinal
       {
-         get;
-         set;
+         get { return this.ordinal; }
+         set
+         {
+            if ( value < 0 )
+            {
+               this.ordinal = 0;
+            }
+            else
+            {
+               this.ordinal = value;
+            }
+         }
       }
 
       public bool Optional

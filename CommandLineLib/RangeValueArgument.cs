@@ -87,16 +87,26 @@ namespace CommandLineLib
          }
       }
 
-      public override void SetFromCommandLineArgument( string value )
+      public override bool SetFromCommandLineArgument( string value )
       {
          var converted = (T) this.FromString( value );
 
-         if ( !this.IsInRange( converted ) )
+         if ( converted == null )
          {
-            throw new ArgumentOutOfRangeException( "Value", value, String.Format( "The value \"{0}\" is out of range for this argument.", value ) );
+            return false;
          }
 
-         base.SetFromCommandLineArgument( value );
+         if ( !this.IsInRange( converted ) )
+         {
+            throw new CommandLineException( String.Format( "The value \"{0}\" is out of range for this argument.", value ) );
+         }
+
+         if ( !this.IsAcceptable( converted ) )
+         {
+            throw new CommandLineException( String.Format( "The value \"{0}\" is not acceptable for this argument.", value ) );
+         }
+
+         return this.SetConvertedValue( converted );
       }
    }
 }

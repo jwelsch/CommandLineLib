@@ -41,74 +41,49 @@ namespace CommandLineLib
       public T Parse( string[] args )
       {
          var argumentObject = (T) Activator.CreateInstance( typeof( T ) );
-         var argumentList = this.FindParameters( argumentObject );
+         var unresolvedArgumentList = this.FindParameters( argumentObject );
+         var resolvedArgumentList = new List<IBaseArgument>();
 
-         if ( argumentList.Count == 0 )
+         if ( unresolvedArgumentList.Count == 0 )
          {
             throw new CommandLineException( String.Format( "No command line attributes found on class \"{0}\".", typeof( T ).Name ) );
          }
 
-         var state = argumentList[0] as SwitchArgument == null ? State.Value : State.Switch;
-         var currentOrdinal = 0;
+         var state = unresolvedArgumentList[0] as SwitchArgument == null ? State.Value : State.Switch;
          var acceptedGroups = new List<int>();
+         var currentOrdinal = 1;
 
          foreach ( var arg in args )
          {
-            for ( var i = 0; i < argumentList.Count; i++ )
+            for ( var i = 0; i < unresolvedArgumentList.Count; i++ )
             {
-               if ( state == State.Value )
+               if ( !this.IsGroupAllowed( acceptedGroups, unresolvedArgumentList[i].Groups ) )
                {
-                  try
-                  {
-                     argumentList[i].SetFromCommandLineArgument( arg );
-                  }
-                  catch ( UnacceptableArgumentException )
-                  {
-                     throw new CommandLineException( String.Format( "Unacceptable value \"{0}\" for argument \"{1}\"", arg, argumentList[i].Description ) );
-                  }
-                  catch ( ArgumentOutOfRangeException )
-                  {
-                     throw new CommandLineException( String.Format( "Value \"{0}\" is out of range for argument \"{1}\"", arg, argumentList[i].Description ) );
-                  }
+                  throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unresolvedArgumentList[i].Description ) );
                }
-               else if ( state == State.Switch )
+
+               if ( unresolvedArgumentList[i].WasSet )
                {
-                  var switchArgument = (SwitchArgument) argumentList[i];
-                  var @switch = switchArgument.Prefix + switchArgument.Label;
+                  throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", unresolvedArgumentList[i].Description ) );
+               }
 
-                  if ( String.Compare( @switch, arg, !switchArgument.CaseSensitive ) == 0 )
+               if ( unresolvedArgumentList[i].SetFromCommandLineArgument( arg ) )
+               {
+                  if ( ( unresolvedArgumentList[i].Ordinal != 0 )
+                     && ( unresolvedArgumentList[i].Ordinal < currentOrdinal ) )
                   {
-                     if ( ( switchArgument.Ordinal > 0 )
-                        && ( switchArgument.Ordinal < currentOrdinal ) )
-                     {
-                        throw new CommandLineException( String.Format( "The switch \"{0}\" was specified out of order.", switchArgument.Description ) );
-                     }
-
-                     if ( !this.IsGroupAllowed( acceptedGroups, switchArgument.Groups ) )
-                     {
-                        throw new CommandLineException( String.Format( "An argument \"{0}\" is not allowed because of its group.", switchArgument.Description ) );
-                     }
-
-                     if ( argumentList[i].WasSet )
-                     {
-                        throw new CommandLineException( String.Format( "Duplicate \"{0}\" switch found.", switchArgument.Description ) );
-                     }
-
-                     if ( ( switchArgument.Ordinal > 0 )
-                        && ( switchArgument.Ordinal > currentOrdinal ) )
-                     {
-                        currentOrdinal = switchArgument.Ordinal;
-                     }
-
-                     argumentList[i].SetFromCommandLineArgument( arg );
-
-                     break;
+                     throw new CommandLineException( String.Format( "The argument \"{0}\" is out of order.", unresolvedArgumentList[i].Description ) );
                   }
+
+                  currentOrdinal = ( unresolvedArgumentList[i].Ordinal == 0 ? currentOrdinal : unresolvedArgumentList[i].Ordinal );
+                  resolvedArgumentList.Add( unresolvedArgumentList[i] );
+                  unresolvedArgumentList.RemoveAt( i );
+                  break;
                }
             }
          }
 
-         foreach ( var argInfo in argumentList )
+         foreach ( var argInfo in unresolvedArgumentList )
          {
             if ( !argInfo.Optional && !argInfo.WasSet )
             {
@@ -186,6 +161,29 @@ namespace CommandLineLib
 
             return 0;
          } );
+
+         var current = 0;
+         IBaseArgument previous = null;
+
+         foreach ( var argument in arguments )
+         {
+            if ( argument.Ordinal > 0 )
+            {
+               if ( argument.Ordinal != current )
+               {
+                  if ( previous != null )
+                  {
+                     if ( ( previous as ValueArgument<T> == null ) )
+                     {
+                        throw new CommandLineException( String.Format( "More than one value argument was assigned to ordinal \"{0}\".", argument.Ordinal ) );
+                     }
+                  }
+
+                  current = argument.Ordinal;
+                  previous = argument;
+               }
+            }
+         }
 
          return arguments;
       }

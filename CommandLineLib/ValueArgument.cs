@@ -20,7 +20,7 @@ namespace CommandLineLib
          this.acceptableValues = acceptableValues;
       }
 
-      protected override object FromString( string value )
+      protected virtual object FromString( string value )
       {
          if ( this.parseMethodInfo == null )
          {
@@ -28,14 +28,14 @@ namespace CommandLineLib
 
             if ( this.parseMethodInfo == null )
             {
-               throw new NotImplementedException( String.Format( "The type \"{0}\" does not implement a \"Parse\" method.", typeof( T ).Name ) );
+               return null;
             }
          }
 
          return (T) this.parseMethodInfo.Invoke( null, new object[] { value } );
       }
 
-      private bool IsAcceptable( T value )
+      protected bool IsAcceptable( T value )
       {
          if ( ( this.AcceptableValues == null ) || ( this.AcceptableValues.Length == 0 ) )
          {
@@ -45,16 +45,21 @@ namespace CommandLineLib
          return ( 0 <= Array.IndexOf<T>( this.AcceptableValues, value ) );
       }
 
-      public override void SetFromCommandLineArgument( string value )
+      public override bool SetFromCommandLineArgument( string value )
       {
          var converted = (T) this.FromString( value );
 
-         if ( !this.IsAcceptable( converted ) )
+         if ( converted == null )
          {
-            throw new UnacceptableArgumentException( String.Format( "The value \"{0}\" is not acceptable for this argument.", value ), value );
+            return false;
          }
 
-         base.SetFromCommandLineArgument( value );
+         if ( !this.IsAcceptable( converted ) )
+         {
+            throw new CommandLineException( String.Format( "The value \"{0}\" is not acceptable for this argument.", value ) );
+         }
+
+         return this.SetConvertedValue( converted );
       }
    }
 }

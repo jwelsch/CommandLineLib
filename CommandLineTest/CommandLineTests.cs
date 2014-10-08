@@ -6,7 +6,7 @@ namespace CommandLineTest
 {
    public class CommandLineTests
    {
-//#if false
+#if false
       [TestMethod]
       public void NoCommandLineAttributes()
       {
@@ -224,7 +224,6 @@ namespace CommandLineTest
                return arguments.StringValue;
             } );
       }
-//#endif
 
       [TestMethod]
       public void AcceptableStringValueArgument()
@@ -250,6 +249,95 @@ namespace CommandLineTest
             {
                arguments = commandLine.Parse( unacceptableValue );
             } );
+      }
+
+      [TestMethod]
+      public void MultipleValueArguments()
+      {
+         var acceptableValues1 = new string[] { "foo", "-a", "hello", "0", "1", "-1", "5" };
+
+         var commandLine = new CommandLine<MultipleValueArguments>();
+
+         var arguments = commandLine.Parse( acceptableValues1 );
+         TestHelper.Expected<string>( acceptableValues1[0], () => { return arguments.StringValue1; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch1; } );
+         TestHelper.Expected<string>( acceptableValues1[2], () => { return arguments.StringValue2; } );
+         TestHelper.Expected<int>( Int32.Parse( acceptableValues1[3] ), () => { return arguments.Int32Value1; } );
+         TestHelper.Expected<int>( Int32.Parse( acceptableValues1[4] ), () => { return arguments.Int32Value2; } );
+         TestHelper.Expected<int>( Int32.Parse( acceptableValues1[5] ), () => { return arguments.Int32Value3; } );
+         TestHelper.Expected<int>( Int32.Parse( acceptableValues1[6] ), () => { return arguments.Int32Value4; } );
+      }
+#endif
+
+      [TestMethod]
+      public void MultipleOrdinalValueSwitchArguments()
+      {
+         var args1 = new string[] { "23", "foo" };
+         var args2 = new string[] { "23", "-red", "-blue", "67", "foo" };
+         var args3 = new string[] { "23", "67", "-red", "-blue", "foo" };
+         var args4 = new string[] { "23", "-red", "67", "-blue", "foo" };
+         var args5 = new string[] { "23", "67", "-blue", "foo" };
+         var args6 = new string[] { "23", "-red", "67", "foo" };
+         var args7 = new string[] { "23", "-red", "-blue", "foo" };
+         var args8 = new string[] { "23", "67", "foo" };
+
+         var commandLine = new CommandLine<MultipleOrdinalValueSwitchArguments>();
+
+         var args = args1;
+         var arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( Int32.Parse( args[0] ), () => { return arguments.Int32Value1; } );
+         TestHelper.Expected<String>( args[1], () => { return arguments.StringValue1; } );
+
+         args = args2;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( Int32.Parse( args[0] ), () => { return arguments.Int32Value1; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch1; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch2; } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[3] ), () => { return arguments.Int32Value2; } );
+         TestHelper.Expected<String>( args[4], () => { return arguments.StringValue1; } );
+
+         args = args3;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( Int32.Parse( args[0] ), () => { return arguments.Int32Value1; } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () => { return arguments.Int32Value2; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch1; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch2; } );
+         TestHelper.Expected<String>( args[4], () => { return arguments.StringValue1; } );
+
+         args = args4;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( Int32.Parse( args[0] ), () => { return arguments.Int32Value1; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch1; } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[2] ), () => { return arguments.Int32Value2; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch2; } );
+         TestHelper.Expected<String>( args[4], () => { return arguments.StringValue1; } );
+
+         args = args5;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( Int32.Parse( args[0] ), () => { return arguments.Int32Value1; } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () => { return arguments.Int32Value2; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch2; } );
+         TestHelper.Expected<String>( args[3], () => { return arguments.StringValue1; } );
+
+         args = args6;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( Int32.Parse( args[0] ), () => { return arguments.Int32Value1; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch1; } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[2] ), () => { return arguments.Int32Value2; } );
+         TestHelper.Expected<String>( args[3], () => { return arguments.StringValue1; } );
+
+         args = args7;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( Int32.Parse( args[0] ), () => { return arguments.Int32Value1; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch1; } );
+         TestHelper.Expected<bool>( true, () => { return arguments.Switch2; } );
+         TestHelper.Expected<String>( args[3], () => { return arguments.StringValue1; } );
+
+         args = args8;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( Int32.Parse( args[0] ), () => { return arguments.Int32Value1; } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () => { return arguments.Int32Value2; } );
+         TestHelper.Expected<String>( args[2], () => { return arguments.StringValue1; } );
       }
    }
 }

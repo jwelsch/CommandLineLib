@@ -178,4 +178,94 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class MultipleValueArguments
+   {
+      [Int32Value( 6, RangeMin = 0, RangeMax = 10 )]
+      public Int32 Int32Value4
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 5, RangeMax = 0 )]
+      public Int32 Int32Value3
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 4, RangeMin = 0 )]
+      public Int32 Int32Value2
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 3, AcceptableValues = new int[] { -1, 0, 1 } )]
+      public Int32 Int32Value1
+      {
+         get;
+         private set;
+      }
+
+      [StringValue( 1, AcceptableValues = new string[] { "foo", "bar" } )]
+      public String StringValue1
+      {
+         get;
+         private set;
+      }
+
+      [StringValue( 2 )]
+      public String StringValue2
+      {
+         get;
+         private set;
+      }
+
+      [Switch( Prefix = "-", Label = "a" )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class MultipleOrdinalValueSwitchArguments
+   {
+      [Switch( Prefix = "-", Label = "red", Optional = true, Ordinal = 2 )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+
+      [Switch( Prefix = "-", Label = "blue", Optional = true, Ordinal = 2 )]
+      public bool Switch2
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 2, Optional = true )]
+      public Int32 Int32Value2
+      {
+         get;
+         private set;
+      }
+
+      [StringValue( 3 )]
+      public String StringValue1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 1 )]
+      public Int32 Int32Value1
+      {
+         get;
+         private set;
+      }
+   }
 }

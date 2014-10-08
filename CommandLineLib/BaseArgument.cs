@@ -24,12 +24,11 @@ namespace CommandLineLib
          get;
       }
 
-      void SetFromCommandLineArgument( string value );
+      bool SetFromCommandLineArgument( string value );
 
       bool WasSet
       {
          get;
-         set;
       }
    }
 
@@ -76,16 +75,15 @@ namespace CommandLineLib
 
       public bool WasSet
       {
-         get;
-         set;
+         get { return this.Property.WasSet; }
       }
 
-      public virtual void SetFromCommandLineArgument( string value )
+      public abstract bool SetFromCommandLineArgument( string value );
+
+      protected bool SetConvertedValue( object value )
       {
-         this.Property.SetValue( this.FromString( value ) );
-         this.WasSet = true;
+         this.Property.SetValue( value );
+         return true;
       }
-      
-      protected abstract object FromString( string value );
    }
 }
