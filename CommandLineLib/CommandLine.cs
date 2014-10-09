@@ -33,6 +33,116 @@ namespace CommandLineLib
          Value
       }
 
+      private AttibutePropertyBinder unboundAttributes = new AttibutePropertyBinder();
+
+      public CommandLine()
+      {
+         this.FindParameters();
+         this.OrdinalCheck();
+      }
+
+      private void FindParameters()
+      {
+         var type = typeof( T );
+
+         foreach ( var memberInfo in type.GetMembers() )
+         {
+            foreach ( var attribute in memberInfo.GetCustomAttributes<BaseAttribute>() )
+            {
+               var propertyInfo = memberInfo as PropertyInfo;
+
+               if ( propertyInfo == null )
+               {
+                  throw new CommandLineDeclarationException( String.Format( "\"{0}\" is not a property and cannot have a command line attribute.", memberInfo.Name ) );
+               }
+
+               this.unboundAttributes.Add( attribute, propertyInfo );
+            }
+         }
+
+         if ( this.unboundAttributes.Pairs.Count == 0 )
+         {
+            throw new CommandLineDeclarationException( String.Format( "No command line attributes found on class \"{0}\".", typeof( T ).Name ) );
+         }
+
+         this.unboundAttributes.Pairs.Sort( ( arg1, arg2 ) =>
+         {
+            if ( ( arg1.Attribute.Ordinal < 0 ) && ( arg2.Attribute.Ordinal < 0 ) )
+            {
+               return 0;
+            }
+            else if ( arg1.Attribute.Ordinal < 0 )
+            {
+               return 1;
+            }
+            else if ( arg2.Attribute.Ordinal < 0 )
+            {
+               return -1;
+            }
+            else if ( arg1.Attribute.Ordinal < arg2.Attribute.Ordinal )
+            {
+               return -1;
+            }
+            else if ( arg1.Attribute.Ordinal > arg2.Attribute.Ordinal )
+            {
+               return 1;
+            }
+
+            return 0;
+         } );
+      }
+
+      private void OrdinalCheck()
+      {
+         IBaseAttribute previousAttribute = null;
+         var foundOptionalValue = false;
+
+         foreach ( var pair in this.unboundAttributes.Pairs )
+         {
+            if ( pair.Attribute.Ordinal > 0 )
+            {
+               if ( previousAttribute != null )
+               {
+                  if ( ( previousAttribute.Ordinal == pair.Attribute.Ordinal )
+                     && ( ( pair.Attribute as IValueAttribute != null )
+                     || ( previousAttribute as IValueAttribute != null ) ) )
+                  {
+                     {
+                        throw new CommandLineDeclarationException( String.Format( "A value argument was found with the same ordinal ({0}) as another argument.", pair.Attribute.Ordinal ) );
+                     }
+                  }
+               }
+
+               previousAttribute = pair.Attribute;
+            }
+
+            if ( pair.Attribute as IValueAttribute != null )
+            {
+               if ( pair.Attribute.Optional )
+               {
+                  foundOptionalValue = true;
+               }
+               else if ( foundOptionalValue )
+               {
+                  throw new CommandLineDeclarationException( String.Format( "The required value argument, \"{0}\", cannot follow an optional value argument unless they are separated by a switch argument.", pair.Attribute.Description ) );
+               }
+            }
+            else if ( pair.Attribute as ISwitchAttribute != null )
+            {
+               foundOptionalValue = false;
+            }
+            else
+            {
+               throw new CommandLineDeclarationException( String.Format( "Unknown argument type \"{0}\".", pair.Attribute.GetType().Name ) );
+            }
+
+            if ( !pair.Attribute.CheckPropertyType( pair.Property ) )
+            {
+               throw new CommandLineDeclarationException( String.Format( "The property \"{0}\" has the wrong type for the command line attribute that it is decorated with.", pair.Property.Name ) );
+            }
+         }
+      }
+
       public T Parse( string arg )
       {
          return this.Parse( new string[] { arg } );
@@ -40,18 +150,13 @@ namespace CommandLineLib
 
       public T Parse( string[] args )
       {
-         var argumentObject = (T) Activator.CreateInstance( typeof( T ) );
-         var unresolvedArgumentList = this.FindParameters( argumentObject );
          var resolvedArgumentList = new List<IBaseArgument>();
-
-         if ( unresolvedArgumentList.Count == 0 )
-         {
-            throw new CommandLineException( String.Format( "No command line attributes found on class \"{0}\".", typeof( T ).Name ) );
-         }
-
-         var state = unresolvedArgumentList[0] as SwitchArgument == null ? State.Value : State.Switch;
          var acceptedGroups = new List<int>();
          var currentOrdinal = 1;
+
+         var outputObject = (T) Activator.CreateInstance( typeof( T ) );
+
+         var unresolvedArgumentList = this.unboundAttributes.Bind( outputObject );
 
          foreach ( var arg in args )
          {
@@ -91,7 +196,7 @@ namespace CommandLineLib
             }
          }
 
-         return argumentObject;
+         return outputObject;
       }
 
       private bool IsGroupAllowed( List<int> acceptedGroups, int[] argumentGroups )
@@ -117,75 +222,6 @@ namespace CommandLineLib
          }
 
          return result;
-      }
-
-      private List<IBaseArgument> FindParameters( T argumentObject )
-      {
-         var arguments = new List<IBaseArgument>();
-         var properties = typeof( T ).GetProperties( BindingFlags.Instance | BindingFlags.Public );
-
-         foreach ( var property in properties )
-         {
-            var allAttributes = property.GetCustomAttributes( typeof( IBaseAttribute ), false );
-
-            if ( allAttributes.Length > 0 )
-            {
-               var attribute = (IBaseAttribute) allAttributes[0];
-               var argument = attribute.CreateArgument( argumentObject, property );
-               arguments.Add( argument );
-            }
-         }
-
-         arguments.Sort( ( arg1, arg2 ) =>
-         {
-            if ( ( arg1.Ordinal < 0 ) && ( arg2.Ordinal < 0 ) )
-            {
-               return 0;
-            }
-            else if ( arg1.Ordinal < 0 )
-            {
-               return 1;
-            }
-            else if ( arg2.Ordinal < 0 )
-            {
-               return -1;
-            }
-            else if ( arg1.Ordinal < arg2.Ordinal )
-            {
-               return -1;
-            }
-            else if ( arg1.Ordinal > arg2.Ordinal )
-            {
-               return 1;
-            }
-
-            return 0;
-         } );
-
-         var current = 0;
-         IBaseArgument previous = null;
-
-         foreach ( var argument in arguments )
-         {
-            if ( argument.Ordinal > 0 )
-            {
-               if ( argument.Ordinal != current )
-               {
-                  if ( previous != null )
-                  {
-                     if ( ( previous as ValueArgument<T> == null ) )
-                     {
-                        throw new CommandLineException( String.Format( "More than one value argument was assigned to ordinal \"{0}\".", argument.Ordinal ) );
-                     }
-                  }
-
-                  current = argument.Ordinal;
-                  previous = argument;
-               }
-            }
-         }
-
-         return arguments;
       }
    }
 }

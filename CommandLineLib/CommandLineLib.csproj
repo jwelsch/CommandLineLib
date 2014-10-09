@@ -41,8 +41,11 @@
   <ItemGroup>
     <Compile Include="Arguments.cs" />
     <Compile Include="ArgumentTypeMismatchException.cs" />
+    <Compile Include="AttibutePropertyBinder.cs" />
+    <Compile Include="AttibutePropertyPair.cs" />
     <Compile Include="CommandLine.cs" />
     <Compile Include="CommandLineAttributes.cs" />
+    <Compile Include="CommandLineDeclarationException.cs" />
     <Compile Include="CommandLineException.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="BaseArgument.cs" />

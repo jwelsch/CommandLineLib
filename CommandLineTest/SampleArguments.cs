@@ -5,7 +5,7 @@ namespace CommandLineTest
 {
    public class SingleSwitchArguments
    {
-      [Switch( Prefix = "-", Label = "foo" )]
+      [Switch( "-", "foo" )]
       public bool Foo
       {
          get;
@@ -15,14 +15,14 @@ namespace CommandLineTest
 
    public class DoubleSwitchArguments
    {
-      [Switch( Prefix = "-", Label = "foo" )]
+      [Switch( "-", "foo" )]
       public bool Foo
       {
          get;
          private set;
       }
 
-      [Switch( Prefix = "-", Label = "bar" )]
+      [Switch( "-", "bar" )]
       public bool Bar
       {
          get;
@@ -32,14 +32,14 @@ namespace CommandLineTest
 
    public class OptionalSwitchArguments
    {
-      [Switch( Prefix = "-", Label = "foo", Optional = true )]
+      [Switch( "-", "foo", Optional = true )]
       public bool Foo
       {
          get;
          private set;
       }
 
-      [Switch( Prefix = "-", Label = "bar", Optional = true )]
+      [Switch( "-", "bar", Optional = true )]
       public bool Bar
       {
          get;
@@ -49,14 +49,14 @@ namespace CommandLineTest
 
    public class CaseSensitiveSwitchArguments
    {
-      [Switch( CaseSensitive = true, Prefix = "-", Label = "foo" )]
+      [Switch( "-", "foo", CaseSensitive = true )]
       public bool Foo
       {
          get;
          private set;
       }
 
-      [Switch( CaseSensitive = false, Prefix = "-", Label = "bar" )]
+      [Switch( "-", "bar", CaseSensitive = false )]
       public bool Bar
       {
          get;
@@ -66,28 +66,28 @@ namespace CommandLineTest
 
    public class OrdinalSwitchArguments
    {
-      [Switch( Prefix = "-", Label = "red", Ordinal = 1 )]
+      [Switch( "-", "red", Ordinal = 1 )]
       public bool Red
       {
          get;
          private set;
       }
 
-      [Switch( Prefix = "-", Label = "green", Ordinal = -1 )]
+      [Switch( "-", "green", Ordinal = -1 )]
       public bool Green
       {
          get;
          private set;
       }
 
-      [Switch( Prefix = "-", Label = "blue", Ordinal = 2 )]
+      [Switch( "-", "blue", Ordinal = 2 )]
       public bool Blue
       {
          get;
          private set;
       }
 
-      [Switch( Prefix = "-", Label = "black", Ordinal = 1 )]
+      [Switch( "-", "black", Ordinal = 1 )]
       public bool Black
       {
          get;
@@ -97,21 +97,21 @@ namespace CommandLineTest
 
    public class GroupSwitchArguments
    {
-      [Switch( Prefix = "-", Label = "red", Groups = new int[] { 1, 2 } )]
+      [Switch( "-", "red", Groups = new int[] { 1, 2 } )]
       public bool Red
       {
          get;
          private set;
       }
 
-      [Switch( Prefix = "-", Label = "green", Groups = new int[] { 2, 3 } )]
+      [Switch( "-", "green", Groups = new int[] { 2, 3 } )]
       public bool Green
       {
          get;
          private set;
       }
 
-      [Switch( Optional = true, Prefix = "-", Label = "blue", Groups = new int[] { 3 } )]
+      [Switch( "-", "blue", Optional = true, Groups = new int[] { 3 } )]
       public bool Blue
       {
          get;
@@ -223,8 +223,42 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( Prefix = "-", Label = "a" )]
+      [Switch( "-", "a" )]
       public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class SameOrdinalValueArguments
+   {
+      [Int32Value( 1 )]
+      public Int32 Int32Value1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 1 )]
+      public Int32 Int32Value2
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class SameOrdinalValueSwitchArguments
+   {
+      [Switch( "-", "foo", Ordinal = 1 )]
+      public Int32 Switch1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 1 )]
+      public Int32 Int32Value1
       {
          get;
          private set;
@@ -233,21 +267,21 @@ namespace CommandLineTest
 
    public class MultipleOrdinalValueSwitchArguments
    {
-      [Switch( Prefix = "-", Label = "red", Optional = true, Ordinal = 2 )]
+      [Switch( "-", "red", Optional = true, Ordinal = 2 )]
       public bool Switch1
       {
          get;
          private set;
       }
 
-      [Switch( Prefix = "-", Label = "blue", Optional = true, Ordinal = 2 )]
+      [Switch( "-", "blue", Optional = true, Ordinal = 2 )]
       public bool Switch2
       {
          get;
          private set;
       }
 
-      [Int32Value( 2, Optional = true )]
+      [Int32Value( 4, Optional = true )]
       public Int32 Int32Value2
       {
          get;
@@ -263,6 +297,208 @@ namespace CommandLineTest
 
       [Int32Value( 1 )]
       public Int32 Int32Value1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalOptionalValueArguments
+   {
+      [Int32Value( 1, Optional = true )]
+      public Int32 Int32Value1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 2 )]
+      public Int32 Int32Value2
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class LegalOptionalValueArguments
+   {
+      [Int32Value( 2, Optional = true )]
+      public Int32 Int32Value2
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 1 )]
+      public Int32 Int32Value1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 3, Optional = true )]
+      public Int32 Int32Value3
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 5 )]
+      public Int32 Int32Value4
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 6, Optional = true )]
+      public Int32 Int32Value5
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "foo", Ordinal = 4 )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalSwitchTypeArguments
+   {
+      [Switch( "-", "foo" )]
+      public string Switch
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalStringTypeArguments
+   {
+      [StringValue( 1 )]
+      public Int32 Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalSByteValueTypeArguments
+   {
+      [SByteValue( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalInt16ValueTypeArguments
+   {
+      [Int16Value( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalInt32ValueTypeArguments
+   {
+      [Int32Value( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalInt64ValueTypeArguments
+   {
+      [Int64Value( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalByteValueTypeArguments
+   {
+      [ByteValue( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalUInt16ValueTypeArguments
+   {
+      [UInt16Value( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalUInt32ValueTypeArguments
+   {
+      [UInt32Value( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalUInt64ValueTypeArguments
+   {
+      [UInt64Value( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalSingleValueTypeArguments
+   {
+      [SingleValue( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalDoubleValueTypeArguments
+   {
+      [DoubleValue( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalDecimalValueTypeArguments
+   {
+      [DecimalValue( 1 )]
+      public string Value
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class IllegalDateTimeValueTypeArguments
+   {
+      [DateTimeValue( 1 )]
+      public string Value
       {
          get;
          private set;
