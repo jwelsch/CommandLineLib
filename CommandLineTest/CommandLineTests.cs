@@ -437,6 +437,15 @@ namespace CommandLineTest
             var commandLine = new CommandLine<IllegalDateTimeValueTypeArguments>();
          } );
       }
+
+      [TestMethod]
+      public void IllegalCommandLineAttibuteArguments()
+      {
+         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         {
+            var commandLine = new CommandLine<IllegalCommandLineAttibuteArguments>();
+         } );
+      }
       //#endif
    }
 }

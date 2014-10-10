@@ -504,4 +504,13 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class IllegalCommandLineAttibuteArguments
+   {
+      [Int32Value( 1 )]
+      public Int32 Foo()
+      {
+         return 0;
+      }
+   }
 }

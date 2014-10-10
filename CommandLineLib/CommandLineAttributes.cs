@@ -88,17 +88,7 @@ namespace CommandLineLib
       public int Ordinal
       {
          get { return this.ordinal; }
-         set
-         {
-            if ( value < 0 )
-            {
-               this.ordinal = 0;
-            }
-            else
-            {
-               this.ordinal = value;
-            }
-         }
+         set { this.ordinal = ( value < 0 ? 0 : value ); }
       }
 
       public bool Optional
