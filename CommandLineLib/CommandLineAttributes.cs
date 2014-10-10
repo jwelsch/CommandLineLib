@@ -158,11 +158,6 @@ namespace CommandLineLib
          private set;
       }
 
-      public override string Description
-      {
-         get { return this.Prefix + this.Label; }
-      }
-
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
          return new SwitchArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.CaseSensitive, this.Prefix, this.Label );
@@ -684,14 +679,19 @@ namespace CommandLineLib
       }
    }
 
-   //public interface ICompoundArgument<V> : ISwitchArgument, IValueArgument<V>
-   //{
-   //}
+   public interface ICompoundAttribute : ISwitchAttribute, IValueAttribute
+   {
+   }
 
-   //public class Compound<V> : BaseArgument, ICompoundArgument<V>
+   //public class Compound : ICompoundAttribute
    //{
-   //   private Switch @switch = new Switch();
-   //   private Value<V> value = new Value<V>();
+   //   private Switch @switch;
+   //   private Type valueType;
+
+   //   public Compound( string prefix, string label )
+   //   {
+   //      this.@switch = new Switch( prefix, label );
+   //   }
 
    //   public bool CaseSensitive
    //   {
@@ -702,18 +702,35 @@ namespace CommandLineLib
    //   public string Prefix
    //   {
    //      get { return this.@switch.Prefix; }
-   //      set { this.@switch.Prefix = value; }
    //   }
 
    //   public string Label
    //   {
    //      get { return this.@switch.Label; }
-   //      set { this.@switch.Label = value; }
    //   }
 
    //   public override string Description
    //   {
    //      get { return this.@switch.Description; }
    //   }
+
+   //   #region IBaseAttribute Members
+
+   //   public int Ordinal
+   //   {
+   //      get { return this.@switch.Ordinal; }
+   //   }
+
+   //   public bool Optional
+   //   {
+   //      get { return this.@switch.Optional; }
+   //   }
+
+   //   public int[] Groups
+   //   {
+   //      get { return this.@switch.Groups; }
+   //   }
+
+   //   #endregion
    //}
 }

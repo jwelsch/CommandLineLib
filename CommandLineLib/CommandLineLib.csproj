@@ -58,7 +58,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(SolutionDir)AssemblyVersionIncrement-1.0.0.3\AssemblyVersionIncrement.exe" Build "$(ProjectDir)Properties\AssemblyInfo.cs"</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)prebuild.bat" "$(ConfigurationName)" "$(SolutionDir)" "$(ProjectDir)"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>

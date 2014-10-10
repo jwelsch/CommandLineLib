@@ -446,6 +446,14 @@ namespace CommandLineTest
             var commandLine = new CommandLine<IllegalCommandLineAttibuteArguments>();
          } );
       }
+
+      [TestMethod]
+      public void DescriptionArguments()
+      {
+         var commandLine = new CommandLine<DescriptionArguments>();
+         var args = new string[] { "1", "-foo" };
+         var arguments = commandLine.Parse( args );
+      }
       //#endif
    }
 }

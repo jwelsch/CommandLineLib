@@ -513,4 +513,21 @@ namespace CommandLineTest
          return 0;
       }
    }
+
+   public class DescriptionArguments
+   {
+      [Int32Value( 1, Description = "This is an Int32 value." )]
+      public Int32 Value
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "foo", Description = "This is a switch." )]
+      public bool Switch
+      {
+         get;
+         private set;
+      }
+   }
 }
