@@ -1,0 +1,43 @@
+﻿using System;
+using System.Reflection;
+
+namespace $<Namespace>$
+{
+   public class $<TypeName>$Value : RangeValue
+   {
+      public $<TypeName>$Value( int ordinal )
+         : base( ordinal )
+      {
+         this.RangeMin = $<TypeName>$.MinValue;
+         this.RangeMax = $<TypeName>$.MaxValue;
+      }
+
+      public $<TypeName>$[] AcceptableValues
+      {
+         get;
+         set;
+      }
+
+      public $<TypeName>$ RangeMin
+      {
+         get;
+         set;
+      }
+
+      public $<TypeName>$ RangeMax
+      {
+         get;
+         set;
+      }
+
+      public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
+      {
+         return new $<TypeName>$ValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
+      }
+
+      public override bool CheckPropertyType( PropertyInfo propertyInfo )
+      {
+         return ( propertyInfo.PropertyType == typeof( $<TypeName>$ ) );
+      }
+   }
+}

@@ -56,6 +56,10 @@
     <Compile Include="UnacceptableArgumentException.cs" />
     <Compile Include="ValueArgument.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Dynamic Code\ValueAttribute.replace" />
+    <None Include="Dynamic Code\ValueAttribute.template" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)prebuild.bat" "$(ConfigurationName)" "$(SolutionDir)" "$(ProjectDir)"</PreBuildEvent>
