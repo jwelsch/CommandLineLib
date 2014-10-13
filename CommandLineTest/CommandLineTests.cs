@@ -6,7 +6,7 @@ namespace CommandLineTest
 {
    public class CommandLineTests
    {
-      //#if false
+//#if false
       [TestMethod]
       public void NoCommandLineAttributes()
       {
@@ -453,6 +453,58 @@ namespace CommandLineTest
          var commandLine = new CommandLine<DescriptionArguments>();
          var args = new string[] { "1", "-foo" };
          var arguments = commandLine.Parse( args );
+      }
+
+      [TestMethod]
+      public void ValueSwitchGroupArguments()
+      {
+         var commandLine = new CommandLine<ValueSwitchGroupArguments>();
+         var args1 = new string[] { "Hello", "123", "-foo" };
+         var args2 = new string[] { "Hello", "123", "-bar" };
+         var args3 = new string[] { "Hello", "123", "-foo", "-bar" };
+
+         var args = args1;
+         var arguments = commandLine.Parse( args );
+         TestHelper.Expected<string>( args[0], () =>
+            {
+               return arguments.String_1;
+            } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () =>
+         {
+            return arguments.Int32_1;
+         } );
+         TestHelper.Expected<bool>( true, () =>
+         {
+            return arguments.Foo;
+         } );
+         TestHelper.Expected<bool>( false, () =>
+         {
+            return arguments.Bar;
+         } );
+
+         args = args2;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<string>( args[0], () =>
+         {
+            return arguments.String_1;
+         } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () =>
+         {
+            return arguments.Int32_1;
+         } );
+         TestHelper.Expected<bool>( false, () =>
+         {
+            return arguments.Foo;
+         } );
+         TestHelper.Expected<bool>( true, () =>
+         {
+            return arguments.Bar;
+         } );
+
+         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+            {
+               commandLine.Parse( args3 );
+            } );
       }
       //#endif
    }

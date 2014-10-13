@@ -43,10 +43,11 @@ namespace CommandLineLib
       }
 
       /// <summary>
-      /// Can be any integer.
+      /// Can be any integer.  If zero is specified, the argument belongs to
+      /// any group.
+      /// If no group is specified the argument is assigned zero for a group
+      /// and belongs to all groups.
       /// Can belong to multiple groups.
-      /// If no group is specified, the default is to only belong to the 0
-      /// group.
       /// Arguments in the same group are allowed to be specified together on
       /// the command line.  Arguments NOT in the same group are not allowed to
       /// be specified together on the command line.
@@ -55,12 +56,13 @@ namespace CommandLineLib
       ///   -a (group 1)
       ///   -b (group 2)
       ///   -c (group 1)
+      ///   -d (no group specified)
       ///   
       /// Allowed:
-      ///   app.exe -a -c
+      ///   app.exe -a -c -d
       ///   
       /// Not allowed:
-      ///   app.exe -a -b
+      ///   app.exe -a -b -d (because -a and -b belong to different groups).
       /// </summary>
       int[] Groups
       {

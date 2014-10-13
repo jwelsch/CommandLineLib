@@ -21,6 +21,21 @@ namespace CommandLineLib
          return result;
       }
 
+      public static T[] Remove<T>( this T[] array, T toRemove )
+      {
+         var result = new List<T>();
+
+         foreach ( var item in array )
+         {
+            if ( !item.Equals( toRemove ) )
+            {
+               result.Add( item );
+            }
+         }
+
+         return result.ToArray();
+      }
+
       public static bool InRange( this object value, object min, object max, bool minInclusive = true, bool maxInclusive = true )
       {
          if ( value.GetType() == typeof( SByte ) )

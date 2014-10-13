@@ -530,4 +530,35 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class ValueSwitchGroupArguments
+   {
+      [StringValue( 1, Description = "String_1" )]
+      public String String_1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 2, Description = "Int32_1" )]
+      public Int32 Int32_1
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "foo", Optional = true, Groups = new int[] { 1 }, Description = "foo" )]
+      public bool Foo
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "bar", Optional = true, Groups = new int[] { 2 }, Description = "bar" )]
+      public bool Bar
+      {
+         get;
+         private set;
+      }
+   }
 }

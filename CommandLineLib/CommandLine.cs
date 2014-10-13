@@ -150,23 +150,15 @@ namespace CommandLineLib
 
       public T Parse( string[] args )
       {
-         var resolvedArgumentList = new List<IBaseArgument>();
          var acceptedGroups = new List<int>();
          var currentOrdinal = 1;
-
          var outputObject = (T) Activator.CreateInstance( typeof( T ) );
-
          var unresolvedArgumentList = this.unboundAttributes.Bind( outputObject );
 
          foreach ( var arg in args )
          {
             for ( var i = 0; i < unresolvedArgumentList.Count; i++ )
             {
-               if ( !this.IsGroupAllowed( acceptedGroups, unresolvedArgumentList[i].Groups ) )
-               {
-                  throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unresolvedArgumentList[i].Description ) );
-               }
-
                if ( unresolvedArgumentList[i].WasSet )
                {
                   throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", unresolvedArgumentList[i].Description ) );
@@ -174,6 +166,11 @@ namespace CommandLineLib
 
                if ( unresolvedArgumentList[i].SetFromCommandLineArgument( arg ) )
                {
+                  if ( !this.IsGroupAllowed( acceptedGroups, unresolvedArgumentList[i].Groups ) )
+                  {
+                     throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unresolvedArgumentList[i].Description ) );
+                  }
+
                   if ( ( unresolvedArgumentList[i].Ordinal != 0 )
                      && ( unresolvedArgumentList[i].Ordinal < currentOrdinal ) )
                   {
@@ -181,7 +178,6 @@ namespace CommandLineLib
                   }
 
                   currentOrdinal = ( unresolvedArgumentList[i].Ordinal == 0 ? currentOrdinal : unresolvedArgumentList[i].Ordinal );
-                  resolvedArgumentList.Add( unresolvedArgumentList[i] );
                   unresolvedArgumentList.RemoveAt( i );
                   break;
                }
@@ -203,21 +199,30 @@ namespace CommandLineLib
       {
          var result = false;
 
-         if ( acceptedGroups.Count == 0 )
+         if ( ( argumentGroups.Length == 1 ) && ( argumentGroups[0] == 0 ) )
          {
-            acceptedGroups.AddRange( argumentGroups );
             result = true;
          }
          else
          {
-            var common = acceptedGroups.Common<int>( argumentGroups );
+            var argumentGroupsNoZero = argumentGroups.Remove( 0 );
 
-            result = common.Count > 0;
-
-            if ( result )
+            if ( acceptedGroups.Count == 0 )
             {
-               acceptedGroups.Clear();
-               acceptedGroups.AddRange( common );
+               acceptedGroups.AddRange( argumentGroupsNoZero );
+               result = true;
+            }
+            else
+            {
+               var common = acceptedGroups.Common<int>( argumentGroupsNoZero );
+
+               result = common.Count > 0;
+
+               if ( result )
+               {
+                  acceptedGroups.Clear();
+                  acceptedGroups.AddRange( common );
+               }
             }
          }
 
