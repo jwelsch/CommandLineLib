@@ -2,8 +2,10 @@
 SET ConfigurationName=%~1
 SET SolutionDir=%~2
 SET ProjectDir=%~3
+SET CodeGenVer=1.0.0.46
 @ECHO ON
-"%SolutionDir%CodeGenerator-1.0.0.45\CodeGenerator.exe" "%ProjectDir%Code Templates\ValueAttribute.template" "%ProjectDir%Code Templates\ValueAttribute.replace" "%ProjectDir%Generated Code\$<TypeName>$Attribute.cs" -overwrite -silent
+"%SolutionDir%CodeGenerator-%CodeGenVer%\CodeGenerator.exe" "%ProjectDir%Code Templates\ValueAttribute.template" "%ProjectDir%Code Templates\ValueAttribute.replace" "%ProjectDir%Generated Code\$<TypeName>$Attribute.cs" -overwrite
+"%SolutionDir%CodeGenerator-%CodeGenVer%\CodeGenerator.exe" "%ProjectDir%Code Templates\ValueArgument.template" "%ProjectDir%Code Templates\ValueArgument.replace" "%ProjectDir%Generated Code\$<TypeName>$Argument.cs" -overwrite
 @ECHO OFF
 IF /I "%ConfigurationName%" == "Release" (
    @ECHO ON
