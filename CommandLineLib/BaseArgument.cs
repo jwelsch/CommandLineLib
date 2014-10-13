@@ -24,7 +24,8 @@ namespace CommandLineLib
          get;
       }
 
-      bool SetFromCommandLineArgument( string value );
+      bool MatchCommandLineArgument( string value );
+      void SetFromCommandLineArgument( string value );
 
       bool WasSet
       {
@@ -78,12 +79,7 @@ namespace CommandLineLib
          get { return this.Property.WasSet; }
       }
 
-      public abstract bool SetFromCommandLineArgument( string value );
-
-      protected bool SetConvertedValue( object value )
-      {
-         this.Property.SetValue( value );
-         return true;
-      }
+      public abstract bool MatchCommandLineArgument( string value );
+      public abstract void SetFromCommandLineArgument( string value );
    }
 }

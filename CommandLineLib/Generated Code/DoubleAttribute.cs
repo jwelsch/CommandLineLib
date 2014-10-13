@@ -40,5 +40,13 @@ namespace CommandLineLib
          return ( propertyInfo.PropertyType == typeof( Double ) );
       }
    }
+
+   public class DoubleValueArgument : RangeValueArgument<Double>
+   {
+      public DoubleValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, Double[] acceptableValues, Double rangeMin, Double rangeMax )
+         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      {
+      }
+   }
 }
 

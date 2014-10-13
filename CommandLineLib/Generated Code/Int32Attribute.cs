@@ -40,5 +40,13 @@ namespace CommandLineLib
          return ( propertyInfo.PropertyType == typeof( Int32 ) );
       }
    }
+
+   public class Int32ValueArgument : RangeValueArgument<Int32>
+   {
+      public Int32ValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, Int32[] acceptableValues, Int32 rangeMin, Int32 rangeMax )
+         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      {
+      }
+   }
 }
 

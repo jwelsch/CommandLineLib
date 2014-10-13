@@ -30,14 +30,14 @@ namespace CommandLineLib
          private set;
       }
 
-      public override bool SetFromCommandLineArgument( string value )
+      public override bool MatchCommandLineArgument( string value )
       {
-         if ( 0 == String.Compare( value, this.Prefix + this.Label, !this.CaseSensitive ) )
-         {
-            return this.SetConvertedValue( true );
-         }
+         return ( 0 == String.Compare( value, this.Prefix + this.Label, !this.CaseSensitive ) );
+      }
 
-         return false;
+      public override void SetFromCommandLineArgument( string value )
+      {
+         this.Property.SetValue( true );
       }
    }
 }

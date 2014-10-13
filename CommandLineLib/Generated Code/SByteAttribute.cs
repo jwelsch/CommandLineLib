@@ -40,5 +40,13 @@ namespace CommandLineLib
          return ( propertyInfo.PropertyType == typeof( SByte ) );
       }
    }
+
+   public class SByteValueArgument : RangeValueArgument<SByte>
+   {
+      public SByteValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, SByte[] acceptableValues, SByte rangeMin, SByte rangeMax )
+         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      {
+      }
+   }
 }
 

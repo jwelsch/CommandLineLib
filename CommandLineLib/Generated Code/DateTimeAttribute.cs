@@ -40,5 +40,13 @@ namespace CommandLineLib
          return ( propertyInfo.PropertyType == typeof( DateTime ) );
       }
    }
+
+   public class DateTimeValueArgument : RangeValueArgument<DateTime>
+   {
+      public DateTimeValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, DateTime[] acceptableValues, DateTime rangeMin, DateTime rangeMax )
+         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      {
+      }
+   }
 }
 

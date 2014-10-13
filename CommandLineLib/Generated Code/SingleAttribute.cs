@@ -40,5 +40,13 @@ namespace CommandLineLib
          return ( propertyInfo.PropertyType == typeof( Single ) );
       }
    }
+
+   public class SingleValueArgument : RangeValueArgument<Single>
+   {
+      public SingleValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, Single[] acceptableValues, Single rangeMin, Single rangeMax )
+         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      {
+      }
+   }
 }
 

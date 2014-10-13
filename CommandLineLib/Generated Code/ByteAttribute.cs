@@ -40,5 +40,13 @@ namespace CommandLineLib
          return ( propertyInfo.PropertyType == typeof( Byte ) );
       }
    }
+
+   public class ByteValueArgument : RangeValueArgument<Byte>
+   {
+      public ByteValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, Byte[] acceptableValues, Byte rangeMin, Byte rangeMax )
+         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      {
+      }
+   }
 }
 

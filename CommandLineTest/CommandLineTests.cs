@@ -63,7 +63,7 @@ namespace CommandLineTest
       {
          TestHelper.ExpectedException( typeof( CommandLineException ), () =>
          {
-            var commandLine = new CommandLine<DoubleSwitchArguments>();
+            var commandLine = new CommandLine<OptionalSwitchArguments>();
             var arguments = commandLine.Parse( new string[] { "-foo", "-foo" } );
          } );
       }
@@ -506,6 +506,6 @@ namespace CommandLineTest
                commandLine.Parse( args3 );
             } );
       }
-      //#endif
+//#endif
    }
 }

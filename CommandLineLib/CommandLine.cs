@@ -153,38 +153,58 @@ namespace CommandLineLib
          var acceptedGroups = new List<int>();
          var currentOrdinal = 1;
          var outputObject = (T) Activator.CreateInstance( typeof( T ) );
-         var unresolvedArgumentList = this.unboundAttributes.Bind( outputObject );
+         var unmatchedArgumentList = this.unboundAttributes.Bind( outputObject );
+         var matchedArgumentList = new List<IBaseArgument>();
 
          foreach ( var arg in args )
          {
-            for ( var i = 0; i < unresolvedArgumentList.Count; i++ )
+            var matched = false;
+
+            for ( var i = 0; i < unmatchedArgumentList.Count; i++ )
             {
-               if ( unresolvedArgumentList[i].WasSet )
+               if ( unmatchedArgumentList[i].MatchCommandLineArgument( arg ) )
                {
-                  throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", unresolvedArgumentList[i].Description ) );
-               }
-
-               if ( unresolvedArgumentList[i].SetFromCommandLineArgument( arg ) )
-               {
-                  if ( !this.IsGroupAllowed( acceptedGroups, unresolvedArgumentList[i].Groups ) )
+                  if ( unmatchedArgumentList[i].WasSet )
                   {
-                     throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unresolvedArgumentList[i].Description ) );
+                     throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", unmatchedArgumentList[i].Description ) );
                   }
 
-                  if ( ( unresolvedArgumentList[i].Ordinal != 0 )
-                     && ( unresolvedArgumentList[i].Ordinal < currentOrdinal ) )
+                  if ( !this.IsGroupAllowed( acceptedGroups, unmatchedArgumentList[i].Groups ) )
                   {
-                     throw new CommandLineException( String.Format( "The argument \"{0}\" is out of order.", unresolvedArgumentList[i].Description ) );
+                     throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unmatchedArgumentList[i].Description ) );
                   }
 
-                  currentOrdinal = ( unresolvedArgumentList[i].Ordinal == 0 ? currentOrdinal : unresolvedArgumentList[i].Ordinal );
-                  unresolvedArgumentList.RemoveAt( i );
+                  if ( ( unmatchedArgumentList[i].Ordinal != 0 )
+                     && ( unmatchedArgumentList[i].Ordinal < currentOrdinal ) )
+                  {
+                     throw new CommandLineException( String.Format( "The argument \"{0}\" is out of order.", unmatchedArgumentList[i].Description ) );
+                  }
+
+                  unmatchedArgumentList[i].SetFromCommandLineArgument( arg );
+                  matched = true;
+
+                  currentOrdinal = ( unmatchedArgumentList[i].Ordinal == 0 ? currentOrdinal : unmatchedArgumentList[i].Ordinal );
+
+                  matchedArgumentList.Add( unmatchedArgumentList[i] );
+                  unmatchedArgumentList.RemoveAt( i );
+
                   break;
+               }
+            }
+
+            if ( !matched )
+            {
+               foreach ( var argument in matchedArgumentList )
+               {
+                  if ( argument.MatchCommandLineArgument( arg ) )
+                  {
+                     throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", argument.Description ) );
+                  }
                }
             }
          }
 
-         foreach ( var argInfo in unresolvedArgumentList )
+         foreach ( var argInfo in unmatchedArgumentList )
          {
             if ( !argInfo.Optional && !argInfo.WasSet )
             {

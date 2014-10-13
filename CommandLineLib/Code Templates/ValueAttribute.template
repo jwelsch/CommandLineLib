@@ -40,4 +40,12 @@ namespace $<Namespace>$
          return ( propertyInfo.PropertyType == typeof( $<TypeName>$ ) );
       }
    }
+
+   public class $<TypeName>$ValueArgument : RangeValueArgument<$<TypeName>$>
+   {
+      public $<TypeName>$ValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, $<TypeName>$[] acceptableValues, $<TypeName>$ rangeMin, $<TypeName>$ rangeMax )
+         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      {
+      }
+   }
 }

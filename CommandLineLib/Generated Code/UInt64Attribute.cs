@@ -40,5 +40,13 @@ namespace CommandLineLib
          return ( propertyInfo.PropertyType == typeof( UInt64 ) );
       }
    }
+
+   public class UInt64ValueArgument : RangeValueArgument<UInt64>
+   {
+      public UInt64ValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, UInt64[] acceptableValues, UInt64 rangeMin, UInt64 rangeMax )
+         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      {
+      }
+   }
 }
 

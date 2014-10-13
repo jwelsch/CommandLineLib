@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace CommandLineLib
 {
@@ -87,26 +88,16 @@ namespace CommandLineLib
          }
       }
 
-      public override bool SetFromCommandLineArgument( string value )
+      public override void SetFromCommandLineArgument( string value )
       {
          var converted = (T) this.FromString( value );
-
-         if ( converted == null )
-         {
-            return false;
-         }
 
          if ( !this.IsInRange( converted ) )
          {
             throw new CommandLineException( String.Format( "The value \"{0}\" is out of range for this argument.", value ) );
          }
 
-         if ( !this.IsAcceptable( converted ) )
-         {
-            throw new CommandLineException( String.Format( "The value \"{0}\" is not acceptable for this argument.", value ) );
-         }
-
-         return this.SetConvertedValue( converted );
+         base.SetFromCommandLineArgument( value );
       }
    }
 }

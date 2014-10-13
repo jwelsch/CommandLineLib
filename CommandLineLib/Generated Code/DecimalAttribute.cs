@@ -40,5 +40,13 @@ namespace CommandLineLib
          return ( propertyInfo.PropertyType == typeof( Decimal ) );
       }
    }
+
+   public class DecimalValueArgument : RangeValueArgument<Decimal>
+   {
+      public DecimalValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, Decimal[] acceptableValues, Decimal rangeMin, Decimal rangeMax )
+         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      {
+      }
+   }
 }
 
