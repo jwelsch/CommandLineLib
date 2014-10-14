@@ -6,9 +6,10 @@ namespace TestFramework
    {
       #region Static helper methods
 
-      public static void ExpectedException( Type exceptionType, Action method, int stackUnwind = 1 )
+      public static void ExpectedException<T>( Action method, int stackUnwind = 1 )
       {
          var caught = false;
+         var expectedType = typeof( T );
 
          try
          {
@@ -16,7 +17,7 @@ namespace TestFramework
          }
          catch ( Exception ex )
          {
-            if ( ex.GetType() == exceptionType )
+            if ( ex.GetType() == expectedType )
             {
                caught = true;
             }
@@ -24,7 +25,7 @@ namespace TestFramework
 
          if ( !caught )
          {
-            throw new TestException( String.Format( "Expected {0} was not thrown.", exceptionType.Name ), 1 + stackUnwind );
+            throw new TestException( String.Format( "Expected {0} was not thrown.", expectedType.Name ), 1 + stackUnwind );
          }
       }
 

@@ -10,7 +10,7 @@ namespace CommandLineTest
       [TestMethod]
       public void NoCommandLineAttributes()
       {
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
             {
                var commandLine = new CommandLine<EmptyArguments>();
             } );
@@ -26,7 +26,7 @@ namespace CommandLineTest
                return arguments.Foo;
             } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-bar" } );
          } );
@@ -42,17 +42,17 @@ namespace CommandLineTest
             return arguments.Foo && arguments.Bar;
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-foo", "-bar1" } );
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-foo1", "-bar" } );
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-foo1", "-bar1" } );
          } );
@@ -61,7 +61,7 @@ namespace CommandLineTest
       [TestMethod]
       public void DuplicateSwitch()
       {
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             var commandLine = new CommandLine<OptionalSwitchArguments>();
             var arguments = commandLine.Parse( new string[] { "-foo", "-foo" } );
@@ -107,7 +107,7 @@ namespace CommandLineTest
             return arguments.Foo && arguments.Bar;
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-Foo", "-bar" } );
          } );
@@ -129,7 +129,7 @@ namespace CommandLineTest
             return arguments.Red && arguments.Green && arguments.Black && arguments.Blue;
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-red", "-green", "-blue", "-black" } );
          } );
@@ -145,7 +145,7 @@ namespace CommandLineTest
             return arguments.Red && arguments.Green && !arguments.Blue;
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-red", "-green", "-blue" } );
          } );
@@ -179,7 +179,7 @@ namespace CommandLineTest
             return arguments.Int32Value;
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
             {
                arguments = commandLine.Parse( notAcceptableValue.ToString() );
             } );
@@ -204,7 +204,7 @@ namespace CommandLineTest
 
          foreach ( var value in outOfRange )
          {
-            TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+            TestHelper.ExpectedException<CommandLineException>( () =>
             {
                var arguments = commandLine.Parse( value.ToString() );
             } );
@@ -244,7 +244,7 @@ namespace CommandLineTest
             return arguments.StringValue;
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
             {
                arguments = commandLine.Parse( unacceptableValue );
             } );
@@ -270,7 +270,7 @@ namespace CommandLineTest
       [TestMethod]
       public void SameOrdinalValueArguments()
       {
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
             {
                var commandLine = new CommandLine<SameOrdinalValueArguments>();
             } );
@@ -279,7 +279,7 @@ namespace CommandLineTest
       [TestMethod]
       public void SameOrdinalValueSwitchArguments()
       {
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<SameOrdinalValueSwitchArguments>();
          } );
@@ -346,7 +346,7 @@ namespace CommandLineTest
       [TestMethod]
       public void IllegalOptionalValueArguments()
       {
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalOptionalValueArguments>();
          } );
@@ -363,7 +363,7 @@ namespace CommandLineTest
       [TestMethod]
       public void IllegalSwitchTypeArguments()
       {
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalSwitchTypeArguments>();
          } );
@@ -372,67 +372,67 @@ namespace CommandLineTest
       [TestMethod]
       public void IllegalValueTypeArguments()
       {
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalStringTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalSByteValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalInt16ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalInt32ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalInt64ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalByteValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalUInt16ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalUInt32ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalUInt64ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalSingleValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalDoubleValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalDecimalValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalDateTimeValueTypeArguments>();
          } );
@@ -441,7 +441,7 @@ namespace CommandLineTest
       [TestMethod]
       public void IllegalCommandLineAttibuteArguments()
       {
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
             var commandLine = new CommandLine<IllegalCommandLineAttibuteArguments>();
          } );
@@ -501,7 +501,7 @@ namespace CommandLineTest
             return arguments.Bar;
          } );
 
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
             {
                commandLine.Parse( args3 );
             } );
@@ -529,19 +529,19 @@ namespace CommandLineTest
          } );
 
          args = args2;
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
             {
                commandLine.Parse( args );
             } );
 
          args = args3;
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             commandLine.Parse( args );
          } );
 
          args = args4;
-         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         TestHelper.ExpectedException<CommandLineException>( () =>
          {
             commandLine.Parse( args );
          } );
@@ -550,7 +550,7 @@ namespace CommandLineTest
       [TestMethod]
       public void InvalidInt32CompoundArguments()
       {
-         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
             {
                var commandLine = new CommandLine<InvalidInt32CompoundArguments>();
             } );
