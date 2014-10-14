@@ -39,8 +39,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompoundRangeValueArgument.cs" />
     <Compile Include="CompoundAttribute.cs" />
-    <Compile Include="Int32Compound.cs" />
+    <Compile Include="CompoundValueArgument.cs" />
+    <Compile Include="Generated Code\ByteCompoundAttribute.cs" />
+    <Compile Include="Generated Code\DateTimeCompoundAttribute.cs" />
+    <Compile Include="Generated Code\DecimalCompoundAttribute.cs" />
+    <Compile Include="Generated Code\DoubleCompoundAttribute.cs" />
+    <Compile Include="Generated Code\Int16CompoundAttribute.cs" />
+    <Compile Include="Generated Code\Int32CompoundAttribute.cs" />
+    <Compile Include="Generated Code\Int64CompoundAttribute.cs" />
+    <Compile Include="Generated Code\SByteCompoundAttribute.cs" />
+    <Compile Include="Generated Code\SingleCompoundAttribute.cs" />
+    <Compile Include="Generated Code\UInt16CompoundAttribute.cs" />
+    <Compile Include="Generated Code\UInt32CompoundAttribute.cs" />
+    <Compile Include="Generated Code\UInt64CompoundAttribute.cs" />
+    <Compile Include="StringCompound.cs" />
+    <Compile Include="StringCompoundArgument.cs" />
     <Compile Include="StringValueArgument.cs" />
     <Compile Include="ArgumentTypeMismatchException.cs" />
     <Compile Include="AttibutePropertyBinder.cs" />
@@ -74,6 +89,8 @@
     <Compile Include="ValueAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Code Templates\CompoundAttribute.replace" />
+    <None Include="Code Templates\CompoundAttribute.template" />
     <None Include="Code Templates\ValueAttribute.replace" />
     <None Include="Code Templates\ValueAttribute.template" />
     <None Include="prebuild.bat" />

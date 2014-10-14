@@ -24,13 +24,18 @@ namespace CommandLineLib
          get;
       }
 
-      bool MatchCommandLineArgument( string value );
-      void SetFromCommandLineArgument( string value );
+      bool IsCompound
+      {
+         get;
+      }
 
       bool WasSet
       {
          get;
       }
+
+      bool MatchCommandLineArgument( string value );
+      void SetFromCommandLineArgument( string value );
    }
 
    public abstract class BaseArgument : IBaseArgument
@@ -72,6 +77,12 @@ namespace CommandLineLib
       {
          get;
          private set;
+      }
+
+      public bool IsCompound
+      {
+         get;
+         protected set;
       }
 
       public bool WasSet

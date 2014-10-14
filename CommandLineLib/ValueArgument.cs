@@ -63,7 +63,14 @@ namespace CommandLineLib
 
       public override void SetFromCommandLineArgument( string value )
       {
-         var converted = (T) this.FromString( value );
+         var result = this.FromString( value );
+
+         if ( result == null )
+         {
+            throw new CommandLineException( String.Format( "The value \"{0}\" could not be converted to type \"{1}\".", value, typeof( T ).Name ) );
+         }
+
+         var converted = (T) result;
 
          if ( !this.IsAcceptable( converted ) )
          {

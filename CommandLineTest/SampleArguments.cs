@@ -561,4 +561,21 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class CompoundArguments
+   {
+      [Int32Compound( "-", "foo", Ordinal = 1, AcceptableValues = new int[] { 1, 2, 3 } )]
+      public Int32 Foo
+      {
+         get;
+         private set;
+      }
+
+      [StringCompound( "-", "bar", Ordinal = 2, AcceptableValues = new string[] { "Red", "White", "Blue" } )]
+      public String Bar
+      {
+         get;
+         private set;
+      }
+   }
 }

@@ -24,15 +24,16 @@ namespace CommandLineLib
     * 
     **************************************************************************/
 
+   /***************************************************************************
+    * TODO:
+    * - Enum value attributes
+    * - Automatic generation of command line usage help
+    * - Add more exceptions for different errors
+    * - Make sure compound arguments have their types declared correctly
+    * 
+    * ************************************************************************/
    public class CommandLine<T>
    {
-      private enum State
-      {
-         Unknown,
-         Switch,
-         Value
-      }
-
       private AttibutePropertyBinder unboundAttributes = new AttibutePropertyBinder();
 
       public CommandLine()
@@ -156,37 +157,48 @@ namespace CommandLineLib
          var unmatchedArgumentList = this.unboundAttributes.Bind( outputObject );
          var matchedArgumentList = new List<IBaseArgument>();
 
-         foreach ( var arg in args )
+         for ( var i = 0; i < args.Length; i++ )
          {
             var matched = false;
 
-            for ( var i = 0; i < unmatchedArgumentList.Count; i++ )
+            for ( var j = 0; j < unmatchedArgumentList.Count; j++ )
             {
-               if ( unmatchedArgumentList[i].MatchCommandLineArgument( arg ) )
+               if ( unmatchedArgumentList[j].MatchCommandLineArgument( args[i] ) )
                {
-                  if ( unmatchedArgumentList[i].WasSet )
+                  if ( unmatchedArgumentList[j].WasSet )
                   {
-                     throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", unmatchedArgumentList[i].Description ) );
+                     throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", unmatchedArgumentList[j].Description ) );
                   }
 
-                  if ( !this.IsGroupAllowed( acceptedGroups, unmatchedArgumentList[i].Groups ) )
+                  if ( !this.IsGroupAllowed( acceptedGroups, unmatchedArgumentList[j].Groups ) )
                   {
-                     throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unmatchedArgumentList[i].Description ) );
+                     throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unmatchedArgumentList[j].Description ) );
                   }
 
-                  if ( ( unmatchedArgumentList[i].Ordinal != 0 )
-                     && ( unmatchedArgumentList[i].Ordinal < currentOrdinal ) )
+                  if ( ( unmatchedArgumentList[j].Ordinal != 0 )
+                     && ( unmatchedArgumentList[j].Ordinal < currentOrdinal ) )
                   {
-                     throw new CommandLineException( String.Format( "The argument \"{0}\" is out of order.", unmatchedArgumentList[i].Description ) );
+                     throw new CommandLineException( String.Format( "The argument \"{0}\" is out of order.", unmatchedArgumentList[j].Description ) );
                   }
 
-                  unmatchedArgumentList[i].SetFromCommandLineArgument( arg );
+                  if ( unmatchedArgumentList[j].IsCompound )
+                  {
+                     if ( i + 1 >= args.Length )
+                     {
+                        throw new CommandLineException( String.Format( "Missing value the compound argument \"{0}\".", unmatchedArgumentList[j].Description ) );
+                     }
+
+                     i++;
+                  }
+
+                  unmatchedArgumentList[j].SetFromCommandLineArgument( args[i] );
+
                   matched = true;
 
-                  currentOrdinal = ( unmatchedArgumentList[i].Ordinal == 0 ? currentOrdinal : unmatchedArgumentList[i].Ordinal );
+                  currentOrdinal = ( unmatchedArgumentList[j].Ordinal == 0 ? currentOrdinal : unmatchedArgumentList[j].Ordinal );
 
-                  matchedArgumentList.Add( unmatchedArgumentList[i] );
-                  unmatchedArgumentList.RemoveAt( i );
+                  matchedArgumentList.Add( unmatchedArgumentList[j] );
+                  unmatchedArgumentList.RemoveAt( j );
 
                   break;
                }
@@ -196,7 +208,7 @@ namespace CommandLineLib
             {
                foreach ( var argument in matchedArgumentList )
                {
-                  if ( argument.MatchCommandLineArgument( arg ) )
+                  if ( argument.MatchCommandLineArgument( args[i] ) )
                   {
                      throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", argument.Description ) );
                   }

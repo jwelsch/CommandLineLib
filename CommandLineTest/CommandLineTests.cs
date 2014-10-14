@@ -506,6 +506,46 @@ namespace CommandLineTest
                commandLine.Parse( args3 );
             } );
       }
-//#endif
+
+      [TestMethod]
+      public void CompoundArguments()
+      {
+         var args1 = new string[] { "-foo", "1", "-bar", "Red" };
+         var args2 = new string[] { "-bar", "Red", "-foo", "1" };
+         var args3 = new string[] { "-foo", "Red", "-bar", "White" };
+         var args4 = new string[] { "-foo", "Red", "-bar", "Black" };
+
+         var commandLine = new CommandLine<CompoundArguments>();
+
+         var args = args1;
+         var arguments = commandLine.Parse( args1 );
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () =>
+            {
+               return arguments.Foo;
+            } );
+         TestHelper.Expected<String>( args[3], () =>
+         {
+            return arguments.Bar;
+         } );
+
+         args = args2;
+         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+            {
+               commandLine.Parse( args );
+            } );
+
+         args = args3;
+         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         {
+            commandLine.Parse( args );
+         } );
+
+         args = args4;
+         TestHelper.ExpectedException( typeof( CommandLineException ), () =>
+         {
+            commandLine.Parse( args );
+         } );
+      }
+// #endif
    }
 }
