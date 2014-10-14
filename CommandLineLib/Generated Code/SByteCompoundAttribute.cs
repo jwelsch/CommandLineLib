@@ -1,3 +1,9 @@
+/****************************************************************************\
+*                                                                            *
+*           THIS FILE WAS GENERATED AUTOMATICALLY!  DO NOT MODIFY!           *
+*                                                                            *
+\****************************************************************************/
+
 using System;
 using System.Reflection;
 
@@ -6,7 +12,7 @@ namespace CommandLineLib
    public class SByteCompound : CompoundAttribute
    {
       public SByteCompound( string prefix, string label )
-         : base( prefix, label )
+         : base( prefix, label, typeof( SByte ) )
       {
          this.RangeMin = SByte.MinValue;
          this.RangeMax = SByte.MaxValue;
@@ -33,11 +39,6 @@ namespace CommandLineLib
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
          return new SByteCompoundArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.CaseSensitive, this.Prefix, this.Label, this.AcceptableValues, this.RangeMin, this.RangeMax );
-      }
-
-      public override bool CheckPropertyType( PropertyInfo propertyInfo )
-      {
-         return ( propertyInfo.PropertyType == typeof( SByte ) );
       }
    }
 

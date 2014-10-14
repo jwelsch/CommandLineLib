@@ -1,3 +1,9 @@
+/****************************************************************************\
+*                                                                            *
+*           THIS FILE WAS GENERATED AUTOMATICALLY!  DO NOT MODIFY!           *
+*                                                                            *
+\****************************************************************************/
+
 using System;
 using System.Reflection;
 
@@ -6,7 +12,7 @@ namespace CommandLineLib
    public class SingleValue : RangeValue
    {
       public SingleValue( int ordinal )
-         : base( ordinal )
+         : base( ordinal, typeof( Single ) )
       {
          this.RangeMin = Single.MinValue;
          this.RangeMax = Single.MaxValue;
@@ -33,11 +39,6 @@ namespace CommandLineLib
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
          return new SingleValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
-      }
-
-      public override bool CheckPropertyType( PropertyInfo propertyInfo )
-      {
-         return ( propertyInfo.PropertyType == typeof( Single ) );
       }
    }
 

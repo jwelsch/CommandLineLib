@@ -1,3 +1,9 @@
+/****************************************************************************\
+*                                                                            *
+*           THIS FILE WAS GENERATED AUTOMATICALLY!  DO NOT MODIFY!           *
+*                                                                            *
+\****************************************************************************/
+
 using System;
 using System.Reflection;
 
@@ -6,7 +12,7 @@ namespace CommandLineLib
    public class DoubleValue : RangeValue
    {
       public DoubleValue( int ordinal )
-         : base( ordinal )
+         : base( ordinal, typeof( Double ) )
       {
          this.RangeMin = Double.MinValue;
          this.RangeMax = Double.MaxValue;
@@ -33,11 +39,6 @@ namespace CommandLineLib
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
          return new DoubleValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
-      }
-
-      public override bool CheckPropertyType( PropertyInfo propertyInfo )
-      {
-         return ( propertyInfo.PropertyType == typeof( Double ) );
       }
    }
 

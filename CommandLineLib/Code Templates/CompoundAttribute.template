@@ -1,4 +1,10 @@
-﻿using System;
+﻿/****************************************************************************\
+*                                                                            *
+*           THIS FILE WAS GENERATED AUTOMATICALLY!  DO NOT MODIFY!           *
+*                                                                            *
+\****************************************************************************/
+
+using System;
 using System.Reflection;
 
 namespace $<Namespace>$
@@ -6,7 +12,7 @@ namespace $<Namespace>$
    public class $<TypeName>$Compound : CompoundAttribute
    {
       public $<TypeName>$Compound( string prefix, string label )
-         : base( prefix, label )
+         : base( prefix, label, typeof( $<TypeName>$ ) )
       {
          this.RangeMin = $<TypeName>$.MinValue;
          this.RangeMax = $<TypeName>$.MaxValue;
@@ -33,11 +39,6 @@ namespace $<Namespace>$
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
          return new $<TypeName>$CompoundArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.CaseSensitive, this.Prefix, this.Label, this.AcceptableValues, this.RangeMin, this.RangeMax );
-      }
-
-      public override bool CheckPropertyType( PropertyInfo propertyInfo )
-      {
-         return ( propertyInfo.PropertyType == typeof( $<TypeName>$ ) );
       }
    }
 

@@ -1,3 +1,9 @@
+/****************************************************************************\
+*                                                                            *
+*           THIS FILE WAS GENERATED AUTOMATICALLY!  DO NOT MODIFY!           *
+*                                                                            *
+\****************************************************************************/
+
 using System;
 using System.Reflection;
 
@@ -6,7 +12,7 @@ namespace CommandLineLib
    public class UInt64Compound : CompoundAttribute
    {
       public UInt64Compound( string prefix, string label )
-         : base( prefix, label )
+         : base( prefix, label, typeof( UInt64 ) )
       {
          this.RangeMin = UInt64.MinValue;
          this.RangeMax = UInt64.MaxValue;
@@ -33,11 +39,6 @@ namespace CommandLineLib
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
          return new UInt64CompoundArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.CaseSensitive, this.Prefix, this.Label, this.AcceptableValues, this.RangeMin, this.RangeMax );
-      }
-
-      public override bool CheckPropertyType( PropertyInfo propertyInfo )
-      {
-         return ( propertyInfo.PropertyType == typeof( UInt64 ) );
       }
    }
 

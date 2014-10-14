@@ -6,7 +6,7 @@ namespace CommandLineTest
 {
    public class CommandLineTests
    {
-#if false
+//#if false
       [TestMethod]
       public void NoCommandLineAttributes()
       {
@@ -573,7 +573,7 @@ namespace CommandLineTest
             var commandLine = new CommandLine<SamePrefixLabelSwitchCompoundArguments>();
          } );
       }
-#endif
+//#endif
 
       [TestMethod]
       public void EnumValueArguments()
