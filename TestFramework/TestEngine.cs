@@ -39,7 +39,18 @@ namespace TestFramework
             writer.WriteLine( "{0}/{1} successful {2}.", testResults.Count, testCollection.Count, test.MethodInfo.Name );
          }
 
-         return new TestRunResult( testResults.ToArray() );
+         var result = new TestRunResult( testResults.ToArray() );
+
+         if ( result.FailedTests > 0 )
+         {
+            writer.WriteLine( "*** {0}/{1} test failed! ***", result.FailedTests, result.TotalTests );
+         }
+         else
+         {
+            writer.WriteLine( "{0}/{1} test succeeded.", result.SuccessfulTests, result.TotalTests );
+         }
+
+         return result;
       }
    }
 
