@@ -26,8 +26,6 @@ namespace CommandLineLib
 
    /***************************************************************************
     * TODO:
-    * - Enum value attributes
-    * - File path value attributes
     * - Automatic generation of command line usage help
     * - Add more exceptions for different errors
     * 

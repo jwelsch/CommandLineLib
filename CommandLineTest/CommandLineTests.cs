@@ -573,7 +573,6 @@ namespace CommandLineTest
             var commandLine = new CommandLine<SamePrefixLabelSwitchCompoundArguments>();
          } );
       }
-//#endif
 
       [TestMethod]
       public void EnumValueArguments()
@@ -595,5 +594,98 @@ namespace CommandLineTest
                var commandLine = new CommandLine<InvalidEnumValueArguments>();
             } );
       }
+
+      [TestMethod]
+      public void EnumCompoundArguments()
+      {
+         var args = new string[] { "-foo", Shapes.Circle.ToString() };
+         var commandLine = new CommandLine<EnumCompoundArguments>();
+         var arguments = commandLine.Parse( args );
+
+         TestHelper.Expected<Shapes>( Shapes.Circle, () =>
+         {
+            return arguments.Enum1;
+         } );
+      }
+
+      [TestMethod]
+      public void InvalidEnumCompoundArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         {
+            var commandLine = new CommandLine<InvalidEnumCompoundArguments>();
+         } );
+      }
+
+      [TestMethod]
+      public void FilePathValueArguments()
+      {
+         var args1 = new string[] { @"C:\Foo\Bar.txt", @".\CommandLineLib.dll" };
+         var args2 = new string[] { @"C:\Foo\Bar.txt", @".\CommandLineLib.foobar" };
+
+         var commandLine = new CommandLine<FilePathValueArguments>();
+
+         var args = args1;
+         var arguments = commandLine.Parse( args );
+         TestHelper.Expected<string>( args[0], () =>
+            {
+               return arguments.FilePath1;
+            } );
+         TestHelper.Expected<string>( args[1], () =>
+         {
+            return arguments.FilePath2;
+         } );
+
+         args = args2;
+         TestHelper.ExpectedException<System.IO.FileNotFoundException>( () =>
+            {
+               commandLine.Parse( args );
+            } );
+      }
+
+      [TestMethod]
+      public void InvalidFilePathValueArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+            {
+               var commandLine = new CommandLine<InvalidFilePathValueArguments>();
+            } );
+      }
+
+      [TestMethod]
+      public void FilePathCompoundArguments()
+      {
+         var args1 = new string[] { "-foo", @"C:\Foo\Bar.txt", "-bar", @".\CommandLineLib.dll" };
+         var args2 = new string[] { "-foo", @"C:\Foo\Bar.txt", "-bar", @".\CommandLineLib.foobar" };
+
+         var commandLine = new CommandLine<FilePathCompoundArguments>();
+
+         var args = args1;
+         var arguments = commandLine.Parse( args );
+         TestHelper.Expected<string>( args[1], () =>
+         {
+            return arguments.FilePath1;
+         } );
+         TestHelper.Expected<string>( args[3], () =>
+         {
+            return arguments.FilePath2;
+         } );
+
+         args = args2;
+         TestHelper.ExpectedException<System.IO.FileNotFoundException>( () =>
+         {
+            commandLine.Parse( args );
+         } );
+      }
+
+      [TestMethod]
+      public void InvalidFilePathCompoundArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+            {
+               var commandLine = new CommandLine<InvalidFilePathCompoundArguments>();
+            } );
+      }
+//#endif
    }
 }

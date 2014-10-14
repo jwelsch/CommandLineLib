@@ -44,6 +44,12 @@
     <Compile Include="CompoundValueArgument.cs" />
     <Compile Include="EnumArgument.cs" />
     <Compile Include="EnumAttribute.cs" />
+    <Compile Include="EnumCompound.cs" />
+    <Compile Include="EnumCompoundArgument.cs" />
+    <Compile Include="FilePathArgument.cs" />
+    <Compile Include="FilePathAttribute.cs" />
+    <Compile Include="FilePathCompound.cs" />
+    <Compile Include="FilePathCompoundArgument.cs" />
     <Compile Include="Generated Code\ByteCompoundAttribute.cs" />
     <Compile Include="Generated Code\DateTimeCompoundAttribute.cs" />
     <Compile Include="Generated Code\DecimalCompoundAttribute.cs" />

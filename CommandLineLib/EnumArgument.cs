@@ -3,7 +3,8 @@ using System.Reflection;
 
 namespace CommandLineLib
 {
-   public class EnumArgument<TEnum> : BaseArgument where TEnum : struct, IConvertible
+   public class EnumArgument<TEnum> : BaseArgument
+      where TEnum : struct, IConvertible
    {
       public EnumArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description )
          : base( property, ordinal, optional, groups, description )

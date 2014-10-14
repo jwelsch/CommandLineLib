@@ -657,4 +657,78 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class EnumCompoundArguments
+   {
+      [EnumCompound( "-", "foo" )]
+      public Shapes Enum1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidEnumCompoundArguments
+   {
+      [EnumCompound( "-", "foo" )]
+      public String Enum1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class FilePathValueArguments
+   {
+      [FilePath( 1 )]
+      public String FilePath1
+      {
+         get;
+         private set;
+      }
+
+      [FilePath( 2, MustExist = true )]
+      public String FilePath2
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidFilePathValueArguments
+   {
+      [FilePath( 1 )]
+      public Int32 FilePath1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class FilePathCompoundArguments
+   {
+      [FilePathCompound( "-", "foo" )]
+      public String FilePath1
+      {
+         get;
+         private set;
+      }
+
+      [FilePathCompound( "-", "bar", MustExist = true )]
+      public String FilePath2
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidFilePathCompoundArguments
+   {
+      [FilePathCompound( "-", "foo" )]
+      public Int32 FilePath1
+      {
+         get;
+         private set;
+      }
+   }
 }
