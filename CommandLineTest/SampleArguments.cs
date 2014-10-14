@@ -578,4 +578,14 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class InvalidInt32CompoundArguments
+   {
+      [Int32Compound( "-", "foo", Ordinal = 1, AcceptableValues = new int[] { 1, 2, 3 } )]
+      public String Foo
+      {
+         get;
+         private set;
+      }
+   }
 }

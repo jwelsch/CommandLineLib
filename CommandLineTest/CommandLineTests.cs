@@ -546,6 +546,15 @@ namespace CommandLineTest
             commandLine.Parse( args );
          } );
       }
+
+      [TestMethod]
+      public void InvalidInt32CompoundArguments()
+      {
+         TestHelper.ExpectedException( typeof( CommandLineDeclarationException ), () =>
+            {
+               var commandLine = new CommandLine<InvalidInt32CompoundArguments>();
+            } );
+      }
 // #endif
    }
 }

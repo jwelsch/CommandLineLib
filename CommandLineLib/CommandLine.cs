@@ -30,8 +30,10 @@ namespace CommandLineLib
     * - Automatic generation of command line usage help
     * - Add more exceptions for different errors
     * - Make sure compound arguments have their types declared correctly
+    * - Check if switches have the same label
     * 
     * ************************************************************************/
+   
    public class CommandLine<T>
    {
       private AttibutePropertyBinder unboundAttributes = new AttibutePropertyBinder();
