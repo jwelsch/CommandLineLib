@@ -29,7 +29,7 @@ namespace TestFramework
          }
       }
 
-      public static void Expected<T>( T expected, ActionT<T> method, int stackUnwind = 1 ) where T : IEquatable<T>
+      public static void Expected<T>( T expected, ActionT<T> method, int stackUnwind = 1 ) //where T : IEquatable<T>
       {
          var result = method();
 

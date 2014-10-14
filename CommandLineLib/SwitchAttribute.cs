@@ -57,5 +57,10 @@ namespace CommandLineLib
       {
          return ( propertyInfo.PropertyType == typeof( Boolean ) );
       }
+
+      public override string ToString()
+      {
+         return this.Prefix + this.Label;
+      }
    }
 }

@@ -78,6 +78,7 @@ namespace CommandLineLib
       bool CheckPropertyType( PropertyInfo propertyInfo );
    }
 
+   [AttributeUsage( AttributeTargets.Field | AttributeTargets.Property )]
    public abstract class BaseAttribute : System.Attribute, IBaseAttribute
    {
       public BaseAttribute()

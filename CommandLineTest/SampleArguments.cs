@@ -505,15 +505,6 @@ namespace CommandLineTest
       }
    }
 
-   public class IllegalCommandLineAttibuteArguments
-   {
-      [Int32Value( 1 )]
-      public Int32 Foo()
-      {
-         return 0;
-      }
-   }
-
    public class DescriptionArguments
    {
       [Int32Value( 1, Description = "This is an Int32 value." )]
@@ -583,6 +574,84 @@ namespace CommandLineTest
    {
       [Int32Compound( "-", "foo", Ordinal = 1, AcceptableValues = new int[] { 1, 2, 3 } )]
       public String Foo
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class SamePrefixLabelSwitchArguments
+   {
+      [Switch( "-", "foo" )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "foo" )]
+      public bool Switch2
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class SamePrefixLabelCompoundArguments
+   {
+      [Int32Compound( "-", "foo" )]
+      public Int32 Compound1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Compound( "-", "foo" )]
+      public Int32 Compound2
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class SamePrefixLabelSwitchCompoundArguments
+   {
+      [Int32Compound( "-", "foo" )]
+      public Int32 Compound1
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "foo" )]
+      public bool Switch2
+      {
+         get;
+         private set;
+      }
+   }
+
+   public enum Shapes
+   {
+      Square,
+      Circle,
+      Triangle
+   }
+
+   public class EnumValueArguments
+   {
+      [EnumValue( 1 )]
+      public Shapes Enum1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidEnumValueArguments
+   {
+      [EnumValue( 1 )]
+      public String Enum1
       {
          get;
          private set;

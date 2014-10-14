@@ -37,5 +37,10 @@ namespace CommandLineLib
       }
 
       #endregion
+
+      public override string ToString()
+      {
+         return this.Prefix + this.Label;
+      }
    }
 }

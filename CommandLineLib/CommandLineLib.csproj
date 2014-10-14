@@ -42,6 +42,8 @@
     <Compile Include="CompoundRangeValueArgument.cs" />
     <Compile Include="CompoundAttribute.cs" />
     <Compile Include="CompoundValueArgument.cs" />
+    <Compile Include="EnumArgument.cs" />
+    <Compile Include="EnumAttribute.cs" />
     <Compile Include="Generated Code\ByteCompoundAttribute.cs" />
     <Compile Include="Generated Code\DateTimeCompoundAttribute.cs" />
     <Compile Include="Generated Code\DecimalCompoundAttribute.cs" />

@@ -6,7 +6,7 @@ namespace CommandLineTest
 {
    public class CommandLineTests
    {
-//#if false
+#if false
       [TestMethod]
       public void NoCommandLineAttributes()
       {
@@ -439,15 +439,6 @@ namespace CommandLineTest
       }
 
       [TestMethod]
-      public void IllegalCommandLineAttibuteArguments()
-      {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
-         {
-            var commandLine = new CommandLine<IllegalCommandLineAttibuteArguments>();
-         } );
-      }
-
-      [TestMethod]
       public void DescriptionArguments()
       {
          var commandLine = new CommandLine<DescriptionArguments>();
@@ -555,6 +546,54 @@ namespace CommandLineTest
                var commandLine = new CommandLine<InvalidInt32CompoundArguments>();
             } );
       }
-// #endif
+
+      [TestMethod]
+      public void SamePrefixLabelSwitchArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+            {
+               var commandLine = new CommandLine<SamePrefixLabelSwitchArguments>();
+            } );
+      }
+
+      [TestMethod]
+      public void SamePrefixLabelCompoundArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         {
+            var commandLine = new CommandLine<SamePrefixLabelCompoundArguments>();
+         } );
+      }
+
+      [TestMethod]
+      public void SamePrefixLabelSwitchCompoundArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         {
+            var commandLine = new CommandLine<SamePrefixLabelSwitchCompoundArguments>();
+         } );
+      }
+#endif
+
+      [TestMethod]
+      public void EnumValueArguments()
+      {
+         var commandLine = new CommandLine<EnumValueArguments>();
+         var arguments = commandLine.Parse( Shapes.Circle.ToString() );
+
+         TestHelper.Expected<Shapes>( Shapes.Circle, () =>
+            {
+               return arguments.Enum1;
+            } );
+      }
+
+      [TestMethod]
+      public void InvalidEnumValueArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+            {
+               var commandLine = new CommandLine<InvalidEnumValueArguments>();
+            } );
+      }
    }
 }

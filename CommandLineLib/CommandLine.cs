@@ -27,10 +27,9 @@ namespace CommandLineLib
    /***************************************************************************
     * TODO:
     * - Enum value attributes
+    * - File path value attributes
     * - Automatic generation of command line usage help
     * - Add more exceptions for different errors
-    * - Make sure compound arguments have their types declared correctly
-    * - Check if switches have the same label
     * 
     * ************************************************************************/
    
@@ -42,6 +41,7 @@ namespace CommandLineLib
       {
          this.FindParameters();
          this.OrdinalCheck();
+         this.DuplicateSwitchCheck();
       }
 
       private void FindParameters()
@@ -119,7 +119,8 @@ namespace CommandLineLib
                previousAttribute = pair.Attribute;
             }
 
-            if ( pair.Attribute as IValueAttribute != null )
+            if ( ( pair.Attribute as IValueAttribute != null )
+               || ( pair.Attribute as EnumValue != null ) )
             {
                if ( pair.Attribute.Optional )
                {
@@ -142,6 +143,28 @@ namespace CommandLineLib
             if ( !pair.Attribute.CheckPropertyType( pair.Property ) )
             {
                throw new CommandLineDeclarationException( String.Format( "The property \"{0}\" has the wrong type for the command line attribute that it is decorated with.", pair.Property.Name ) );
+            }
+         }
+      }
+
+      private void DuplicateSwitchCheck()
+      {
+         for ( var i = 0; i < this.unboundAttributes.Pairs.Count; i++ )
+         {
+            if ( ( this.unboundAttributes.Pairs[i].Attribute as ISwitchAttribute != null )
+               || ( this.unboundAttributes.Pairs[i].Attribute as ICompoundAttribute != null ) )
+            {
+               for ( var j = i + 1; j < this.unboundAttributes.Pairs.Count; j++ )
+               {
+                  if ( ( this.unboundAttributes.Pairs[j].Attribute as ISwitchAttribute != null )
+                     || ( this.unboundAttributes.Pairs[j].Attribute as ICompoundAttribute != null ) )
+                  {
+                     if ( this.unboundAttributes.Pairs[i].Attribute.ToString() == this.unboundAttributes.Pairs[j].Attribute.ToString() )
+                     {
+                        throw new CommandLineDeclarationException( String.Format( "More than one switch or compound argument has the same prefix and label \"{0}\".", this.unboundAttributes.Pairs[j].Attribute.ToString() ) );
+                     }
+                  }
+               }
             }
          }
       }
