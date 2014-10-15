@@ -38,14 +38,14 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         return new DecimalValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
+         return new DecimalValueArgument( new PropertyAccessor( instance, propertyInfo ), this, this.AcceptableValues, this.RangeMin, this.RangeMax );
       }
    }
 
    public class DecimalValueArgument : RangeValueArgument<Decimal>
    {
-      public DecimalValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, Decimal[] acceptableValues, Decimal rangeMin, Decimal rangeMax )
-         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      public DecimalValueArgument( PropertyAccessor property, IAttributeData attributeData, Decimal[] acceptableValues, Decimal rangeMin, Decimal rangeMax )
+         : base( property, attributeData, acceptableValues, rangeMin, rangeMax )
       {
       }
    }

@@ -38,14 +38,14 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         return new SByteValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
+         return new SByteValueArgument( new PropertyAccessor( instance, propertyInfo ), this, this.AcceptableValues, this.RangeMin, this.RangeMax );
       }
    }
 
    public class SByteValueArgument : RangeValueArgument<SByte>
    {
-      public SByteValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, SByte[] acceptableValues, SByte rangeMin, SByte rangeMax )
-         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      public SByteValueArgument( PropertyAccessor property, IAttributeData attributeData, SByte[] acceptableValues, SByte rangeMin, SByte rangeMax )
+         : base( property, attributeData, acceptableValues, rangeMin, rangeMax )
       {
       }
    }

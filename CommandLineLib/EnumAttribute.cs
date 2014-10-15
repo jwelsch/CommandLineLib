@@ -21,7 +21,7 @@ namespace CommandLineLib
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
          var argumentType = typeof( EnumArgument<> ).MakeGenericType( this.enumType );
-         return (IBaseArgument) Activator.CreateInstance( argumentType, new object[] { new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description } );
+         return (IBaseArgument) Activator.CreateInstance( argumentType, new object[] { new PropertyAccessor( instance, propertyInfo ), this } );
       }
 
       public override bool CheckPropertyType( PropertyInfo propertyInfo )

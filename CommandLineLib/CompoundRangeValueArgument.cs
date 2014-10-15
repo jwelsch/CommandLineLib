@@ -6,11 +6,11 @@ namespace CommandLineLib
    {
       private SwitchArgument @switch;
 
-      public CompoundRangeValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, bool caseSensitive, string prefix, string label, T[] acceptableValues, T rangeMin, T rangeMax )
-         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      public CompoundRangeValueArgument( PropertyAccessor property, IAttributeData attributeData, bool caseSensitive, string prefix, string label, T[] acceptableValues, T rangeMin, T rangeMax )
+         : base( property, attributeData, acceptableValues, rangeMin, rangeMax )
       {
          this.IsCompound = true;
-         this.@switch = new SwitchArgument( property, ordinal, optional, groups, description, caseSensitive, prefix, label );
+         this.@switch = new SwitchArgument( property, attributeData, caseSensitive, prefix, label );
       }
 
       public bool CaseSensitive

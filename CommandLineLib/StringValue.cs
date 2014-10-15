@@ -18,7 +18,7 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         return new StringValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues );
+         return new StringValueArgument( new PropertyAccessor( instance, propertyInfo ), this, this.AcceptableValues );
       }
    }
 }

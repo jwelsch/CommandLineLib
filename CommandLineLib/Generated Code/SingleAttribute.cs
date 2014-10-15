@@ -38,14 +38,14 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         return new SingleValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
+         return new SingleValueArgument( new PropertyAccessor( instance, propertyInfo ), this, this.AcceptableValues, this.RangeMin, this.RangeMax );
       }
    }
 
    public class SingleValueArgument : RangeValueArgument<Single>
    {
-      public SingleValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, Single[] acceptableValues, Single rangeMin, Single rangeMax )
-         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      public SingleValueArgument( PropertyAccessor property, IAttributeData attributeData, Single[] acceptableValues, Single rangeMin, Single rangeMax )
+         : base( property, attributeData, acceptableValues, rangeMin, rangeMax )
       {
       }
    }

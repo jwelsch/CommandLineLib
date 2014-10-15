@@ -6,11 +6,11 @@ namespace CommandLineLib
    {
       private SwitchArgument @switch;
 
-      public FilePathCompoundArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, bool caseSensitive, string prefix, string label, bool mustExist )
-         : base( property, ordinal, optional, groups, description, mustExist )
+      public FilePathCompoundArgument( PropertyAccessor property, IAttributeData attributeData, bool caseSensitive, string prefix, string label, bool mustExist )
+         : base( property, attributeData, mustExist )
       {
          this.IsCompound = true;
-         this.@switch = new SwitchArgument( property, ordinal, optional, groups, description, caseSensitive, prefix, label );
+         this.@switch = new SwitchArgument( property, attributeData, caseSensitive, prefix, label );
       }
 
       public bool CaseSensitive

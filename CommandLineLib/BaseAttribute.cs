@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace CommandLineLib
 {
-   public interface IBaseAttribute
+   public interface IAttributeData
    {
       /// <summary>
       /// <=0 is any order.
@@ -74,12 +74,24 @@ namespace CommandLineLib
          get;
       }
 
+      string ShortName
+      {
+         get;
+      }
+   }
+
+   public interface IProcessableAttribute
+   {
       IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo );
       bool CheckPropertyType( PropertyInfo propertyInfo );
    }
 
+   public interface IBaseAttribute : IAttributeData, IProcessableAttribute
+   {
+   }
+
    [AttributeUsage( AttributeTargets.Field | AttributeTargets.Property )]
-   public abstract class BaseAttribute : System.Attribute, IBaseAttribute
+   public abstract class BaseAttribute : System.Attribute, IBaseAttribute, IProcessableAttribute
    {
       public BaseAttribute()
       {
@@ -105,7 +117,13 @@ namespace CommandLineLib
          set;
       }
 
-      public virtual string Description
+      public string Description
+      {
+         get;
+         set;
+      }
+
+      public string ShortName
       {
          get;
          set;

@@ -14,8 +14,8 @@ namespace CommandLineLib
          set { this.acceptableValues = value; }
       }
 
-      public ValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, T[] acceptableValues )
-         : base( property, ordinal, optional, groups, description )
+      public ValueArgument( PropertyAccessor property, IAttributeData attributeData, T[] acceptableValues )
+         : base( property, attributeData )
       {
          this.acceptableValues = acceptableValues;
       }

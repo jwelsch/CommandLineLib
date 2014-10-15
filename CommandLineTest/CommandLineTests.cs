@@ -447,6 +447,14 @@ namespace CommandLineTest
       }
 
       [TestMethod]
+      public void ShortNameArguments()
+      {
+         var commandLine = new CommandLine<ShortNameArguments>();
+         var args = new string[] { "1", "-foo" };
+         var arguments = commandLine.Parse( args );
+      }
+
+      [TestMethod]
       public void ValueSwitchGroupArguments()
       {
          var commandLine = new CommandLine<ValueSwitchGroupArguments>();

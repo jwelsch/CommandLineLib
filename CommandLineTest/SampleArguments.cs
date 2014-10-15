@@ -522,6 +522,23 @@ namespace CommandLineTest
       }
    }
 
+   public class ShortNameArguments
+   {
+      [Int32Value( 1, ShortName = "iteration_count" )]
+      public Int32 Value
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "foo", ShortName = "toggle_overwrite" )]
+      public bool Switch
+      {
+         get;
+         private set;
+      }
+   }
+
    public class ValueSwitchGroupArguments
    {
       [StringValue( 1, Description = "String_1" )]

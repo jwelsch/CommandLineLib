@@ -38,14 +38,14 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         return new DateTimeValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
+         return new DateTimeValueArgument( new PropertyAccessor( instance, propertyInfo ), this, this.AcceptableValues, this.RangeMin, this.RangeMax );
       }
    }
 
    public class DateTimeValueArgument : RangeValueArgument<DateTime>
    {
-      public DateTimeValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, DateTime[] acceptableValues, DateTime rangeMin, DateTime rangeMax )
-         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      public DateTimeValueArgument( PropertyAccessor property, IAttributeData attributeData, DateTime[] acceptableValues, DateTime rangeMin, DateTime rangeMax )
+         : base( property, attributeData, acceptableValues, rangeMin, rangeMax )
       {
       }
    }

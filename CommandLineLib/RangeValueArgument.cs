@@ -5,8 +5,8 @@ namespace CommandLineLib
 {
    public abstract class RangeValueArgument<T> : ValueArgument<T>
    {
-      public RangeValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, T[] acceptableValues, T rangeMin, T rangeMax )
-         : base( property, ordinal, optional, groups, description, acceptableValues )
+      public RangeValueArgument( PropertyAccessor property, IAttributeData attributeData, T[] acceptableValues, T rangeMin, T rangeMax )
+         : base( property, attributeData, acceptableValues )
       {
          this.rangeMin = rangeMin;
          this.RangeMax = rangeMax;

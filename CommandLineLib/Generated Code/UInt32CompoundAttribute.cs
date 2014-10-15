@@ -38,14 +38,14 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         return new UInt32CompoundArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.CaseSensitive, this.Prefix, this.Label, this.AcceptableValues, this.RangeMin, this.RangeMax );
+         return new UInt32CompoundArgument( new PropertyAccessor( instance, propertyInfo ), this, this.CaseSensitive, this.Prefix, this.Label, this.AcceptableValues, this.RangeMin, this.RangeMax );
       }
    }
 
    public class UInt32CompoundArgument :  CompoundRangeValueArgument<UInt32>
    {
-      public UInt32CompoundArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, bool caseSensitive, string prefix, string label, UInt32[] acceptableValues, UInt32 rangeMin, UInt32 rangeMax )
-         : base( property, ordinal, optional, groups, description, caseSensitive, prefix, label, acceptableValues, rangeMin, rangeMax )
+      public UInt32CompoundArgument( PropertyAccessor property, IAttributeData attributeData, bool caseSensitive, string prefix, string label, UInt32[] acceptableValues, UInt32 rangeMin, UInt32 rangeMax )
+         : base( property, attributeData, caseSensitive, prefix, label, acceptableValues, rangeMin, rangeMax )
       {
       }
    }

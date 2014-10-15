@@ -4,8 +4,8 @@ namespace CommandLineLib
 {
    public class StringCompoundArgument : CompoundValueArgument<string>
    {
-      public StringCompoundArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, bool caseSensitive, string prefix, string label, string[] acceptableValues )
-         : base( property, ordinal, optional, groups, description, caseSensitive, prefix, label, acceptableValues )
+      public StringCompoundArgument( PropertyAccessor property, IAttributeData attributeData, bool caseSensitive, string prefix, string label, string[] acceptableValues )
+         : base( property, attributeData, caseSensitive, prefix, label, acceptableValues )
       {
       }
 

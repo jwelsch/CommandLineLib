@@ -38,14 +38,14 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         return new Int64ValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
+         return new Int64ValueArgument( new PropertyAccessor( instance, propertyInfo ), this, this.AcceptableValues, this.RangeMin, this.RangeMax );
       }
    }
 
    public class Int64ValueArgument : RangeValueArgument<Int64>
    {
-      public Int64ValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, Int64[] acceptableValues, Int64 rangeMin, Int64 rangeMax )
-         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      public Int64ValueArgument( PropertyAccessor property, IAttributeData attributeData, Int64[] acceptableValues, Int64 rangeMin, Int64 rangeMax )
+         : base( property, attributeData, acceptableValues, rangeMin, rangeMax )
       {
       }
    }

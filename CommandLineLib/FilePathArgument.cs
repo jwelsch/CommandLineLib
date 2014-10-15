@@ -5,8 +5,8 @@ namespace CommandLineLib
 {
    public class FilePathArgument : BaseArgument
    {
-      public FilePathArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, bool mustExist )
-         : base( property, ordinal, optional, groups, description )
+      public FilePathArgument( PropertyAccessor property, IAttributeData attributeData, bool mustExist )
+         : base( property, attributeData )
       {
          this.MustExist = mustExist;
       }

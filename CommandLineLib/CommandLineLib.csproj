@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLineUsage.cs" />
     <Compile Include="CompoundRangeValueArgument.cs" />
     <Compile Include="CompoundAttribute.cs" />
     <Compile Include="CompoundValueArgument.cs" />

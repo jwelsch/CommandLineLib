@@ -2,7 +2,7 @@
 
 namespace CommandLineLib
 {
-   public interface IBaseArgument
+   public interface IArgumentData
    {
       int Ordinal
       {
@@ -24,6 +24,11 @@ namespace CommandLineLib
          get;
       }
 
+      string ShortName
+      {
+         get;
+      }
+
       bool IsCompound
       {
          get;
@@ -33,9 +38,16 @@ namespace CommandLineLib
       {
          get;
       }
+   }
 
+   public interface IProcessableArgument
+   {
       bool MatchCommandLineArgument( string value );
       void SetFromCommandLineArgument( string value );
+   }
+
+   public interface IBaseArgument : IArgumentData, IProcessableArgument
+   {
    }
 
    public abstract class BaseArgument : IBaseArgument
@@ -46,13 +58,13 @@ namespace CommandLineLib
          private set;
       }
 
-      public BaseArgument( PropertyAccessor propertyAccessor, int ordinal, bool optional, int[] groups, string description )
+      public BaseArgument( PropertyAccessor propertyAccessor, IAttributeData attributeData )
       {
          this.Property = propertyAccessor;
-         this.Ordinal = ordinal;
-         this.Optional = optional;
-         this.Groups = groups;
-         this.Description = description;
+         this.Ordinal = attributeData.Ordinal;
+         this.Optional = attributeData.Optional;
+         this.Groups = attributeData.Groups;
+         this.Description = attributeData.Description;
       }
 
       public int Ordinal
@@ -74,6 +86,12 @@ namespace CommandLineLib
       }
 
       public virtual string Description
+      {
+         get;
+         private set;
+      }
+
+      public string ShortName
       {
          get;
          private set;

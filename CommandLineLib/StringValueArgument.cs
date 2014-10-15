@@ -4,8 +4,8 @@ namespace CommandLineLib
 {
    public class StringValueArgument : ValueArgument<String>
    {
-      public StringValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, String[] acceptableValues )
-         : base( property, ordinal, optional, groups, description, acceptableValues )
+      public StringValueArgument( PropertyAccessor property, IAttributeData attributeData, String[] acceptableValues )
+         : base( property, attributeData, acceptableValues )
       {
       }
 

@@ -7,11 +7,11 @@ namespace CommandLineLib
    {
       private SwitchArgument @switch;
 
-      public EnumCompoundArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, bool caseSensitive, string prefix, string label )
-         : base( property, ordinal, optional, groups, description )
+      public EnumCompoundArgument( PropertyAccessor property, IAttributeData attributeData, bool caseSensitive, string prefix, string label )
+         : base( property, attributeData )
       {
          this.IsCompound = true;
-         this.@switch = new SwitchArgument( property, ordinal, optional, groups, description, caseSensitive, prefix, label );
+         this.@switch = new SwitchArgument( property, attributeData, caseSensitive, prefix, label );
       }
 
       public bool CaseSensitive

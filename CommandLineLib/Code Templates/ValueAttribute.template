@@ -38,14 +38,14 @@ namespace $<Namespace>$
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         return new $<TypeName>$ValueArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.AcceptableValues, this.RangeMin, this.RangeMax );
+         return new $<TypeName>$ValueArgument( new PropertyAccessor( instance, propertyInfo ), this, this.AcceptableValues, this.RangeMin, this.RangeMax );
       }
    }
 
    public class $<TypeName>$ValueArgument : RangeValueArgument<$<TypeName>$>
    {
-      public $<TypeName>$ValueArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, $<TypeName>$[] acceptableValues, $<TypeName>$ rangeMin, $<TypeName>$ rangeMax )
-         : base( property, ordinal, optional, groups, description, acceptableValues, rangeMin, rangeMax )
+      public $<TypeName>$ValueArgument( PropertyAccessor property, IAttributeData attributeData, $<TypeName>$[] acceptableValues, $<TypeName>$ rangeMin, $<TypeName>$ rangeMax )
+         : base( property, attributeData, acceptableValues, rangeMin, rangeMax )
       {
       }
    }

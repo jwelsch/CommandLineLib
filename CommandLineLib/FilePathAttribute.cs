@@ -18,7 +18,7 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         return new FilePathArgument( new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description, this.MustExist );
+         return new FilePathArgument( new PropertyAccessor( instance, propertyInfo ), this, this.MustExist );
       }
    }
 }

@@ -4,8 +4,8 @@ namespace CommandLineLib
 {
    public class SwitchArgument : BaseArgument
    {
-      public SwitchArgument( PropertyAccessor property, int ordinal, bool optional, int[] groups, string description, bool caseSensitive, string prefix, string label )
-         : base( property, ordinal, optional, groups, description )
+      public SwitchArgument( PropertyAccessor property, IAttributeData attributeData, bool caseSensitive, string prefix, string label )
+         : base( property, attributeData )
       {
          this.CaseSensitive = caseSensitive;
          this.Prefix = prefix;
