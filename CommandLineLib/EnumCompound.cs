@@ -3,11 +3,10 @@ using System.Reflection;
 
 namespace CommandLineLib
 {
-   public class EnumCompound : BaseAttribute, ICompoundAttribute
+   public class EnumCompound : CompoundAttribute
    {
-      private Type enumType;
-
       public EnumCompound( string prefix, string label )
+         : base( prefix, label, typeof( Enum ) )
       {
          this.Prefix = prefix;
          this.Label = label;
@@ -15,7 +14,7 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         var argumentType = typeof( EnumCompoundArgument<> ).MakeGenericType( this.enumType );
+         var argumentType = typeof( EnumCompoundArgument<> ).MakeGenericType( this.ValueType );
          return (IBaseArgument) Activator.CreateInstance( argumentType, new object[] { new PropertyAccessor( instance, propertyInfo ), this, this.CaseSensitive, this.Prefix, this.Label } );
       }
 
@@ -26,7 +25,7 @@ namespace CommandLineLib
             return false;
          }
 
-         this.enumType = propertyInfo.PropertyType;
+         this.ValueType = propertyInfo.PropertyType;
          return true;
       }
 

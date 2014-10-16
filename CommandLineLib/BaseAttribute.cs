@@ -88,6 +88,7 @@ namespace CommandLineLib
 
    public interface IBaseAttribute : IAttributeData, IProcessableAttribute
    {
+      string Usage();
    }
 
    [AttributeUsage( AttributeTargets.Field | AttributeTargets.Property )]
@@ -131,5 +132,6 @@ namespace CommandLineLib
 
       public abstract IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo );
       public abstract bool CheckPropertyType( PropertyInfo propertyInfo );
+      public abstract string Usage();
    }
 }

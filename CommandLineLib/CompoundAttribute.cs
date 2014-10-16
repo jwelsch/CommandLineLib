@@ -8,15 +8,13 @@ namespace CommandLineLib
    {
    }
 
-   public abstract class CompoundAttribute : BaseAttribute, ICompoundAttribute
+   public abstract class CompoundAttribute : BaseValue, ICompoundAttribute
    {
-      private Type valueType;
-
       public CompoundAttribute( string prefix, string label, Type valueType )
+         : base( valueType )
       {
          this.Prefix = prefix;
          this.Label = label;
-         this.valueType = valueType;
       }
 
       #region ISwitchAttribute Members
@@ -41,14 +39,14 @@ namespace CommandLineLib
 
       #endregion
 
-      public override bool CheckPropertyType( PropertyInfo propertyInfo )
+      public override string Usage()
       {
-         return ( this.valueType == propertyInfo.PropertyType );
+         return this.Prefix + this.Label;
       }
 
       public override string ToString()
       {
-         return this.Prefix + this.Label;
+         return this.Usage();
       }
    }
 }

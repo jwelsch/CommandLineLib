@@ -694,6 +694,67 @@ namespace CommandLineTest
                var commandLine = new CommandLine<InvalidFilePathCompoundArguments>();
             } );
       }
+
+      [TestMethod]
+      public void CommandLineHelpText()
+      {
+         var commandLine = new CommandLine<CommandLineHelpTextArguments>();
+         var help = commandLine.Help();
+
+         var correct = @"Command line usage:
+   CommandLineLib.dll -blah -beep <foo> {-halb -peeb <oof>}|{-fish -goat <dog>}
+
+-blah: Here we have a switch.
+-beep: Here we have a compound argument.
+foo: This is an Int32 value that specifies foo.
+-halb: Here we have a switch halb.
+-peeb: Here we have a compound argument peeb.
+oof: This is an Int32 value that specifies oof.
+-fish: Here we have a switch fish.
+-goat: Here we have a compound argument goat.
+dog: This is an Int32 value that specifies dog.
+";
+
+         TestHelper.Expected<string>( correct, () =>
+            {
+               return help;
+            } );
+      }
+
+      [TestMethod]
+      public void CommandLineHelpTextOptionalArguments()
+      {
+         var commandLine = new CommandLine<CommandLineHelpTextOptionalArguments>();
+         var help = commandLine.Help();
+
+         var correct = @"Command line usage:
+   CommandLineLib.dll -blah -beep <foo> [<bar>]
+
+-blah: Here we have a switch.
+-beep: Here we have a compound argument.
+foo: This is an Int32 value that specifies foo.
+bar: This is an optional Int32 value that specifies bar.
+";
+
+         TestHelper.Expected<string>( correct, () =>
+         {
+            return help;
+         } );
+      }
+
+      [TestMethod]
+      public void InvalidCharacterSwitchArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+            {
+               var commandLine1 = new CommandLine<InvalidCharacterSwitchArguments1>();
+            } );
+
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         {
+            var commandLine1 = new CommandLine<InvalidCharacterSwitchArguments2>();
+         } );
+      }
 //#endif
    }
 }

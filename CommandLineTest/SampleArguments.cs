@@ -748,4 +748,121 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class CommandLineHelpTextArguments
+   {
+      [Int32Value( 1, ShortName = "foo", Description = "This is an Int32 value that specifies foo." )]
+      public Int32 Int32_1
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "blah", ShortName = "-blah", Description = "Here we have a switch." )]
+      public bool Switch_1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Compound( "-", "beep", ShortName = "-beep", Description = "Here we have a compound argument." )]
+      public Int32 Compound_1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 2, Groups = new int[] { 1 }, ShortName = "oof", Description = "This is an Int32 value that specifies oof." )]
+      public Int32 Int32_A1
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "halb", Groups = new int[] { 1 }, ShortName = "-halb", Description = "Here we have a switch halb." )]
+      public bool Switch_A1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Compound( "-", "peeb", Groups = new int[] { 1 }, ShortName = "-peeb", Description = "Here we have a compound argument peeb." )]
+      public Int32 Compound_A1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 3, Groups = new int[] { 2 }, ShortName = "dog", Description = "This is an Int32 value that specifies dog." )]
+      public Int32 Int32_B1
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "fish", Groups = new int[] { 2 }, ShortName = "-fish", Description = "Here we have a switch fish." )]
+      public bool Switch_B1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Compound( "-", "goat", Groups = new int[] { 2 }, ShortName = "-goat", Description = "Here we have a compound argument goat." )]
+      public Int32 Compound_B1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class CommandLineHelpTextOptionalArguments
+   {
+      [Int32Value( 1, ShortName = "foo", Description = "This is an Int32 value that specifies foo." )]
+      public Int32 Int32_1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 2, Optional = true, ShortName = "bar", Description = "This is an optional Int32 value that specifies bar." )]
+      public Int32 Int32_2
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "blah", ShortName = "-blah", Description = "Here we have a switch." )]
+      public bool Switch_1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Compound( "-", "beep", ShortName = "-beep", Description = "Here we have a compound argument." )]
+      public Int32 Compound_1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidCharacterSwitchArguments1
+   {
+      [Switch( "-", "foo " )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidCharacterSwitchArguments2
+   {
+      [Switch( "-", "foo^" )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
 }

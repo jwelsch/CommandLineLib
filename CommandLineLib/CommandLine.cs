@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Text;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace CommandLineLib
 {
@@ -28,20 +29,21 @@ namespace CommandLineLib
 
    /***************************************************************************
     * TODO:
-    * - Automatic generation of command line usage help
     * - Add more exceptions for different errors
+    * - Make sure prefixes are alphanumeric
     * 
     * ************************************************************************/
-   
+
    public class CommandLine<T>
    {
       private AttibutePropertyBinder unboundAttributes = new AttibutePropertyBinder();
+      private string helpText;
 
       public CommandLine()
       {
          this.FindParameters();
          this.OrdinalCheck();
-         this.DuplicateSwitchCheck();
+         this.SwitchCheck();
       }
 
       private void FindParameters()
@@ -120,7 +122,7 @@ namespace CommandLineLib
             }
 
             if ( ( pair.Attribute as IValueAttribute != null )
-               || ( pair.Attribute as EnumValue != null ) )
+               && ( pair.Attribute as ICompoundAttribute == null ) )
             {
                if ( pair.Attribute.Optional )
                {
@@ -128,7 +130,7 @@ namespace CommandLineLib
                }
                else if ( foundOptionalValue )
                {
-                  throw new CommandLineDeclarationException( String.Format( "The required value argument, \"{0}\", cannot follow an optional value argument unless they are separated by a switch argument.", pair.Attribute.Description ) );
+                  throw new CommandLineDeclarationException( String.Format( "The required value argument, \"{0}\", cannot follow an optional value argument unless they are separated by a switch or compound argument.", pair.Attribute.ShortName ) );
                }
             }
             else if ( pair.Attribute as ISwitchAttribute != null )
@@ -147,21 +149,25 @@ namespace CommandLineLib
          }
       }
 
-      private void DuplicateSwitchCheck()
+      private void SwitchCheck()
       {
          for ( var i = 0; i < this.unboundAttributes.Pairs.Count; i++ )
          {
-            if ( ( this.unboundAttributes.Pairs[i].Attribute as ISwitchAttribute != null )
-               || ( this.unboundAttributes.Pairs[i].Attribute as ICompoundAttribute != null ) )
+            var switchAttribute = this.unboundAttributes.Pairs[i].Attribute as ISwitchAttribute;
+            if ( switchAttribute != null )
             {
+               if ( !switchAttribute.Label.All( char.IsLetterOrDigit ) )
+               {
+                  throw new CommandLineDeclarationException( String.Format( "The label for the switch or compound argument, \"{0}\", did not contain only numbers or letters.", switchAttribute.Label ) );
+               }
+
                for ( var j = i + 1; j < this.unboundAttributes.Pairs.Count; j++ )
                {
-                  if ( ( this.unboundAttributes.Pairs[j].Attribute as ISwitchAttribute != null )
-                     || ( this.unboundAttributes.Pairs[j].Attribute as ICompoundAttribute != null ) )
+                  if ( this.unboundAttributes.Pairs[j].Attribute as ISwitchAttribute != null )
                   {
-                     if ( this.unboundAttributes.Pairs[i].Attribute.ToString() == this.unboundAttributes.Pairs[j].Attribute.ToString() )
+                     if ( switchAttribute.ToString() == this.unboundAttributes.Pairs[j].Attribute.ToString() )
                      {
-                        throw new CommandLineDeclarationException( String.Format( "More than one switch or compound argument has the same prefix and label \"{0}\".", this.unboundAttributes.Pairs[j].Attribute.ToString() ) );
+                        throw new CommandLineDeclarationException( String.Format( "More than one switch or compound argument has the same prefix and label \"{0}\".", switchAttribute.ToString() ) );
                      }
                   }
                }
@@ -192,25 +198,25 @@ namespace CommandLineLib
                {
                   if ( unmatchedArgumentList[j].WasSet )
                   {
-                     throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", unmatchedArgumentList[j].Description ) );
+                     throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", unmatchedArgumentList[j].ShortName ) );
                   }
 
                   if ( !this.IsGroupAllowed( acceptedGroups, unmatchedArgumentList[j].Groups ) )
                   {
-                     throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unmatchedArgumentList[j].Description ) );
+                     throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unmatchedArgumentList[j].ShortName ) );
                   }
 
                   if ( ( unmatchedArgumentList[j].Ordinal != 0 )
                      && ( unmatchedArgumentList[j].Ordinal < currentOrdinal ) )
                   {
-                     throw new CommandLineException( String.Format( "The argument \"{0}\" is out of order.", unmatchedArgumentList[j].Description ) );
+                     throw new CommandLineException( String.Format( "The argument \"{0}\" is out of order.", unmatchedArgumentList[j].ShortName ) );
                   }
 
                   if ( unmatchedArgumentList[j].IsCompound )
                   {
                      if ( i + 1 >= args.Length )
                      {
-                        throw new CommandLineException( String.Format( "Missing value the compound argument \"{0}\".", unmatchedArgumentList[j].Description ) );
+                        throw new CommandLineException( String.Format( "Missing value the compound argument \"{0}\".", unmatchedArgumentList[j].ShortName ) );
                      }
 
                      i++;
@@ -235,7 +241,7 @@ namespace CommandLineLib
                {
                   if ( argument.MatchCommandLineArgument( args[i] ) )
                   {
-                     throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", argument.Description ) );
+                     throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", argument.ShortName ) );
                   }
                }
             }
@@ -245,7 +251,7 @@ namespace CommandLineLib
          {
             if ( !argInfo.Optional && !argInfo.WasSet )
             {
-               throw new CommandLineException( String.Format( "The mandatory argument \"{0}\" was not found.", argInfo.Description ) );
+               throw new CommandLineException( String.Format( "The mandatory argument \"{0}\" was not found.", argInfo.ShortName ) );
             }
          }
 
@@ -284,6 +290,24 @@ namespace CommandLineLib
          }
 
          return result;
+      }
+
+      public string Help()
+      {
+         if ( String.IsNullOrEmpty( this.helpText ) )
+         {
+            var attributes = new List<IBaseAttribute>();
+
+            foreach ( var pairs in this.unboundAttributes.Pairs )
+            {
+               attributes.Add( pairs.Attribute );
+            }
+
+            var commandLineUsage = new CommandLineUsage();
+            this.helpText = commandLineUsage.Generate( attributes );
+         }
+
+         return this.helpText;
       }
    }
 }

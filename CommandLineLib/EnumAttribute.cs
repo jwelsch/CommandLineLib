@@ -3,24 +3,16 @@ using System.Reflection;
 
 namespace CommandLineLib
 {
-   public class EnumValue : BaseAttribute
+   public class EnumValue : Value
    {
-      private Type enumType;
-
       public EnumValue( int ordinal )
+         : base( ordinal, typeof( Type ) )
       {
-         this.Ordinal = ordinal;
-      }
-
-      public new int Ordinal
-      {
-         get { return base.Ordinal; }
-         private set { base.Ordinal = value; }
       }
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         var argumentType = typeof( EnumArgument<> ).MakeGenericType( this.enumType );
+         var argumentType = typeof( EnumArgument<> ).MakeGenericType( this.ValueType );
          return (IBaseArgument) Activator.CreateInstance( argumentType, new object[] { new PropertyAccessor( instance, propertyInfo ), this } );
       }
 
@@ -31,7 +23,7 @@ namespace CommandLineLib
             return false;
          }
 
-         this.enumType = propertyInfo.PropertyType;
+         this.ValueType = propertyInfo.PropertyType;
          return true;
       }
    }

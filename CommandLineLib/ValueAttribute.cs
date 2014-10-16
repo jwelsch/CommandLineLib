@@ -3,18 +3,48 @@ using System.Reflection;
 
 namespace CommandLineLib
 {
-   public interface IValueAttribute : IBaseAttribute
+   public interface IBaseValueAttribute : IBaseAttribute
    {
    }
 
-   public abstract class Value : BaseAttribute, IValueAttribute
+   public abstract class BaseValue : BaseAttribute, IBaseValueAttribute
    {
-      private Type valueType;
+      protected Type ValueType
+      {
+         get;
+         set;
+      }
 
+      public BaseValue( Type valueType )
+      {
+         this.ValueType = valueType;
+      }
+
+      public override bool CheckPropertyType( PropertyInfo propertyInfo )
+      {
+         return ( this.ValueType == propertyInfo.PropertyType );
+      }
+
+      public override string Usage()
+      {
+         return "<" + this.ShortName + ">";
+      }
+   }
+
+   public interface IValueAttribute : IBaseValueAttribute
+   {
+      new int Ordinal
+      {
+         get;
+      }
+   }
+
+   public abstract class Value : BaseValue, IValueAttribute
+   {
       public Value( int ordinal, Type valueType )
+         : base( valueType )
       {
          this.Ordinal = ordinal;
-         this.valueType = valueType;
       }
 
       public new int Ordinal
@@ -25,13 +55,8 @@ namespace CommandLineLib
 
       public override IBaseArgument CreateArgument( object instance, PropertyInfo propertyInfo )
       {
-         var argumentType = typeof( ValueArgument<> ).MakeGenericType( this.valueType );
+         var argumentType = typeof( ValueArgument<> ).MakeGenericType( this.ValueType );
          return (IBaseArgument) Activator.CreateInstance( argumentType, new object[] { new PropertyAccessor( instance, propertyInfo ), this.Ordinal, this.Optional, this.Groups, this.Description } );
-      }
-
-      public override bool CheckPropertyType( PropertyInfo propertyInfo )
-      {
-         return ( this.valueType == propertyInfo.PropertyType );
       }
    }
 
