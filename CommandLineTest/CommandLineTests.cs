@@ -755,6 +755,37 @@ bar: This is an optional Int32 value that specifies bar.
             var commandLine1 = new CommandLine<InvalidCharacterSwitchArguments2>();
          } );
       }
+
+      [TestMethod]
+      public void SwitchAliasArguments()
+      {
+         var args1 = new string[] { "-foo" };
+         var args2 = new string[] { "-f" };
+         var args3 = new string[] { "--f" };
+
+         var commandLine = new CommandLine<SwitchAliasArguments>();
+
+         var args = args1;
+         var arguments = commandLine.Parse( args );
+         TestHelper.Expected<bool>( true, () =>
+            {
+               return arguments.Switch1;
+            } );
+
+         args = args2;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<bool>( true, () =>
+         {
+            return arguments.Switch1;
+         } );
+
+         args = args3;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<bool>( true, () =>
+         {
+            return arguments.Switch1;
+         } );
+      }
 //#endif
    }
 }

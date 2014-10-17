@@ -865,4 +865,14 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class SwitchAliasArguments
+   {
+      [Switch( "-", "foo", Aliases = new string[] { "-f", "--f" } )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
 }

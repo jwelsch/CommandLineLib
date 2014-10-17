@@ -198,11 +198,11 @@ namespace CommandLineLib
          {
             if ( attribute.Optional )
             {
-               usageText.AppendFormat( "{0}[{1}]", count == 0 ? string.Empty : " ",  attribute.Usage() );
+               //usageText.AppendFormat( "{0}[{1}]", count == 0 ? string.Empty : " ",  attribute.Usage() );
             }
             else
             {
-               usageText.AppendFormat( "{0}{1}", count == 0 ? string.Empty : " ", attribute.Usage() );
+               //usageText.AppendFormat( "{0}{1}", count == 0 ? string.Empty : " ", attribute.Usage() );
             }
 
             descriptionText.AppendLine( String.Format( "{0}: {1}", attribute.ShortName, attribute.Description ) );
