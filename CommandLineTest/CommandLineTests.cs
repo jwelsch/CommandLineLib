@@ -15,7 +15,6 @@ namespace CommandLineTest
                var commandLine = new CommandLine<EmptyArguments>();
             } );
       }
-
       [TestMethod]
       public void SingleSwitch()
       {
@@ -363,7 +362,7 @@ namespace CommandLineTest
       [TestMethod]
       public void IllegalSwitchTypeArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalSwitchTypeArguments>();
          } );
@@ -372,67 +371,67 @@ namespace CommandLineTest
       [TestMethod]
       public void IllegalValueTypeArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalStringTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalSByteValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalInt16ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalInt32ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalInt64ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalByteValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalUInt16ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalUInt32ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalUInt64ValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalSingleValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalDoubleValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalDecimalValueTypeArguments>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<IllegalDateTimeValueTypeArguments>();
          } );
@@ -549,7 +548,7 @@ namespace CommandLineTest
       [TestMethod]
       public void InvalidInt32CompoundArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
             {
                var commandLine = new CommandLine<InvalidInt32CompoundArguments>();
             } );
@@ -654,7 +653,7 @@ namespace CommandLineTest
       [TestMethod]
       public void InvalidFilePathValueArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
             {
                var commandLine = new CommandLine<InvalidFilePathValueArguments>();
             } );
@@ -689,7 +688,7 @@ namespace CommandLineTest
       [TestMethod]
       public void InvalidFilePathCompoundArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
             {
                var commandLine = new CommandLine<InvalidFilePathCompoundArguments>();
             } );
@@ -702,7 +701,7 @@ namespace CommandLineTest
          var help = commandLine.Help();
 
          var correct = @"Command line usage:
-   CommandLineLib.dll -blah -beep <foo> {-halb -peeb <oof>}|{-fish -goat <dog>}
+   CommandLineLib.dll -blah -beep <Compound_1> <foo> {-halb -peeb <Compound_A1> <oof>}|{-fish -goat <Compound_B1> <dog>}
 
 -blah: Here we have a switch.
 -beep: Here we have a compound argument.
@@ -785,6 +784,14 @@ bar: This is an optional Int32 value that specifies bar.
          {
             return arguments.Switch1;
          } );
+      }
+
+      [TestMethod]
+      public void AutomaticShortNameArguments()
+      {
+         var args = new string[] { "1", "2", "-foo", "-bar", "-oof", "3", "-rab", "4" };
+         var commandLine = new CommandLine<AutomaticShortNameArguments>();
+         var arguments = commandLine.Parse( args );
       }
 //#endif
    }

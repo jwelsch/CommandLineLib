@@ -10,7 +10,7 @@ namespace CommandLineLib
    /// Thrown when the type of a parameter of a value argument does not match.
    /// </summary>
    [Serializable]
-   internal class ArgumentTypeMismatchException : Exception
+   public class ArgumentTypeMismatchException : Exception
    {
       /// <summary>
       /// Constructs an object of type ArgumentTypeMismatchException.

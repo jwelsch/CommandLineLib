@@ -30,6 +30,11 @@ namespace CommandLineLib
          get;
       }
 
+      string UsageText
+      {
+         get;
+      }
+
       bool IsCompound
       {
          get;
@@ -48,12 +53,7 @@ namespace CommandLineLib
          set;
       }
 
-      string Prefix
-      {
-         get;
-      }
-
-      string Label
+      string Identifier
       {
          get;
       }

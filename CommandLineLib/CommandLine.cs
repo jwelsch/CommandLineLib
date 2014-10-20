@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 using System.Collections.Generic;
 
@@ -124,16 +123,17 @@ namespace CommandLineLib
             var switchAttribute = this.attributes[i] as ISwitchAttribute;
             if ( switchAttribute != null )
             {
-               if ( !switchAttribute.Label.All( char.IsLetterOrDigit ) )
-               {
-                  throw new CommandLineDeclarationException( String.Format( "The label for the switch or compound argument, \"{0}\", did not contain only numbers or letters.", switchAttribute.Label ) );
-               }
+               //if ( !switchAttribute.Label.All( char.IsLetterOrDigit ) )
+               //{
+               //   throw new CommandLineDeclarationException( String.Format( "The label for the switch or compound argument, \"{0}\", did not contain only numbers or letters.", switchAttribute.Label ) );
+               //}
 
                for ( var j = i + 1; j < this.attributes.Count; j++ )
                {
-                  if ( this.attributes[j] as ISwitchAttribute != null )
+                  var otherSwitch = this.attributes[j] as ISwitchAttribute;
+                  if ( otherSwitch != null )
                   {
-                     if ( switchAttribute.ToString() == this.attributes[j].ToString() )
+                     if ( switchAttribute.Identifier == otherSwitch.Identifier )
                      {
                         throw new CommandLineDeclarationException( String.Format( "More than one switch or compound argument has the same prefix and label \"{0}\".", switchAttribute.ToString() ) );
                      }
@@ -160,7 +160,7 @@ namespace CommandLineLib
          {
             var matched = false;
 
-            for ( var j = 0; j < this.attributes.Count; j++ )
+            for ( var j = 0; j < unmatchedAttributeList.Count; j++ )
             {
                if ( unmatchedAttributeList[j].MatchArgument( args[i] ) )
                {

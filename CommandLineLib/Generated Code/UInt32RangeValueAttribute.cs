@@ -72,10 +72,10 @@ namespace CommandLineLib
    {
       private CompoundManager manager;
 
-      public UInt32Compound( string prefix, string label )
+      public UInt32Compound( string identifier )
          : base( 0 )
       {
-         this.manager = new CompoundManager( this, prefix, label );
+         this.manager = new CompoundManager( this, identifier );
       }
 
       public new int Ordinal
@@ -92,14 +92,9 @@ namespace CommandLineLib
          set { this.manager.CaseSensitive = value; }
       }
 
-      public string Prefix
+      public string Identifier
       {
-         get { return this.manager.Prefix; }
-      }
-
-      public string Label
-      {
-         get { return this.manager.Label; }
+         get { return this.manager.Identifier; }
       }
 
       public string[] Aliases
@@ -109,6 +104,20 @@ namespace CommandLineLib
       }
 
       #endregion
+
+      public override string ShortName
+      {
+         get { return this.manager.ShortName; }
+      }
+
+      public override string UsageText
+      {
+         get
+         {
+            var s = base.ShortName;
+            return this.manager.UsageText( s );
+         }
+      }
 
       public override bool MatchArgument( string argument )
       {

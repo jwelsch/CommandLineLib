@@ -5,7 +5,7 @@ namespace CommandLineTest
 {
    public class SingleSwitchArguments
    {
-      [Switch( "-", "foo" )]
+      [Switch( "-foo" )]
       public bool Foo
       {
          get;
@@ -15,14 +15,14 @@ namespace CommandLineTest
 
    public class DoubleSwitchArguments
    {
-      [Switch( "-", "foo" )]
+      [Switch( "-foo" )]
       public bool Foo
       {
          get;
          private set;
       }
 
-      [Switch( "-", "bar" )]
+      [Switch( "-bar" )]
       public bool Bar
       {
          get;
@@ -32,14 +32,14 @@ namespace CommandLineTest
 
    public class OptionalSwitchArguments
    {
-      [Switch( "-", "foo", Optional = true )]
+      [Switch( "-foo", Optional = true )]
       public bool Foo
       {
          get;
          private set;
       }
 
-      [Switch( "-", "bar", Optional = true )]
+      [Switch( "-bar", Optional = true )]
       public bool Bar
       {
          get;
@@ -49,14 +49,14 @@ namespace CommandLineTest
 
    public class CaseSensitiveSwitchArguments
    {
-      [Switch( "-", "foo", CaseSensitive = true )]
+      [Switch( "-foo", CaseSensitive = true )]
       public bool Foo
       {
          get;
          private set;
       }
 
-      [Switch( "-", "bar", CaseSensitive = false )]
+      [Switch( "-bar", CaseSensitive = false )]
       public bool Bar
       {
          get;
@@ -66,28 +66,28 @@ namespace CommandLineTest
 
    public class OrdinalSwitchArguments
    {
-      [Switch( "-", "red", Ordinal = 1 )]
+      [Switch( "-red", Ordinal = 1 )]
       public bool Red
       {
          get;
          private set;
       }
 
-      [Switch( "-", "green", Ordinal = -1 )]
+      [Switch( "-green", Ordinal = -1 )]
       public bool Green
       {
          get;
          private set;
       }
 
-      [Switch( "-", "blue", Ordinal = 2 )]
+      [Switch( "-blue", Ordinal = 2 )]
       public bool Blue
       {
          get;
          private set;
       }
 
-      [Switch( "-", "black", Ordinal = 1 )]
+      [Switch( "-black", Ordinal = 1 )]
       public bool Black
       {
          get;
@@ -97,21 +97,21 @@ namespace CommandLineTest
 
    public class GroupSwitchArguments
    {
-      [Switch( "-", "red", Groups = new int[] { 1, 2 } )]
+      [Switch( "-red", Groups = new int[] { 1, 2 } )]
       public bool Red
       {
          get;
          private set;
       }
 
-      [Switch( "-", "green", Groups = new int[] { 2, 3 } )]
+      [Switch( "-green", Groups = new int[] { 2, 3 } )]
       public bool Green
       {
          get;
          private set;
       }
 
-      [Switch( "-", "blue", Optional = true, Groups = new int[] { 3 } )]
+      [Switch( "-blue", Optional = true, Groups = new int[] { 3 } )]
       public bool Blue
       {
          get;
@@ -223,7 +223,7 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( "-", "a" )]
+      [Switch( "-a" )]
       public bool Switch1
       {
          get;
@@ -250,8 +250,8 @@ namespace CommandLineTest
 
    public class SameOrdinalValueSwitchArguments
    {
-      [Switch( "-", "foo", Ordinal = 1 )]
-      public Int32 Switch1
+      [Switch( "-foo", Ordinal = 1 )]
+      public bool Switch1
       {
          get;
          private set;
@@ -267,14 +267,14 @@ namespace CommandLineTest
 
    public class MultipleOrdinalValueSwitchArguments
    {
-      [Switch( "-", "red", Optional = true, Ordinal = 2 )]
+      [Switch( "-red", Optional = true, Ordinal = 2 )]
       public bool Switch1
       {
          get;
          private set;
       }
 
-      [Switch( "-", "blue", Optional = true, Ordinal = 2 )]
+      [Switch( "-blue", Optional = true, Ordinal = 2 )]
       public bool Switch2
       {
          get;
@@ -357,7 +357,7 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( "-", "foo", Ordinal = 4 )]
+      [Switch( "-foo", Ordinal = 4 )]
       public bool Switch1
       {
          get;
@@ -367,7 +367,7 @@ namespace CommandLineTest
 
    public class IllegalSwitchTypeArguments
    {
-      [Switch( "-", "foo" )]
+      [Switch( "-foo" )]
       public string Switch
       {
          get;
@@ -514,7 +514,7 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( "-", "foo", Description = "This is a switch." )]
+      [Switch( "-foo", Description = "This is a switch." )]
       public bool Switch
       {
          get;
@@ -531,7 +531,7 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( "-", "foo", ShortName = "toggle_overwrite" )]
+      [Switch( "-foo", ShortName = "toggle_overwrite" )]
       public bool Switch
       {
          get;
@@ -555,14 +555,14 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( "-", "foo", Optional = true, Groups = new int[] { 1 }, Description = "foo" )]
+      [Switch( "-foo", Optional = true, Groups = new int[] { 1 }, Description = "foo" )]
       public bool Foo
       {
          get;
          private set;
       }
 
-      [Switch( "-", "bar", Optional = true, Groups = new int[] { 2 }, Description = "bar" )]
+      [Switch( "-bar", Optional = true, Groups = new int[] { 2 }, Description = "bar" )]
       public bool Bar
       {
          get;
@@ -572,14 +572,14 @@ namespace CommandLineTest
 
    public class CompoundArguments
    {
-      [Int32Compound( "-", "foo", Ordinal = 1, AcceptableValues = new int[] { 1, 2, 3 } )]
+      [Int32Compound( "-foo", Ordinal = 1, AcceptableValues = new int[] { 1, 2, 3 } )]
       public Int32 Foo
       {
          get;
          private set;
       }
 
-      [StringCompound( "-", "bar", Ordinal = 2, AcceptableValues = new string[] { "Red", "White", "Blue" } )]
+      [StringCompound( "-bar", Ordinal = 2, AcceptableValues = new string[] { "Red", "White", "Blue" } )]
       public String Bar
       {
          get;
@@ -589,7 +589,7 @@ namespace CommandLineTest
 
    public class InvalidInt32CompoundArguments
    {
-      [Int32Compound( "-", "foo", Ordinal = 1, AcceptableValues = new int[] { 1, 2, 3 } )]
+      [Int32Compound( "-foo", Ordinal = 1, AcceptableValues = new int[] { 1, 2, 3 } )]
       public String Foo
       {
          get;
@@ -599,14 +599,14 @@ namespace CommandLineTest
 
    public class SamePrefixLabelSwitchArguments
    {
-      [Switch( "-", "foo" )]
+      [Switch( "-foo" )]
       public bool Switch1
       {
          get;
          private set;
       }
 
-      [Switch( "-", "foo" )]
+      [Switch( "-foo" )]
       public bool Switch2
       {
          get;
@@ -616,14 +616,14 @@ namespace CommandLineTest
 
    public class SamePrefixLabelCompoundArguments
    {
-      [Int32Compound( "-", "foo" )]
+      [Int32Compound( "-foo" )]
       public Int32 Compound1
       {
          get;
          private set;
       }
 
-      [Int32Compound( "-", "foo" )]
+      [Int32Compound( "-foo" )]
       public Int32 Compound2
       {
          get;
@@ -633,14 +633,14 @@ namespace CommandLineTest
 
    public class SamePrefixLabelSwitchCompoundArguments
    {
-      [Int32Compound( "-", "foo" )]
+      [Int32Compound( "-foo" )]
       public Int32 Compound1
       {
          get;
          private set;
       }
 
-      [Switch( "-", "foo" )]
+      [Switch( "-foo" )]
       public bool Switch2
       {
          get;
@@ -677,7 +677,7 @@ namespace CommandLineTest
 
    public class EnumCompoundArguments
    {
-      [EnumCompound( "-", "foo" )]
+      [EnumCompound( "-foo" )]
       public Shapes Enum1
       {
          get;
@@ -687,7 +687,7 @@ namespace CommandLineTest
 
    public class InvalidEnumCompoundArguments
    {
-      [EnumCompound( "-", "foo" )]
+      [EnumCompound( "-foo" )]
       public String Enum1
       {
          get;
@@ -724,14 +724,14 @@ namespace CommandLineTest
 
    public class FilePathCompoundArguments
    {
-      [FilePathCompound( "-", "foo" )]
+      [FilePathCompound( "-foo" )]
       public String FilePath1
       {
          get;
          private set;
       }
 
-      [FilePathCompound( "-", "bar", MustExist = true )]
+      [FilePathCompound( "-bar", MustExist = true )]
       public String FilePath2
       {
          get;
@@ -741,7 +741,7 @@ namespace CommandLineTest
 
    public class InvalidFilePathCompoundArguments
    {
-      [FilePathCompound( "-", "foo" )]
+      [FilePathCompound( "-foo" )]
       public Int32 FilePath1
       {
          get;
@@ -758,14 +758,14 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( "-", "blah", ShortName = "-blah", Description = "Here we have a switch." )]
+      [Switch( "-blah", Description = "Here we have a switch." )]
       public bool Switch_1
       {
          get;
          private set;
       }
 
-      [Int32Compound( "-", "beep", ShortName = "-beep", Description = "Here we have a compound argument." )]
+      [Int32Compound( "-beep", Description = "Here we have a compound argument." )]
       public Int32 Compound_1
       {
          get;
@@ -779,14 +779,14 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( "-", "halb", Groups = new int[] { 1 }, ShortName = "-halb", Description = "Here we have a switch halb." )]
+      [Switch( "-halb", Groups = new int[] { 1 }, Description = "Here we have a switch halb." )]
       public bool Switch_A1
       {
          get;
          private set;
       }
 
-      [Int32Compound( "-", "peeb", Groups = new int[] { 1 }, ShortName = "-peeb", Description = "Here we have a compound argument peeb." )]
+      [Int32Compound( "-peeb", Groups = new int[] { 1 }, Description = "Here we have a compound argument peeb." )]
       public Int32 Compound_A1
       {
          get;
@@ -800,14 +800,14 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( "-", "fish", Groups = new int[] { 2 }, ShortName = "-fish", Description = "Here we have a switch fish." )]
+      [Switch( "-fish", Groups = new int[] { 2 }, Description = "Here we have a switch fish." )]
       public bool Switch_B1
       {
          get;
          private set;
       }
 
-      [Int32Compound( "-", "goat", Groups = new int[] { 2 }, ShortName = "-goat", Description = "Here we have a compound argument goat." )]
+      [Int32Compound( "-goat", Groups = new int[] { 2 }, Description = "Here we have a compound argument goat." )]
       public Int32 Compound_B1
       {
          get;
@@ -831,14 +831,14 @@ namespace CommandLineTest
          private set;
       }
 
-      [Switch( "-", "blah", ShortName = "-blah", Description = "Here we have a switch." )]
+      [Switch( "-blah", ShortName = "-blah", Description = "Here we have a switch." )]
       public bool Switch_1
       {
          get;
          private set;
       }
 
-      [Int32Compound( "-", "beep", ShortName = "-beep", Description = "Here we have a compound argument." )]
+      [Int32Compound( "-beep", ShortName = "-beep", Description = "Here we have a compound argument." )]
       public Int32 Compound_1
       {
          get;
@@ -848,7 +848,7 @@ namespace CommandLineTest
 
    public class InvalidCharacterSwitchArguments1
    {
-      [Switch( "-", "foo " )]
+      [Switch( "-foo " )]
       public bool Switch1
       {
          get;
@@ -858,7 +858,7 @@ namespace CommandLineTest
 
    public class InvalidCharacterSwitchArguments2
    {
-      [Switch( "-", "foo^" )]
+      [Switch( "-foo^" )]
       public bool Switch1
       {
          get;
@@ -868,8 +868,53 @@ namespace CommandLineTest
 
    public class SwitchAliasArguments
    {
-      [Switch( "-", "foo", Aliases = new string[] { "-f", "--f" } )]
+      [Switch( "-foo", Aliases = new string[] { "-f", "--f" } )]
       public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class AutomaticShortNameArguments
+   {
+      [Int32Value( 1 )]
+      public Int32 Value1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Value( 2, ShortName = "Named Int32 value" )]
+      public Int32 Value2
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-foo" )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-bar", ShortName = "Named switch" )]
+      public bool Switch2
+      {
+         get;
+         private set;
+      }
+
+      [Int32Compound( "-oof" )]
+      public Int32 Int32Compound1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Compound( "-rab", ShortName = "Named Int32Compound value" )]
+      public Int32 Int32Compound2
       {
          get;
          private set;

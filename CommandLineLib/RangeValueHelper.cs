@@ -52,12 +52,18 @@ namespace CommandLineLib
 
       public static bool IsAcceptable<T>( T value, T[] acceptableValues )
       {
-         return ( 0 < Array.IndexOf( acceptableValues, value ) );
+         if ( ( acceptableValues == null ) || ( acceptableValues.Length == 0 ) )
+         {
+            return true;
+         }
+
+         return ( 0 <= Array.IndexOf( acceptableValues, value ) );
       }
 
       public static bool IsInRange<T>( T value, T rangeMin, T rangeMax )
       {
-         return ( value.IsGreater( rangeMin ) && value.IsLess( rangeMax ) );
+         return ( ( value.IsGreater( rangeMin ) || value.Equals( rangeMin ) )
+            && ( value.IsLess( rangeMax ) || value.Equals( rangeMax ) ) );
       }
    }
 }

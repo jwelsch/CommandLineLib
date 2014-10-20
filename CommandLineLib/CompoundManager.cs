@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Reflection;
 
 namespace CommandLineLib
 {
    public class CompoundManager
    {
       private Switch @switch;
+      private ValueBaseAttribute attribute;
 
-      public CompoundManager( BaseAttribute attribute, string prefix, string label )
+      public CompoundManager( ValueBaseAttribute attribute, string identifier )
       {
-         ( typeof( BaseAttribute ) ).GetProperty( "IsCompound", typeof( bool ) ).SetValue( attribute, true );
-         this.@switch = new Switch( prefix, label );
+         this.attribute = attribute;
+         typeof( ValueBaseAttribute ).GetProperty( "IsCompound", typeof( bool ) ).SetValue( this.attribute, true );
+         this.@switch = new Switch( identifier );
       }
 
       public bool CaseSensitive
@@ -18,14 +21,9 @@ namespace CommandLineLib
          set { this.@switch.CaseSensitive = value; }
       }
 
-      public string Prefix
+      public string Identifier
       {
-         get { return this.@switch.Prefix; }
-      }
-
-      public string Label
-      {
-         get { return this.@switch.Label; }
+         get { return this.@switch.Identifier; }
       }
 
       public string[] Aliases
@@ -37,6 +35,16 @@ namespace CommandLineLib
       public bool MatchArgument( string argument )
       {
          return this.@switch.MatchArgument( argument );
+      }
+
+      public string ShortName
+      {
+         get { return this.@switch.ShortName; }
+      }
+
+      public string UsageText( string valueUsageText )
+      {
+         return String.Format( "{0} {1}", this.@switch.Identifier, valueUsageText );
       }
    }
 }
