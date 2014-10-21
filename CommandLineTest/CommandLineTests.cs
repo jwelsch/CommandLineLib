@@ -727,7 +727,7 @@ dog: This is an Int32 value that specifies dog.
          var help = commandLine.Help();
 
          var correct = @"Command line usage:
-   CommandLineLib.dll -blah -beep <foo> [<bar>]
+   CommandLineLib.dll -blah -beep <Compound_1> <foo> [<bar>]
 
 -blah: Here we have a switch.
 -beep: Here we have a compound argument.
@@ -746,12 +746,22 @@ bar: This is an optional Int32 value that specifies bar.
       {
          TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
             {
-               var commandLine1 = new CommandLine<InvalidCharacterSwitchArguments1>();
+               var commandLine = new CommandLine<InvalidCharacterSwitchArguments1>();
             } );
 
          TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
          {
-            var commandLine1 = new CommandLine<InvalidCharacterSwitchArguments2>();
+            var commandLine = new CommandLine<InvalidCharacterSwitchArguments2>();
+         } );
+
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         {
+            var commandLine = new CommandLine<InvalidCharacterSwitchArguments3>();
+         } );
+
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         {
+            var commandLine = new CommandLine<InvalidCharacterSwitchArguments4>();
          } );
       }
 
@@ -787,11 +797,54 @@ bar: This is an optional Int32 value that specifies bar.
       }
 
       [TestMethod]
+      public void CompoundAliasArguments()
+      {
+         var args1 = new string[] { "-foo", "bar" };
+         var args2 = new string[] { "\\f", "bar" };
+         var args3 = new string[] { "/f", "bar" };
+
+         var commandLine = new CommandLine<CompoundAliasArguments>();
+
+         var args = args1;
+         var arguments = commandLine.Parse( args );
+         TestHelper.Expected<string>( args[1], () =>
+         {
+            return arguments.Compound1;
+         } );
+
+         args = args2;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<string>( args[1], () =>
+         {
+            return arguments.Compound1;
+         } );
+
+         args = args3;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<string>( args[1], () =>
+         {
+            return arguments.Compound1;
+         } );
+      }
+
+      [TestMethod]
       public void AutomaticShortNameArguments()
       {
          var args = new string[] { "1", "2", "-foo", "-bar", "-oof", "3", "-rab", "4" };
          var commandLine = new CommandLine<AutomaticShortNameArguments>();
          var arguments = commandLine.Parse( args );
+      }
+
+      [TestMethod]
+      public void OnlySupplyFirstPartOfCompoundArgument()
+      {
+         var args = new string[] { "-foo" };
+         var commandLine = new CommandLine<EnumCompoundArguments>();
+
+         TestHelper.ExpectedException<CommandLineException>( () =>
+            {
+               commandLine.Parse( args );
+            } );
       }
 //#endif
    }

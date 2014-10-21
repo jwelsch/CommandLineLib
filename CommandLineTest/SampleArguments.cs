@@ -858,7 +858,27 @@ namespace CommandLineTest
 
    public class InvalidCharacterSwitchArguments2
    {
-      [Switch( "-foo^" )]
+      [Switch( "-fo\to" )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidCharacterSwitchArguments3
+   {
+      [Switch( "-fo\ro" )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidCharacterSwitchArguments4
+   {
+      [Switch( "-fo\no" )]
       public bool Switch1
       {
          get;
@@ -870,6 +890,16 @@ namespace CommandLineTest
    {
       [Switch( "-foo", Aliases = new string[] { "-f", "--f" } )]
       public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class CompoundAliasArguments
+   {
+      [StringCompound( "-foo", Aliases = new string[] { "\\f", "/f" } )]
+      public string Compound1
       {
          get;
          private set;

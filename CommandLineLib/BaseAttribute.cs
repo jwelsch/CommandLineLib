@@ -55,7 +55,7 @@ namespace CommandLineLib
          {
             if ( String.IsNullOrEmpty( this.usageText ) )
             {
-               this.usageText = String.Format( "{0}{1}{2}", this.Optional ? "[" : string.Empty, this.ShortName, this.Optional ? "]" : string.Empty );
+               this.usageText = CommandLineUsage.GenerateUsageText( this.ShortName, this.Optional, false );
             }
 
             return this.usageText;

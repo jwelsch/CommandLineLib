@@ -203,5 +203,15 @@ namespace CommandLineLib
 
          return new GroupText( usageText.ToString(), descriptionText.ToString() );
       }
+
+      public static string GenerateUsageText( string text, bool isOptional, bool isValue )
+      {
+         return String.Format( "{0}{1}{2}{3}{4}",
+            isOptional ? "[" : string.Empty,
+            isValue ? "<" : string.Empty,
+            text,
+            isValue ? ">" : string.Empty,
+            isOptional ? "]" : string.Empty );
+      }
    }
 }

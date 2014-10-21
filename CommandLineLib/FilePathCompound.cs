@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace CommandLineLib
 {
@@ -32,6 +33,23 @@ namespace CommandLineLib
       }
 
       #endregion
+
+      public override string ShortName
+      {
+         get { return this.manager.ShortName; }
+         set { this.manager.ShortName = value; }
+      }
+
+      public override string UsageText
+      {
+         get { return this.manager.UsageText(); }
+      }
+
+      public override void SetProperty( PropertyInfo property )
+      {
+         this.manager.SetValueName( property.Name );
+         base.SetProperty( property );
+      }
 
       public override bool MatchArgument( string argument )
       {

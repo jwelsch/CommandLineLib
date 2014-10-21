@@ -5,6 +5,33 @@ using System.Collections.Generic;
 
 namespace CommandLineLib
 {
+   /***************************************************************************
+    * Command Line Argument Types
+    * 
+    * - Switch argument: The presence of the switch acts as a boolean value.
+    * - Value argument: Simply a value on the command line.
+    * - Compound argument: Consists of a switch followed by a value, separated
+    *                      by a space.
+    * 
+    * Other Considerations
+    * 
+    * - Case sensitivity
+    * - Aliases
+    * - Ordering
+    * - Grouping/mutual exclusivity
+    * - Optional
+    * - Mandatory
+    * - Acceptable values
+    * 
+    **************************************************************************/
+
+   /***************************************************************************
+    * TODO:
+    * - Add more exceptions for different errors
+    * - Add compound argument that can accept multiple values
+    * 
+    * ************************************************************************/
+
    public class CommandLine<T>
    {
       private List<IBaseAttribute> attributes = new List<IBaseAttribute>();
@@ -123,10 +150,13 @@ namespace CommandLineLib
             var switchAttribute = this.attributes[i] as ISwitchAttribute;
             if ( switchAttribute != null )
             {
-               //if ( !switchAttribute.Label.All( char.IsLetterOrDigit ) )
-               //{
-               //   throw new CommandLineDeclarationException( String.Format( "The label for the switch or compound argument, \"{0}\", did not contain only numbers or letters.", switchAttribute.Label ) );
-               //}
+               foreach ( var c in switchAttribute.Identifier )
+               {
+                  if ( Char.IsWhiteSpace( c ) )
+                  {
+                     throw new CommandLineDeclarationException( String.Format( "The identifier for the switch or compound argument, \"{0}\", cannot contain whitespace characters.", switchAttribute.Identifier ) );
+                  }
+               }
 
                for ( var j = i + 1; j < this.attributes.Count; j++ )
                {

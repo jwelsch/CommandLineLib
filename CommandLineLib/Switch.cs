@@ -9,6 +9,7 @@ namespace CommandLineLib
       {
          this.Identifier = identifier;
          this.ShortName = this.Identifier;
+         this.Aliases = new string[0];
       }
 
       public bool CaseSensitive
@@ -31,7 +32,23 @@ namespace CommandLineLib
 
       public override bool MatchArgument( string argument )
       {
-         return ( 0 == String.Compare( this.Identifier, argument, !this.CaseSensitive ) );
+         if ( 0 == String.Compare( this.Identifier, argument, !this.CaseSensitive ) )
+         {
+            return true;
+         }
+
+         if ( this.Aliases != null )
+         {
+            foreach ( var alias in this.Aliases )
+            {
+               if ( 0 == String.Compare( alias, argument, !this.CaseSensitive ) )
+               {
+                  return true;
+               }
+            }
+         }
+
+         return false;
       }
 
       public override void SetProperty( PropertyInfo property )

@@ -7,6 +7,8 @@ namespace CommandLineLib
    {
       private Switch @switch;
       private ValueBaseAttribute attribute;
+      private string valueName;
+      private string usageText;
 
       public CompoundManager( ValueBaseAttribute attribute, string identifier )
       {
@@ -40,11 +42,23 @@ namespace CommandLineLib
       public string ShortName
       {
          get { return this.@switch.ShortName; }
+         set { this.@switch.ShortName = value; }
       }
 
-      public string UsageText( string valueUsageText )
+      public void SetValueName( string name )
       {
-         return String.Format( "{0} {1}", this.@switch.Identifier, valueUsageText );
+         this.valueName = name;
+      }
+
+      public string UsageText()
+      {
+         if ( String.IsNullOrEmpty( this.usageText ) )
+         {
+            var valueText = CommandLineUsage.GenerateUsageText( this.valueName, false, true );
+            this.usageText = CommandLineUsage.GenerateUsageText( this.Identifier + " " + valueText, this.attribute.Optional, false );
+         }
+
+         return this.usageText;
       }
    }
 }

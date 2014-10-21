@@ -31,10 +31,7 @@ namespace CommandLineLib
 
       public override string UsageText
       {
-         get
-         {
-            return "<" + base.UsageText + ">";
-         }
+         get { return CommandLineUsage.GenerateUsageText( this.ShortName, this.Optional, true ); }
       }
 
       public override void SetProperty( PropertyInfo property )
