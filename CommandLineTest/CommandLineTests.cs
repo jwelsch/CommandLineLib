@@ -864,6 +864,24 @@ bar: This is an optional Int32 value that specifies bar.
             var commandLine = new CommandLine<SameIdentifierAndAliasArguments>();
          } );
       }
+
+      [TestMethod]
+      public void TwoSameAliasArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         {
+            var commandLine = new CommandLine<TwoSameAliasArguments>();
+         } );
+      }
+
+      [TestMethod]
+      public void TwoSameIdentifierAndAliasArguments()
+      {
+         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         {
+            var commandLine = new CommandLine<TwoSameIdentifierAndAliasArguments>();
+         } );
+      }
       //#endif
    }
 }

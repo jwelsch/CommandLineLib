@@ -21,6 +21,33 @@ namespace CommandLineLib
          return result;
       }
 
+      public static bool ContainsDuplicate<T>( this IEnumerable<T> collection ) where T : IEquatable<T>
+      {
+         var list = new List<T>();
+         foreach ( var item in collection )
+         {
+            list.Add( item );
+         }
+
+         return list.ContainsDuplicate<T>();
+      }
+
+      public static bool ContainsDuplicate<T>( this IList<T> list ) where T : IEquatable<T>
+      {
+         for ( var i = 0; i < list.Count; i++ )
+         {
+            for ( var j = i + 1; j < list.Count; j++ )
+            {
+               if ( list[i].Equals( list[j] ) )
+               {
+                  return true;
+               }
+            }
+         }
+
+         return false;
+      }
+
       public static T[] Remove<T>( this T[] array, T toRemove )
       {
          var result = new List<T>();

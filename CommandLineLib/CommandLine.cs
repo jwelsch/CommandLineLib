@@ -152,6 +152,11 @@ namespace CommandLineLib
             {
                var switchAttributeIdentifiers = switchAttribute.AllIdentifiers();
 
+               if ( switchAttributeIdentifiers.ContainsDuplicate<string>() )
+               {
+                  throw new CommandLineDeclarationException( String.Format( "The argument \"{0}\" contains a duplicate alias or identifier.", switchAttribute.ShortName ) );
+               }
+
                for ( var j = 0; j < switchAttributeIdentifiers.Length; j++ )
                {
                   foreach ( var c in switchAttributeIdentifiers[j] )

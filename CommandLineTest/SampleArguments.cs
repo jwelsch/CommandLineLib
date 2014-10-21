@@ -953,6 +953,26 @@ namespace CommandLineTest
 
    public class SameAliasArguments
    {
+      [Switch( "-foo", Aliases = new string[] { "--f", "-foo" } )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class SameIdentifierAndAliasArguments
+   {
+      [StringCompound( "-f", Aliases = new string[] { "-foo", "-foo" } )]
+      public String Compound1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class TwoSameAliasArguments
+   {
       [Switch( "-foo", Aliases = new string[] { "--f" } )]
       public bool Switch1
       {
@@ -968,7 +988,7 @@ namespace CommandLineTest
       }
    }
 
-   public class SameIdentifierAndAliasArguments
+   public class TwoSameIdentifierAndAliasArguments
    {
       [Switch( "-foo", Aliases = new string[] { "--f" } )]
       public bool Switch1
