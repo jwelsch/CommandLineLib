@@ -34,6 +34,11 @@ namespace CommandLineLib
          set { this.@switch.Aliases = value; }
       }
 
+      public string[] AllIdentifiers()
+      {
+         return this.@switch.AllIdentifiers();
+      }
+
       public bool MatchArgument( string argument )
       {
          return this.@switch.MatchArgument( argument );

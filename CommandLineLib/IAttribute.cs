@@ -111,6 +111,8 @@ namespace CommandLineLib
       {
          get;
       }
+
+      string[] AllIdentifiers();
    }
 
    //

@@ -102,6 +102,11 @@ namespace CommandLineLib
          get { return this.manager.Aliases; }
          set { this.manager.Aliases = value; }
       }
+      
+      public string[] AllIdentifiers()
+      {
+         return this.manager.AllIdentifiers();
+      }
 
       #endregion
 

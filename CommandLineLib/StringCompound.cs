@@ -38,6 +38,11 @@ namespace CommandLineLib
          set { this.manager.Aliases = value; }
       }
 
+      public string[] AllIdentifiers()
+      {
+         return this.manager.AllIdentifiers();
+      }
+
       #endregion
 
       public override string ShortName

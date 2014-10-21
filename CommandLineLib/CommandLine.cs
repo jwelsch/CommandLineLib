@@ -150,22 +150,27 @@ namespace CommandLineLib
             var switchAttribute = this.attributes[i] as ISwitchAttribute;
             if ( switchAttribute != null )
             {
-               foreach ( var c in switchAttribute.Identifier )
-               {
-                  if ( Char.IsWhiteSpace( c ) )
-                  {
-                     throw new CommandLineDeclarationException( String.Format( "The identifier for the switch or compound argument, \"{0}\", cannot contain whitespace characters.", switchAttribute.Identifier ) );
-                  }
-               }
+               var switchAttributeIdentifiers = switchAttribute.AllIdentifiers();
 
-               for ( var j = i + 1; j < this.attributes.Count; j++ )
+               for ( var j = 0; j < switchAttributeIdentifiers.Length; j++ )
                {
-                  var otherSwitch = this.attributes[j] as ISwitchAttribute;
-                  if ( otherSwitch != null )
+                  foreach ( var c in switchAttributeIdentifiers[j] )
                   {
-                     if ( switchAttribute.Identifier == otherSwitch.Identifier )
+                     if ( Char.IsWhiteSpace( c ) )
                      {
-                        throw new CommandLineDeclarationException( String.Format( "More than one switch or compound argument has the same prefix and label \"{0}\".", switchAttribute.ToString() ) );
+                        throw new CommandLineDeclarationException( String.Format( "The identifier or alias for the switch or compound argument, \"{0}\", cannot contain whitespace characters.", switchAttribute.Identifier ) );
+                     }
+                  }
+
+                  for ( var k = i + 1; k < this.attributes.Count; k++ )
+                  {
+                     var otherSwitch = this.attributes[k] as ISwitchAttribute;
+                     if ( otherSwitch != null )
+                     {
+                        if ( otherSwitch.MatchArgument( switchAttributeIdentifiers[j] ) )
+                        {
+                           throw new CommandLineDeclarationException( String.Format( "More than one switch or compound argument has the same identifier or alias \"{0}\".", switchAttribute.ToString() ) );
+                        }
                      }
                   }
                }

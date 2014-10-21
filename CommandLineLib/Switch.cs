@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace CommandLineLib
@@ -28,6 +29,15 @@ namespace CommandLineLib
       {
          get;
          set;
+      }
+
+      public string[] AllIdentifiers()
+      {
+         var identifiers = new List<string>();
+         identifiers.Add( this.Identifier );
+         identifiers.AddRange( this.Aliases );
+
+         return identifiers.ToArray();
       }
 
       public override bool MatchArgument( string argument )
@@ -68,5 +78,4 @@ namespace CommandLineLib
          return true;
       }
    }
-
 }

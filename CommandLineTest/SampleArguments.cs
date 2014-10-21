@@ -950,4 +950,38 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class SameAliasArguments
+   {
+      [Switch( "-foo", Aliases = new string[] { "--f" } )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+
+      [StringCompound( "-f", Aliases = new string[] { "--f" } )]
+      public String Compound1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class SameIdentifierAndAliasArguments
+   {
+      [Switch( "-foo", Aliases = new string[] { "--f" } )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+
+      [StringCompound( "-f", Aliases = new string[] { "-foo" } )]
+      public String Compound1
+      {
+         get;
+         private set;
+      }
+   }
 }
