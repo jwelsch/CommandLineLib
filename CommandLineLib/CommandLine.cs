@@ -30,7 +30,7 @@ namespace CommandLineLib
     * - Add more exceptions for different errors
     * - Add compound argument that can accept multiple values
     * 
-    * ************************************************************************/
+    **************************************************************************/
 
    public class CommandLine<T>
    {
