@@ -43,24 +43,37 @@
     <Compile Include="BaseAttribute.cs" />
     <Compile Include="CommandLineUsage.cs" />
     <Compile Include="CompoundManager.cs" />
-    <Compile Include="EnumCompound.cs" />
     <Compile Include="EnumValue.cs" />
     <Compile Include="FilePath.cs" />
+    <Compile Include="Generated Code\ByteCompound.cs" />
     <Compile Include="Generated Code\ByteRangeValueAttribute.cs" />
+    <Compile Include="Generated Code\DateTimeCompound.cs" />
     <Compile Include="Generated Code\DateTimeRangeValueAttribute.cs" />
+    <Compile Include="Generated Code\DecimalCompound.cs" />
     <Compile Include="Generated Code\DecimalRangeValueAttribute.cs" />
+    <Compile Include="Generated Code\DoubleCompound.cs" />
     <Compile Include="Generated Code\DoubleRangeValueAttribute.cs" />
+    <Compile Include="Generated Code\EnumCompound.cs" />
+    <Compile Include="Generated Code\FilePathCompound.cs" />
+    <Compile Include="Generated Code\Int16Compound.cs" />
     <Compile Include="Generated Code\Int16RangeValueAttribute.cs" />
+    <Compile Include="Generated Code\Int32Compound.cs" />
     <Compile Include="Generated Code\Int32RangeValueAttribute.cs" />
+    <Compile Include="Generated Code\Int64Compound.cs" />
     <Compile Include="Generated Code\Int64RangeValueAttribute.cs" />
+    <Compile Include="Generated Code\SByteCompound.cs" />
     <Compile Include="Generated Code\SByteRangeValueAttribute.cs" />
+    <Compile Include="Generated Code\SingleCompound.cs" />
     <Compile Include="Generated Code\SingleRangeValueAttribute.cs" />
+    <Compile Include="Generated Code\StringCompound.cs" />
+    <Compile Include="Generated Code\UInt16Compound.cs" />
     <Compile Include="Generated Code\UInt16RangeValueAttribute.cs" />
+    <Compile Include="Generated Code\UInt32Compound.cs" />
     <Compile Include="Generated Code\UInt32RangeValueAttribute.cs" />
+    <Compile Include="Generated Code\UInt64Compound.cs" />
     <Compile Include="Generated Code\UInt64RangeValueAttribute.cs" />
     <Compile Include="RangeValueBaseAttribute.cs" />
     <Compile Include="RangeValueHelper.cs" />
-    <Compile Include="FilePathCompound.cs" />
     <Compile Include="IAttribute.cs" />
     <Compile Include="CommandLine.cs" />
     <Compile Include="ArgumentTypeMismatchException.cs" />
@@ -68,7 +81,6 @@
     <Compile Include="CommandLineException.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringCompound.cs" />
     <Compile Include="StringValue.cs" />
     <Compile Include="Switch.cs" />
     <Compile Include="UnacceptableArgumentException.cs" />
@@ -77,6 +89,10 @@
   <ItemGroup>
     <None Include="Code Templates\RangeValueAttribute.replace" />
     <None Include="Code Templates\RangeValueAttribute.template" />
+    <None Include="Code Templates\CompoundAttribute.replace">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Code Templates\CompoundAttribute.template" />
     <None Include="prebuild.bat" />
   </ItemGroup>
   <ItemGroup />
