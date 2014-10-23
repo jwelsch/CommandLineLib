@@ -7,51 +7,51 @@
 using System;
 using System.Reflection;
 
-namespace $<Namespace>$
+namespace $[Namespace]$
 {
-   public class $<TypeName>$Value : RangeValueBaseAttribute
+   public class $[TypeName]$Value : RangeValueBaseAttribute
    {
-      public $<TypeName>$Value( int ordinal )
-         : base( ordinal, typeof( $<TypeName>$ ) )
+      public $[TypeName]$Value( int ordinal )
+         : base( ordinal, typeof( $[TypeName]$ ) )
       {
-         this.AcceptableValues = new $<TypeName>$[0];
-         this.rangeMin = $<TypeName>$.MinValue;
-         this.RangeMax = $<TypeName>$.MaxValue;
+         this.AcceptableValues = new $[TypeName]$[0];
+         this.rangeMin = $[TypeName]$.MinValue;
+         this.RangeMax = $[TypeName]$.MaxValue;
       }
 
-      private $<TypeName>$[] acceptableValues;
-      public $<TypeName>$[] AcceptableValues
+      private $[TypeName]$[] acceptableValues;
+      public $[TypeName]$[] AcceptableValues
       {
          get { return this.acceptableValues; }
          set
          {
-            RangeValueHelper.CheckAcceptableValues<$<TypeName>$>( value, this.RangeMin, this.RangeMax, true );
+            RangeValueHelper.CheckAcceptableValues<$[TypeName]$>( value, this.RangeMin, this.RangeMax, true );
 
             this.acceptableValues = value;
          }
       }
 
-      private $<TypeName>$ rangeMin;
-      public $<TypeName>$ RangeMin
+      private $[TypeName]$ rangeMin;
+      public $[TypeName]$ RangeMin
       {
          get { return this.rangeMin; }
          set
          {
-            RangeValueHelper.CheckRange<$<TypeName>$>( value, this.RangeMax, true );
-            RangeValueHelper.CheckAcceptableValues<$<TypeName>$>( this.AcceptableValues, value, this.RangeMax, true );
+            RangeValueHelper.CheckRange<$[TypeName]$>( value, this.RangeMax, true );
+            RangeValueHelper.CheckAcceptableValues<$[TypeName]$>( this.AcceptableValues, value, this.RangeMax, true );
 
             this.rangeMin = value;
          }
       }
 
-      private $<TypeName>$ rangeMax;
-      public $<TypeName>$ RangeMax
+      private $[TypeName]$ rangeMax;
+      public $[TypeName]$ RangeMax
       {
          get { return this.rangeMax; }
          set
          {
-            RangeValueHelper.CheckRange<$<TypeName>$>( this.RangeMin, value, true );
-            RangeValueHelper.CheckAcceptableValues<$<TypeName>$>( this.AcceptableValues, this.RangeMin, value, true );
+            RangeValueHelper.CheckRange<$[TypeName]$>( this.RangeMin, value, true );
+            RangeValueHelper.CheckAcceptableValues<$[TypeName]$>( this.AcceptableValues, this.RangeMin, value, true );
 
             this.rangeMax = value;
          }
@@ -59,20 +59,20 @@ namespace $<Namespace>$
 
       protected override bool IsInRange( object value )
       {
-         return RangeValueHelper.IsInRange<$<TypeName>$>( ($<TypeName>$) value, this.RangeMin, this.RangeMax );
+         return RangeValueHelper.IsInRange<$[TypeName]$>( ($[TypeName]$) value, this.RangeMin, this.RangeMax );
       }
 
       protected override bool IsAcceptable( object value )
       {
-         return RangeValueHelper.IsAcceptable<$<TypeName>$>( ($<TypeName>$) value, this.AcceptableValues );
+         return RangeValueHelper.IsAcceptable<$[TypeName]$>( ($[TypeName]$) value, this.AcceptableValues );
       }
    }
 
-   public class $<TypeName>$Compound : $<TypeName>$Value, ICompoundAttribute
+   public class $[TypeName]$Compound : $[TypeName]$Value, ICompoundAttribute
    {
       private CompoundManager manager;
 
-      public $<TypeName>$Compound( string identifier )
+      public $[TypeName]$Compound( string identifier )
          : base( 0 )
       {
          this.manager = new CompoundManager( this, identifier );
