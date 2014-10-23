@@ -39,6 +39,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TestFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\TestFramework-1.0.0.2\TestFramework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmptyArguments.cs" />
@@ -54,10 +58,6 @@
     <ProjectReference Include="..\CommandLineLib\CommandLineLib.csproj">
       <Project>{1a53c000-9d73-461d-b8c5-ad326612c051}</Project>
       <Name>CommandLineLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestFramework\TestFramework.csproj">
-      <Project>{5ed42040-fec9-4efb-a32e-1d4031013f14}</Project>
-      <Name>TestFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
