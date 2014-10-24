@@ -223,6 +223,7 @@ Used to make arguments mutually exclusive.  Array of integers that represent gro
 * -b (group 2)
 * -c (group 1)
 * -d (no group specified)  
+
 Allowed:  
 ```app.exe -a -c -d```  
 Not allowed:  
@@ -233,12 +234,14 @@ Used to identify a switch or compound argument.  Must be unique.
 The file must exist on the file system.
 ### Optional
 Marks an argument as optional.  Switch arguments can be optional without restrictions.  An optional value argument cannot be followed by any required parameters unless they are separated by a switch argument.  In this case the switch argument must have an ordinal.  
+
 Legal Example:  
 * value1 (Ordinal = 1, Optional = false)
 * value2 (Ordinal = 2, Optional = true)
 * value3 (Ordinal = 3, Optional = true)
 * -a     (Ordinal = 4, Optional = false)
 * value4 (Ordinal = 5, Optional = false)  
+
 Illegal Example:  
 * value1 (Ordinal = 1, Optional = false)
 * value2 (Ordinal = 2, Optional = true)
