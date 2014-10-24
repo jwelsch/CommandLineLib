@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcceptableValueBaseAttribute.cs" />
+    <Compile Include="AssemblyData.cs" />
     <Compile Include="BaseAttribute.cs" />
     <Compile Include="CommandLineUsage.cs" />
     <Compile Include="CompoundManager.cs" />

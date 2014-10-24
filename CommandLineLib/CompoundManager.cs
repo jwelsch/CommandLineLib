@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace CommandLineLib
 {
-   public class CompoundManager
+   internal class CompoundManager
    {
       private Switch @switch;
       private ValueBaseAttribute attribute;

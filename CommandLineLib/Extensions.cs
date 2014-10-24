@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CommandLineLib
 {
-   public static class Extensions
+   internal static class Extensions
    {
       public static List<T> Common<T>( this IEnumerable<T> collection1, IEnumerable<T> collection2 )
       {

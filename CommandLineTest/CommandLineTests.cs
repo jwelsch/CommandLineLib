@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using CommandLineLib;
 using TestFramework;
 
@@ -699,9 +701,10 @@ namespace CommandLineTest
       {
          var commandLine = new CommandLine<CommandLineHelpTextArguments>();
          var help = commandLine.Help();
+         var correct = @"CommandLineTest.exe v1.0.0.0
 
-         var correct = @"Command line usage:
-   CommandLineLib.dll -blah -beep <Compound_1> <foo> {-halb -peeb <Compound_A1> <oof>}|{-fish -goat <Compound_B1> <dog>}
+Command line usage:
+   CommandLineTest.exe -blah -beep <Compound_1> <foo> {-halb -peeb <Compound_A1> <oof>}|{-fish -goat <Compound_B1> <dog>}
 
 -blah: Here we have a switch.
 -beep: Here we have a compound argument.
@@ -726,8 +729,112 @@ dog: This is an Int32 value that specifies dog.
          var commandLine = new CommandLine<CommandLineHelpTextOptionalArguments>();
          var help = commandLine.Help();
 
-         var correct = @"Command line usage:
-   CommandLineLib.dll -blah -beep <Compound_1> <foo> [<bar>]
+         var correct = @"CommandLineTest.exe v1.0.0.0
+
+Command line usage:
+   CommandLineTest.exe -blah -beep <Compound_1> <foo> [<bar>]
+
+-blah: Here we have a switch.
+-beep: Here we have a compound argument.
+foo: This is an Int32 value that specifies foo.
+bar: This is an optional Int32 value that specifies bar.
+";
+
+         TestHelper.Expected<string>( correct, () =>
+         {
+            return help;
+         } );
+      }
+
+      [TestMethod]
+      public void CommandLineHelpTextProvideAssemblyName()
+      {
+         var commandLine = new CommandLine<CommandLineHelpTextArguments>();
+         var help = commandLine.Help( Path.GetFileName( Assembly.GetExecutingAssembly().Location ) );
+         var correct = @"CommandLineTest.exe v1.0.0.0
+
+Command line usage:
+   CommandLineTest.exe -blah -beep <Compound_1> <foo> {-halb -peeb <Compound_A1> <oof>}|{-fish -goat <Compound_B1> <dog>}
+
+-blah: Here we have a switch.
+-beep: Here we have a compound argument.
+foo: This is an Int32 value that specifies foo.
+-halb: Here we have a switch halb.
+-peeb: Here we have a compound argument peeb.
+oof: This is an Int32 value that specifies oof.
+-fish: Here we have a switch fish.
+-goat: Here we have a compound argument goat.
+dog: This is an Int32 value that specifies dog.
+";
+
+         TestHelper.Expected<string>( correct, () =>
+         {
+            return help;
+         } );
+      }
+
+      [TestMethod]
+      public void CommandLineHelpTextOptionalArgumentsProvideAssemblyName()
+      {
+         var commandLine = new CommandLine<CommandLineHelpTextOptionalArguments>();
+         var help = commandLine.Help( Path.GetFileName( Assembly.GetExecutingAssembly().Location ) );
+
+         var correct = @"CommandLineTest.exe v1.0.0.0
+
+Command line usage:
+   CommandLineTest.exe -blah -beep <Compound_1> <foo> [<bar>]
+
+-blah: Here we have a switch.
+-beep: Here we have a compound argument.
+foo: This is an Int32 value that specifies foo.
+bar: This is an optional Int32 value that specifies bar.
+";
+
+         TestHelper.Expected<string>( correct, () =>
+         {
+            return help;
+         } );
+      }
+
+      [TestMethod]
+      public void CommandLineHelpTextProvideAssemblyNameVersion()
+      {
+         var commandLine = new CommandLine<CommandLineHelpTextArguments>();
+         var assembly = Assembly.GetExecutingAssembly();
+         var help = commandLine.Help( Path.GetFileName( assembly.Location ), assembly.GetName().Version );
+         var correct = @"CommandLineTest.exe v1.0.0.0
+
+Command line usage:
+   CommandLineTest.exe -blah -beep <Compound_1> <foo> {-halb -peeb <Compound_A1> <oof>}|{-fish -goat <Compound_B1> <dog>}
+
+-blah: Here we have a switch.
+-beep: Here we have a compound argument.
+foo: This is an Int32 value that specifies foo.
+-halb: Here we have a switch halb.
+-peeb: Here we have a compound argument peeb.
+oof: This is an Int32 value that specifies oof.
+-fish: Here we have a switch fish.
+-goat: Here we have a compound argument goat.
+dog: This is an Int32 value that specifies dog.
+";
+
+         TestHelper.Expected<string>( correct, () =>
+         {
+            return help;
+         } );
+      }
+
+      [TestMethod]
+      public void CommandLineHelpTextOptionalArgumentsProvideAssemblyNameVersion()
+      {
+         var commandLine = new CommandLine<CommandLineHelpTextOptionalArguments>();
+         var assembly = Assembly.GetExecutingAssembly();
+         var help = commandLine.Help( Path.GetFileName( assembly.Location ), assembly.GetName().Version );
+
+         var correct = @"CommandLineTest.exe v1.0.0.0
+
+Command line usage:
+   CommandLineTest.exe -blah -beep <Compound_1> <foo> [<bar>]
 
 -blah: Here we have a switch.
 -beep: Here we have a compound argument.

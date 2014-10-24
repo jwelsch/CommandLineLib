@@ -30,7 +30,7 @@ namespace CommandLineLib
     * 
     * ***********************************************************************/
 
-   public class CommandLineUsage
+   internal class CommandLineUsage
    {
       public class Group
       {
@@ -74,13 +74,17 @@ namespace CommandLineLib
          }
       }
 
-      public string Generate( IEnumerable<IBaseAttribute> attributes )
+      public string Generate( IEnumerable<IBaseAttribute> attributes, string assemblyFileName, Version assemblyVersion )
       {
          var descriptionText = new StringBuilder();
-         var usageText = new StringBuilder( "Command line usage:" );
+         var usageText = new StringBuilder();
+
+         usageText.AppendLine( String.Format( "{0} v{1}", assemblyFileName, assemblyVersion ) );
          usageText.AppendLine();
+
+         usageText.AppendLine( "Command line usage:" );
          usageText.Append( "   " );
-         usageText.Append( Path.GetFileName( Assembly.GetExecutingAssembly().Location ) );
+         usageText.Append( assemblyFileName );
 
          var sortedGroups = this.SortByGroups( attributes );
          var groupCount = 0;

@@ -297,10 +297,20 @@ namespace CommandLineLib
 
       public string Help()
       {
+         return this.Help( AssemblyData.FileName );
+      }
+
+      public string Help( string assemblyFileName )
+      {
+         return this.Help( AssemblyData.FileName, AssemblyData.AssemblyVersion );
+      }
+
+      public string Help( string assemblyFileName, Version assemblyVersion )
+      {
          if ( String.IsNullOrEmpty( this.helpText ) )
          {
             var commandLineUsage = new CommandLineUsage();
-            this.helpText = commandLineUsage.Generate( this.attributes );
+            this.helpText = commandLineUsage.Generate( this.attributes, assemblyFileName, assemblyVersion );
          }
 
          return this.helpText;

@@ -2,7 +2,7 @@
 
 namespace CommandLineLib
 {
-   public static class RangeValueHelper
+   internal static class RangeValueHelper
    {
       public static bool CheckRange<T>( T rangeMin, T rangeMax, bool throwException = false )
       {
