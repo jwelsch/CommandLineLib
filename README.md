@@ -218,10 +218,11 @@ An array of identifiers that can refer to a switch or compound argument in addit
 Description of the argument.  Used in generating help.
 ### Groups
 Used to make arguments mutually exclusive.  Array of integers that represent groups that the argument can belong to.  A group can be designated by any integer.  If zero is specified, the argument belongs to all groups.  If no group is specified the argument is assigned zero for a group and belongs to all groups.  Arguments can belong to multiple groups.  Arguments in the same group are allowed to be specified together on the command line.  Arguments NOT in the same group are not allowed to be specified together on the command line. Example:  
+
 * -a (group 1)
 * -b (group 2)
 * -c (group 1)
-* -d (no group specified)
+* -d (no group specified)  
 Allowed:  
 ```app.exe -a -c -d```  
 Not allowed:  
