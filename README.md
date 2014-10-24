@@ -2,10 +2,13 @@
 Handles parsing of command line arguments.
 ## Supported Argument Types
 * Switch argument: The presence of the switch acts as a boolean value.
+
 ** Example: ```-foo```
 * Value argument: Simply a value on the command line.
+
 ** Example: ```"./etc/foo.config"``` or ```1```
 * Compound argument: Consists of a switch followed by a value, separated by a space.
+
 ** Example: ```-path "./etc/foo.config"``` or ```-iterations 1```
 ### Supported Options
 * Case sensitivity
