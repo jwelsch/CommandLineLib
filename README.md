@@ -26,7 +26,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Byte
 * Converts an argument to a System.Byte value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### ByteValue
 * Value argument
 * Property type: System.Byte
@@ -38,7 +38,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.DateTime
 * Converts an argument to a System.DateTime value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### DateTimeValue
 * Value argument
 * Property type: System.DateTime
@@ -50,7 +50,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Decimal
 * Converts an argument to a System.Decimal value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### DecimalValue
 * Value argument
 * Property type: System.Decimal
@@ -62,7 +62,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Double
 * Converts an argument to a System.Double value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### DoubleValue
 * Value argument
 * Property type: System.Double
@@ -74,7 +74,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: Custom enumeration
 * Converts an argument to a custom enumeration value.
 * Non-optional: Indicator
-* Optional: Description, Groups, Optional, Ordinal, ShortName
+* Optional: Aliases, Description, Groups, Optional, Ordinal, ShortName
 ### EnumValue
 * Value argument
 * Property type: Custom enumeration
@@ -86,7 +86,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.String
 * Converts an argument to a System.String value.
 * Non-optional: Indicator
-* Optional: Description, Groups, Must Exist, Optional, Ordinal, ShortName
+* Optional: Aliases, Description, Groups, Must Exist, Optional, Ordinal, ShortName
 ### FilePath
 * Value argument
 * Property type: System.String
@@ -98,7 +98,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Int16
 * Converts an argument to a System.Int16 value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### Int16Value
 * Value argument
 * Property type: System.Int16
@@ -110,7 +110,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Int32
 * Converts an argument to a System.Int32 value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### Int32Value
 * Value argument
 * Property type: System.Int32
@@ -122,7 +122,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Int64
 * Converts an argument to a System.Int64 value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### Int64Value
 * Value argument
 * Property type: System.Int64
@@ -134,7 +134,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.SByte
 * Converts an argument to a System.SByte value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### SByteValue
 * Value argument
 * Property type: System.SByte
@@ -146,7 +146,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Single
 * Converts an argument to a System.Single value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### SingleValue
 * Value argument
 * Property type: System.Single
@@ -158,7 +158,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.String
 * Converts an argument to a System.String value.
 * Non-optional: Indicator
-* Optional: Description, Groups, Optional, Ordinal, ShortName
+* Optional: Aliases, Description, Groups, Optional, Ordinal, ShortName
 ### StringValue
 * Value argument
 * Property type: System.String
@@ -170,13 +170,13 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Boolean
 * If present, the property is set to true.
 * Non-optional: Indicator
-* Optional: Description, Groups, Optional, Ordinal, ShortName
+* Optional: Aliases, Description, Groups, Optional, Ordinal, ShortName
 ### UInt16Compound
 * Compound argument
 * Property type: System.UInt16
 * Converts an argument to a System.UInt16 value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### UInt16Value
 * Value argument
 * Property type: System.UInt16
@@ -188,7 +188,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.UInt32
 * Converts an argument to a System.UInt32 value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### UInt32Value
 * Value argument
 * Property type: System.UInt32
@@ -200,7 +200,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.UInt64
 * Converts an argument to a System.UInt64 value.
 * Non-optional: Indicator
-* Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### UInt64Value
 * Value argument
 * Property type: System.UInt64
