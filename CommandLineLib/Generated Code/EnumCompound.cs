@@ -10,6 +10,7 @@ namespace CommandLineLib
       public EnumCompound( string identifier )
          : base( 0 )
       {
+         this.IsCompound = true;
          this.manager = new CompoundManager( this, identifier );
       }
 
