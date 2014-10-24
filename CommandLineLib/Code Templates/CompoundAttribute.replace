@@ -14,6 +14,10 @@
          <pair>$[Value]$=</pair>
       </set>
       <set>
+         <pair>$[TypeName]$=DirectoryPath</pair>
+         <pair>$[Value]$=</pair>
+      </set>
+      <set>
          <pair>$[TypeName]$=SByte</pair>
       </set>
       <set>

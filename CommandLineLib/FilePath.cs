@@ -3,35 +3,21 @@ using System.IO;
 
 namespace CommandLineLib
 {
-   public class FilePath : ValueBaseAttribute
+   public class FilePath : PathBaseAttribute
    {
       public FilePath( int ordinal )
-         : base( ordinal, typeof( String ) )
+         : base( ordinal )
       {
       }
 
-      public bool MustExist
+      protected override IOException CheckIfExists( string path )
       {
-         get;
-         set;
-      }
-
-      public override object FromString( string argument )
-      {
-         return argument;
-      }
-
-      protected override bool Validate( object convertedValue )
-      {
-         if ( this.MustExist )
+         if ( File.Exists( path ) )
          {
-            if ( !File.Exists( (string) convertedValue ) )
-            {
-               throw new FileNotFoundException( String.Format( "The file was not found at path \"{0}\" for the argument \"{1}\".", convertedValue, this.ShortName ), (string) convertedValue );
-            }
+            return null;
          }
 
-         return true;
+         return new FileNotFoundException( String.Format( "The file does not exist at path \"{0}\" for the argument \"{1}\".", path, this.ShortName ), path );
       }
    }
 }

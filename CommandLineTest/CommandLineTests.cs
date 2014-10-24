@@ -882,6 +882,76 @@ bar: This is an optional Int32 value that specifies bar.
             var commandLine = new CommandLine<TwoSameIdentifierAndAliasArguments>();
          } );
       }
+
+      [TestMethod]
+      public void DirectoryPathValueArguments()
+      {
+         var args1 = new string[] { @"C:\Foo\Bar", @".\" };
+         var args2 = new string[] { @"C:\Foo\Bar", @".\Foobar" };
+
+         var commandLine = new CommandLine<DirectoryPathValueArguments>();
+
+         var args = args1;
+         var arguments = commandLine.Parse( args );
+         TestHelper.Expected<string>( args[0], () =>
+         {
+            return arguments.DirectoryPath1;
+         } );
+         TestHelper.Expected<string>( args[1], () =>
+         {
+            return arguments.DirectoryPath2;
+         } );
+
+         args = args2;
+         TestHelper.ExpectedException<System.IO.DirectoryNotFoundException>( () =>
+         {
+            commandLine.Parse( args );
+         } );
+      }
+
+      [TestMethod]
+      public void InvalidDirectoryPathValueArguments()
+      {
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
+         {
+            var commandLine = new CommandLine<InvalidDirectoryPathValueArguments>();
+         } );
+      }
+
+      [TestMethod]
+      public void DirectoryPathCompoundArguments()
+      {
+         var args1 = new string[] { "-foo", @"C:\Foo\Bar", "-bar", @".\" };
+         var args2 = new string[] { "-foo", @"C:\Foo\Bar", "-bar", @".\Foobar" };
+
+         var commandLine = new CommandLine<DirectoryPathCompoundArguments>();
+
+         var args = args1;
+         var arguments = commandLine.Parse( args );
+         TestHelper.Expected<string>( args[1], () =>
+         {
+            return arguments.DirectoryPath1;
+         } );
+         TestHelper.Expected<string>( args[3], () =>
+         {
+            return arguments.DirectoryPath2;
+         } );
+
+         args = args2;
+         TestHelper.ExpectedException<System.IO.DirectoryNotFoundException>( () =>
+         {
+            commandLine.Parse( args );
+         } );
+      }
+
+      [TestMethod]
+      public void InvalidDirectoryPathCompoundArguments()
+      {
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
+         {
+            var commandLine = new CommandLine<InvalidDirectoryPathCompoundArguments>();
+         } );
+      }
       //#endif
    }
 }

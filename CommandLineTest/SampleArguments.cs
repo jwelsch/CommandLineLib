@@ -1004,4 +1004,58 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class DirectoryPathValueArguments
+   {
+      [DirectoryPath( 1 )]
+      public String DirectoryPath1
+      {
+         get;
+         private set;
+      }
+
+      [DirectoryPath( 2, MustExist = true )]
+      public String DirectoryPath2
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidDirectoryPathValueArguments
+   {
+      [DirectoryPath( 1 )]
+      public Int32 DirectoryPath1
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class DirectoryPathCompoundArguments
+   {
+      [DirectoryPathCompound( "-foo" )]
+      public String DirectoryPath1
+      {
+         get;
+         private set;
+      }
+
+      [DirectoryPathCompound( "-bar", MustExist = true )]
+      public String DirectoryPath2
+      {
+         get;
+         private set;
+      }
+   }
+
+   public class InvalidDirectoryPathCompoundArguments
+   {
+      [DirectoryPathCompound( "-foo" )]
+      public Int32 DirectoryPath1
+      {
+         get;
+         private set;
+      }
+   }
 }

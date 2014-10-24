@@ -43,6 +43,7 @@
     <Compile Include="BaseAttribute.cs" />
     <Compile Include="CommandLineUsage.cs" />
     <Compile Include="CompoundManager.cs" />
+    <Compile Include="DirectoryPath.cs" />
     <Compile Include="EnumValue.cs" />
     <Compile Include="FilePath.cs" />
     <Compile Include="Generated Code\ByteCompound.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Generated Code\DateTimeRangeValueAttribute.cs" />
     <Compile Include="Generated Code\DecimalCompound.cs" />
     <Compile Include="Generated Code\DecimalRangeValueAttribute.cs" />
+    <Compile Include="Generated Code\DirectoryPathCompound.cs" />
     <Compile Include="Generated Code\DoubleCompound.cs" />
     <Compile Include="Generated Code\DoubleRangeValueAttribute.cs" />
     <Compile Include="Generated Code\EnumCompound.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Generated Code\UInt32RangeValueAttribute.cs" />
     <Compile Include="Generated Code\UInt64Compound.cs" />
     <Compile Include="Generated Code\UInt64RangeValueAttribute.cs" />
+    <Compile Include="PathBaseAttribute.cs" />
     <Compile Include="RangeValueBaseAttribute.cs" />
     <Compile Include="RangeValueHelper.cs" />
     <Compile Include="IAttribute.cs" />
