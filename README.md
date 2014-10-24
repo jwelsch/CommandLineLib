@@ -20,7 +20,7 @@ Handles parsing of command line arguments.
 The library revolves around the concept of a class containing decorated properties.  The raw command line arguments are parsed and their values are put into the decorated properties.  See the example code below.
 ***
 ## Attributes
-There are many attributes that can be used based on the expected type of an argument.
+There are many attributes that can be used based on the expected type of an argument.  The following are all the attributes that can be used to decorate properties so that they will be treated as arguments.
 ### ByteCompound
 * Compound argument
 * Property type: System.Byte
@@ -209,6 +209,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ***
 ## Named Parameters
+Named parameters are what are passed into the constructor of the attribute.  The following are the supported named parameters.  Note that not all named parameters are supported by all attributes.
 ### AcceptableValues
 Array of the only values that the argument can be.
 ### Description
