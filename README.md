@@ -211,28 +211,37 @@ Array of the only values that the argument can be.
 Description of the argument.  Used in generating help.
 ### Groups
 Used to make arguments mutually exclusive.  Array of integers that represent groups that the argument can belong to.  A group can be designated by any integer.  If zero is specified, the argument belongs to all groups.  If no group is specified the argument is assigned zero for a group and belongs to all groups.  Arguments can belong to multiple groups.  Arguments in the same group are allowed to be specified together on the command line.  Arguments NOT in the same group are not allowed to be specified together on the command line. Example:  
+
 * -a (group 1)
 * -b (group 2)
 * -c (group 1)
 * -d (no group specified)
+
 Allowed:  
 ```app.exe -a -c -d```
+
 Not allowed:  
+
 ```app.exe -a -b -d (because -a and -b belong to different groups)```
+
 ### MustExist
 The file must exist on the file system.
 ### Optional
 Marks an argument as optional.  Switch arguments can be optional without restrictions.  An optional value argument cannot be followed by any required parameters unless they are separated by a switch argument.  In this case the switch argument must have an ordinal.  
 Legal Example:  
+
 * value1 (Ordinal = 1, Optional = false)
 * value2 (Ordinal = 2, Optional = true)
 * value3 (Ordinal = 3, Optional = true)
 * -a     (Ordinal = 4, Optional = false)
 * value4 (Ordinal = 5, Optional = false)
+
 Illegal Example:  
+
 * value1 (Ordinal = 1, Optional = false)
 * value2 (Ordinal = 2, Optional = true)
 * value3 (Ordinal = 3, Optional = false)
+
 ### Ordinal
 Specified the order that the argument should appear on the command line.  Zero or less is any order.  Greater than zero means the argument should appear in that order (ascending).  If no ordinal is specified, the default is zero.  Multiple switch or compound arguments can have the same ordinal.  Those with the same ordinal can be in any order within that ordinal number.  Only one argument (switch or value) can have a specific ordinal if that ordinal is assigned to a value argument.
 ### RangeMax
