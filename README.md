@@ -1,12 +1,13 @@
 # C# Command Line Management Project
 Handles parsing of command line arguments.
+***
 ## Supported Argument Types  
-- Switch argument: The presence of the switch acts as a boolean value.
-   - Example: ```-foo```
-- Value argument: Simply a value on the command line.
-   - Example: ```"./etc/foo.config"``` or ```1```
-- Compound argument: Consists of a switch followed by a value, separated by a space.
-   - Example: ```-path "./etc/foo.config"``` or ```-iterations 1```
+* Switch argument: The presence of the switch acts as a boolean value.
+    * Example: ```-foo```
+* Value argument: Simply a value on the command line.
+    * Example: ```"./etc/foo.config"``` or ```1```
+* Compound argument: Consists of a switch followed by a value, separated by a space.
+    * Example: ```-path "./etc/foo.config"``` or ```-iterations 1```
 ### Supported Options
 * Case sensitivity
 * Aliases
@@ -14,8 +15,10 @@ Handles parsing of command line arguments.
 * Mutual exclusivity
 * Optional/mandatory
 * Acceptable values
+***
 ## How To Use
-The library revolves around the concept of a class containing decorated properties.  The raw command line arguments are parsed and their values are put into the decorated properties.
+The library revolves around the concept of a class containing decorated properties.  The raw command line arguments are parsed and their values are put into the decorated properties.  See the example code below.
+***
 ## Attributes
 There are many attributes that can be used based on the expected type of an argument.
 ### ByteCompound
@@ -204,6 +207,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Converts an argument to a System.UInt64 value.
 * Non-optional: Ordinal
 * Optional: AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+***
 ## Named Parameters
 ### AcceptableValues
 Array of the only values that the argument can be.
@@ -250,6 +254,7 @@ The maximum (inclusive) allowed value of a value argument.
 The minimum (inclusive) allowed value of a value argument.
 ### ShortName
 A short descriptor for the argument.  Used in generating help.
+***
 ## Example
 ```
 using CommandLineLib;
