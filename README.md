@@ -224,10 +224,8 @@ Used to make arguments mutually exclusive.  Array of integers that represent gro
 * -c (group 1)
 * -d (no group specified)  
 
-Allowed:  
-  ```app.exe -a -c -d```  
-Not allowed:  
-  ```app.exe -a -b -d (because -a and -b belong to different groups)```  
+Allowed:  ```app.exe -a -c -d```  
+Not allowed:  ```app.exe -a -b -d (because -a and -b belong to different groups)```
 ### Identifier
 Used to identify a switch or compound argument.  Must be unique.
 ### MustExist
