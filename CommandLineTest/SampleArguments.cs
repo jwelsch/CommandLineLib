@@ -1110,4 +1110,35 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class GroupOptionalPrecedence
+   {
+      [Int32Compound( "-group1", Groups = new int[] { 1 } )]
+      public Int32 Group1
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-switch1", Optional = true, Groups = new int[] { 1 } )]
+      public bool Switch1
+      {
+         get;
+         private set;
+      }
+
+      [Int32Compound( "-group2", Groups = new int[] { 2 } )]
+      public Int32 Group2
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-switch2", Optional = true, Groups = new int[] { 2 } )]
+      public bool Switch2
+      {
+         get;
+         private set;
+      }
+   }
 }

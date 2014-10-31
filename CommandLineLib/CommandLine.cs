@@ -219,7 +219,7 @@ namespace CommandLineLib
                   {
                      if ( i + 1 >= args.Length )
                      {
-                        throw new CommandLineException( String.Format( "Missing value the compound argument \"{0}\".", unmatchedAttributeList[j].ShortName ) );
+                        throw new CommandLineException( String.Format( "Missing value for the compound argument \"{0}\".", unmatchedAttributeList[j].ShortName ) );
                      }
 
                      i++;
@@ -252,7 +252,10 @@ namespace CommandLineLib
 
          foreach ( var argInfo in unmatchedAttributeList )
          {
-            if ( !argInfo.Optional )
+            var common = argInfo.Groups.Common( acceptedGroups );
+            var onlyBelongsToZero = argInfo.Groups.Contains( 0 ) && ( argInfo.Groups.Length == 1 );
+
+            if ( !argInfo.Optional && ( onlyBelongsToZero ? true : common.Count > 0 ) )
             {
                throw new CommandLineException( String.Format( "The mandatory argument \"{0}\" was not found.", argInfo.ShortName ) );
             }

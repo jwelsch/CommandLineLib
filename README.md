@@ -229,7 +229,10 @@ An array of identifiers that can refer to a switch or compound argument in addit
 ### Description
 Description of the argument.  Used in generating help.
 ### Groups
-Used to make arguments mutually exclusive.  Array of integers that represent groups that the argument can belong to.  A group can be designated by any integer.  If zero is specified, the argument belongs to all groups.  If no group is specified the argument is assigned zero for a group and belongs to all groups.  Arguments can belong to multiple groups.  Arguments in the same group are allowed to be specified together on the command line.  Arguments NOT in the same group are not allowed to be specified together on the command line. Example:  
+Used to make arguments mutually exclusive.  Array of integers that represent groups that the argument can belong to.  A group can be designated by any integer.  If zero is specified, the argument belongs to all groups.  If no group is specified the argument is assigned zero for a group and belongs to all groups.  Arguments can belong to multiple groups.  Arguments in the same group are allowed to be specified together on the command line.  Arguments NOT in the same group are not allowed to be specified together on the command line.  
+Non-optional arguments are mandatory within their assigned group.  So, if an argument is mandatory and in group 1, but arguments for group 2 were passed on the command line, no exceptions would be thrown.  
+
+Example:  
 
 * -a (group 1)
 * -b (group 2)
@@ -244,6 +247,7 @@ Used to identify a switch or compound argument.  Must be unique.
 The file must exist on the file system.
 ### Optional
 Marks an argument as optional.  Switch arguments can be optional without restrictions.  An optional value argument cannot be followed by any required parameters unless they are separated by a switch argument.  In this case the switch argument must have an ordinal.  
+Non-optional arguments are mandatory within their assigned group.  So, if an argument is mandatory and in group 1, but arguments for group 2 were passed on the command line, no exceptions would be thrown.  
 
 Legal Example:  
 

@@ -17,6 +17,7 @@ namespace CommandLineTest
                var commandLine = new CommandLine<EmptyArguments>();
             } );
       }
+
       [TestMethod]
       public void SingleSwitch()
       {
@@ -1060,43 +1061,130 @@ bar: This is an optional Int32 value that specifies bar.
          } );
       }
 
+      //[TestMethod]
+      //public void Tvdb2FileCommandLineArguments()
+      //{
+      //   var args = new string[] { "-season", @"C:\Temp\Buffy the Vampire Slayer\Season 3", "-seriesId", "70327", "-dryRun", "-collapseMultiPart" };
+      //   var commandLine = new CommandLine<Tvdb2FileCommandLineArguments>();
+      //   var arguments = commandLine.Parse( args );
+
+      //   TestHelper.Expected<string>( args[1], () =>
+      //      {
+      //         return arguments.SeasonPath;
+      //      } );
+
+      //   TestHelper.Expected<string>( null, () =>
+      //   {
+      //      return arguments.SeriesSearchTerms;
+      //   } );
+
+      //   TestHelper.Expected<int>( Int32.Parse( args[3] ), () =>
+      //   {
+      //      return arguments.SeriesId;
+      //   } );
+
+      //   TestHelper.Expected<bool>( true, () =>
+      //   {
+      //      return arguments.DryRun;
+      //   } );
+
+      //   TestHelper.Expected<bool>( true, () =>
+      //   {
+      //      return arguments.CollapseMultiPart;
+      //   } );
+
+      //   TestHelper.Expected<bool>( false, () =>
+      //   {
+      //      return arguments.ForceUpdate;
+      //   } );
+      //}
+
       [TestMethod]
-      public void Tvdb2FileCommandLineArguments()
+      public void GroupOptionalPrecedence()
       {
-         var args = new string[] { "-season", @"C:\Temp\Buffy the Vampire Slayer\Season 3", "-seriesId", "70327", "-dryRun", "-collapseMultiPart" };
-         var commandLine = new CommandLine<Tvdb2FileCommandLineArguments>();
+         var args1A = new string[] { "-group1", "1" };
+         var args1B = new string[] { "-group1", "1", "-switch1" };
+         var args2A = new string[] { "-group2", "2" };
+         var args2B = new string[] { "-group2", "2", "-switch2" };
+
+         var commandLine = new CommandLine<GroupOptionalPrecedence>();
+
+         var args = args1A;
          var arguments = commandLine.Parse( args );
-
-         TestHelper.Expected<string>( args[1], () =>
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () =>
             {
-               return arguments.SeasonPath;
+               return arguments.Group1;
             } );
-
-         TestHelper.Expected<string>( null, () =>
+         TestHelper.Expected<bool>( false, () =>
+            {
+               return arguments.Switch1;
+            } );
+         TestHelper.Expected<Int32>( 0, () =>
          {
-            return arguments.SeriesSearchTerms;
+            return arguments.Group2;
          } );
-
-         TestHelper.Expected<int>( Int32.Parse( args[3] ), () =>
-         {
-            return arguments.SeriesId;
-         } );
-
-         TestHelper.Expected<bool>( true, () =>
-         {
-            return arguments.DryRun;
-         } );
-
-         TestHelper.Expected<bool>( true, () =>
-         {
-            return arguments.CollapseMultiPart;
-         } );
-
          TestHelper.Expected<bool>( false, () =>
          {
-            return arguments.ForceUpdate;
+            return arguments.Switch2;
+         } );
+
+         args = args1B;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () =>
+         {
+            return arguments.Group1;
+         } );
+         TestHelper.Expected<bool>( true, () =>
+         {
+            return arguments.Switch1;
+         } );
+         TestHelper.Expected<Int32>( 0, () =>
+         {
+            return arguments.Group2;
+         } );
+         TestHelper.Expected<bool>( false, () =>
+         {
+            return arguments.Switch2;
+         } );
+
+         args = args2A;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( 0, () =>
+         {
+            return arguments.Group1;
+         } );
+         TestHelper.Expected<bool>( false, () =>
+         {
+            return arguments.Switch1;
+         } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () =>
+         {
+            return arguments.Group2;
+         } );
+         TestHelper.Expected<bool>( false, () =>
+         {
+            return arguments.Switch2;
+         } );
+
+         args = args2B;
+         arguments = commandLine.Parse( args );
+         TestHelper.Expected<Int32>( 0, () =>
+         {
+            return arguments.Group1;
+         } );
+         TestHelper.Expected<bool>( false, () =>
+         {
+            return arguments.Switch1;
+         } );
+         TestHelper.Expected<Int32>( Int32.Parse( args[1] ), () =>
+         {
+            return arguments.Group2;
+         } );
+         TestHelper.Expected<bool>( true, () =>
+         {
+            return arguments.Switch2;
          } );
       }
-      //#endif
+// #endif
    }
 }
