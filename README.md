@@ -223,17 +223,20 @@ There are many attributes that can be used based on the expected type of an argu
 ## Named Parameters
 Named parameters are what are passed into the constructor of the attribute.  The following are the supported named parameters.  Note that not all named parameters are supported by all attributes.
 ### AcceptableValues
-An array of the only values that the argument can be.
+An array of the only values that the argument can be.  By default all values are acceptable.
 ### Aliases
-An array of identifiers that can refer to a switch or compound argument in addition to it its formal identifier.
+An array of identifiers that can refer to a switch or compound argument in addition to it its formal identifier.  By default there are no aliases.
 ### Description
-Description of the argument.  Used in generating help.
+Description of the argument.  Used in generating help.  Empty string by default.
 ### CaseSensitive
-Setting to True will make the Indicators on switch and compound arguments case sensitive.  If False they will not be case sensitive.
+Setting to True will make the Indicators on switch and compound arguments case sensitive.  If False they will not be case sensitive.  Defaults to False.
 ### Groups
 Used to make arguments mutually exclusive.  Array of integers that represent groups that the argument can belong to.  A group can be designated by any integer.  If zero is specified, the argument belongs to all groups.  If no group is specified the argument is assigned zero for a group and belongs to all groups.  Arguments can belong to multiple groups.  Arguments in the same group are allowed to be specified together on the command line.  Arguments NOT in the same group are not allowed to be specified together on the command line.  
+  
 Non-optional arguments are mandatory within their assigned group.  So, if an argument is mandatory and in group 1, but arguments for group 2 were passed on the command line, no exceptions would be thrown.  
-
+  
+Defaults to zero.
+  
 Example:  
 
 * -a (group 1)
@@ -242,15 +245,18 @@ Example:
 * -d (no group specified)  
 
 Allowed:  ```app.exe -a -c -d```  
-Not allowed:  ```app.exe -a -b -d (because -a and -b belong to different groups)```
+Not allowed (because -a and -b belong to different groups):  ```app.exe -a -b -d```
 ### Identifier
 Used to identify a switch or compound argument.  Must be unique.
 ### MustExist
-The file must exist on the file system.
+The file or directory must exist on the file system.  Defaults to False.
 ### Optional
 Marks an argument as optional.  Switch arguments can be optional without restrictions.  An optional value argument cannot be followed by any required parameters unless they are separated by a switch argument.  In this case the switch argument must have an ordinal.  
+  
 Non-optional arguments are mandatory within their assigned group.  So, if an argument is mandatory and in group 1, but arguments for group 2 were passed on the command line, no exceptions would be thrown.  
-
+  
+Defaults to False.
+  
 Legal Example:  
 
 * value1 (Ordinal = 1, Optional = false)
@@ -265,15 +271,15 @@ Illegal Example:
 * value2 (Ordinal = 2, Optional = true)
 * value3 (Ordinal = 3, Optional = false)  
 ### Ordinal
-Specified the order that the argument should appear on the command line.  Zero or less is any order.  Greater than zero means the argument should appear in that order (ascending).  If no ordinal is specified, the default is zero.  Multiple switch or compound arguments can have the same ordinal.  Those with the same ordinal can be in any order within that ordinal number.  Only one argument (switch or value) can have a specific ordinal if that ordinal is assigned to a value argument.
+Specified the order that the argument should appear on the command line.  Zero or less is any order.  Greater than zero means the argument should appear in that order (ascending).  If no ordinal is specified, the default is zero.  Multiple switch or compound arguments can have the same ordinal.  Those with the same ordinal can be in any order within that ordinal number.  Only one argument (switch or value) can have a specific ordinal if that ordinal is assigned to a value argument.  Defaults to zero.
 ### RangeMax
-The maximum (inclusive) allowed value of a value argument.
+The maximum (inclusive) allowed value of a value argument.  Defaults to system minimum value for that type.
 ### RangeMin
-The minimum (inclusive) allowed value of a value argument.
+The minimum (inclusive) allowed value of a value argument.  Defaults to system maximum value for that type.
 ### ShortName
-A short descriptor for the argument.  Used in generating help.
+A short descriptor for the argument.  Used in generating help.  Defaults to the Indicator for switches and compounds.  For values it defaults to the name of the property.
 ### ValueCaseSensitive
-Setting to True will make the values on EnumValue and EnumCompound arguments case sensitive.  If False they will not be case sensitive.
+Setting to True will make the values on EnumValue and EnumCompound arguments case sensitive.  If False they will not be case sensitive.  Defaults to False.
 ***
 ## Automatically Generated Help
 CommandLineLib can automatically generate command line usage help text.  Make sure that the arguments have at least the Description named parameter set.  For best results, set the ShortName named parameter for value arguments, as well (switch and compound arguments default to using their Identifier).
