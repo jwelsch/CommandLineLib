@@ -1141,4 +1141,21 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class EnumCaseSensitive
+   {
+      [EnumValue( 1, ValueCaseSensitive = true )]
+      public Shapes CaseSensitiveEnumValue
+      {
+         get;
+         private set;
+      }
+
+      [EnumCompound( "-enumCompound", ValueCaseSensitive = true )]
+      public Shapes CaseSensitiveEnumCompound
+      {
+         get;
+         private set;
+      }
+   }
 }

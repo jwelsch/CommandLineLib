@@ -26,7 +26,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Byte
 * Converts an argument to a System.Byte value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### ByteValue
 * Value argument
 * Property type: System.Byte
@@ -38,7 +38,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.DateTime
 * Converts an argument to a System.DateTime value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### DateTimeValue
 * Value argument
 * Property type: System.DateTime
@@ -50,7 +50,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Decimal
 * Converts an argument to a System.Decimal value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### DecimalValue
 * Value argument
 * Property type: System.Decimal
@@ -62,7 +62,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.String
 * Converts an argument to a System.String value.
 * Non-optional: Indicator
-* Optional: Aliases, Description, Groups, Must Exist, Optional, Ordinal, ShortName
+* Optional: Aliases, CaseSensitive, Description, Groups, Must Exist, Optional, Ordinal, ShortName
 ### DirectoryPath
 * Value argument
 * Property type: System.String
@@ -74,7 +74,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Double
 * Converts an argument to a System.Double value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### DoubleValue
 * Value argument
 * Property type: System.Double
@@ -86,19 +86,19 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: Custom enumeration
 * Converts an argument to a custom enumeration value.
 * Non-optional: Indicator
-* Optional: Aliases, Description, Groups, Optional, Ordinal, ShortName
+* Optional: Aliases, CaseSensitive, Description, Groups, Optional, Ordinal, ShortName, ValueCaseSensitive
 ### EnumValue
 * Value argument
 * Property type: Custom enumeration
 * Converts an argument to a custom enumeration value.
 * Non-optional: Ordinal
-* Optional: Description, Groups, Optional, Ordinal, ShortName
+* Optional: Description, Groups, Optional, Ordinal, ShortName, ValueCaseSensitive
 ### FilePathCompound
 * Compound argument
 * Property type: System.String
 * Converts an argument to a System.String value.
 * Non-optional: Indicator
-* Optional: Aliases, Description, Groups, Must Exist, Optional, Ordinal, ShortName
+* Optional: Aliases, CaseSensitive, Description, Groups, Must Exist, Optional, Ordinal, ShortName
 ### FilePath
 * Value argument
 * Property type: System.String
@@ -110,7 +110,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Int16
 * Converts an argument to a System.Int16 value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### Int16Value
 * Value argument
 * Property type: System.Int16
@@ -122,7 +122,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Int32
 * Converts an argument to a System.Int32 value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### Int32Value
 * Value argument
 * Property type: System.Int32
@@ -134,7 +134,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Int64
 * Converts an argument to a System.Int64 value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### Int64Value
 * Value argument
 * Property type: System.Int64
@@ -146,7 +146,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.SByte
 * Converts an argument to a System.SByte value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### SByteValue
 * Value argument
 * Property type: System.SByte
@@ -158,7 +158,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Single
 * Converts an argument to a System.Single value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### SingleValue
 * Value argument
 * Property type: System.Single
@@ -170,7 +170,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.String
 * Converts an argument to a System.String value.
 * Non-optional: Indicator
-* Optional: Aliases, Description, Groups, Optional, Ordinal, ShortName
+* Optional: Aliases, CaseSensitive, Description, Groups, Optional, Ordinal, ShortName
 ### StringValue
 * Value argument
 * Property type: System.String
@@ -182,13 +182,13 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.Boolean
 * If present, the property is set to true.
 * Non-optional: Indicator
-* Optional: Aliases, Description, Groups, Optional, Ordinal, ShortName
+* Optional: Aliases, CaseSensitive, Description, Groups, Optional, Ordinal, ShortName
 ### UInt16Compound
 * Compound argument
 * Property type: System.UInt16
 * Converts an argument to a System.UInt16 value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### UInt16Value
 * Value argument
 * Property type: System.UInt16
@@ -200,7 +200,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.UInt32
 * Converts an argument to a System.UInt32 value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### UInt32Value
 * Value argument
 * Property type: System.UInt32
@@ -212,7 +212,7 @@ There are many attributes that can be used based on the expected type of an argu
 * Property type: System.UInt64
 * Converts an argument to a System.UInt64 value.
 * Non-optional: Indicator
-* Optional: Aliases, AcceptableValues, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
+* Optional: Aliases, AcceptableValues, CaseSensitive, Description, Groups, Optional, Ordinal, RangeMax, RangeMin, ShortName
 ### UInt64Value
 * Value argument
 * Property type: System.UInt64
@@ -228,6 +228,8 @@ An array of the only values that the argument can be.
 An array of identifiers that can refer to a switch or compound argument in addition to it its formal identifier.
 ### Description
 Description of the argument.  Used in generating help.
+### CaseSensitive
+Setting to True will make the Indicators on switch and compound arguments case sensitive.  If False they will not be case sensitive.
 ### Groups
 Used to make arguments mutually exclusive.  Array of integers that represent groups that the argument can belong to.  A group can be designated by any integer.  If zero is specified, the argument belongs to all groups.  If no group is specified the argument is assigned zero for a group and belongs to all groups.  Arguments can belong to multiple groups.  Arguments in the same group are allowed to be specified together on the command line.  Arguments NOT in the same group are not allowed to be specified together on the command line.  
 Non-optional arguments are mandatory within their assigned group.  So, if an argument is mandatory and in group 1, but arguments for group 2 were passed on the command line, no exceptions would be thrown.  
@@ -270,6 +272,8 @@ The maximum (inclusive) allowed value of a value argument.
 The minimum (inclusive) allowed value of a value argument.
 ### ShortName
 A short descriptor for the argument.  Used in generating help.
+### ValueCaseSensitive
+Setting to True will make the values on EnumValue and EnumCompound arguments case sensitive.  If False they will not be case sensitive.
 ***
 ## Automatically Generated Help
 CommandLineLib can automatically generate command line usage help text.  Make sure that the arguments have at least the Description named parameter set.  For best results, set the ShortName named parameter for value arguments, as well (switch and compound arguments default to using their Identifier).

@@ -5,6 +5,12 @@ namespace CommandLineLib
 {
    public class EnumValue : ValueBaseAttribute
    {
+      public bool ValueCaseSensitive
+      {
+         get;
+         set;
+      }
+
       public EnumValue( int ordinal )
          : base( ordinal, typeof( Enum ) )
       {
@@ -67,7 +73,7 @@ namespace CommandLineLib
          }
 
          var converted = Activator.CreateInstance( this.ValueType );
-         var args = new object[] { argument, true, converted };
+         var args = new object[] { argument, !this.ValueCaseSensitive, converted };
          var result = this.ParseMethodInfo.Invoke( null, args );
 
          if ( !(bool) result )

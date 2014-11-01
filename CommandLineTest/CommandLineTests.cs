@@ -1185,6 +1185,39 @@ bar: This is an optional Int32 value that specifies bar.
             return arguments.Switch2;
          } );
       }
+
+      [TestMethod]
+      public void EnumCaseSensitive()
+      {
+         var args1 = new string[] { "Circle", "-enumCompound", "Square" };
+         var args2 = new string[] { "circle", "-enumCompound", "Square" };
+         var args3 = new string[] { "Circle", "-enumCompound", "square" };
+
+         var commandLine = new CommandLine<EnumCaseSensitive>();
+
+         var args = args1;
+         var arguments = commandLine.Parse( args );
+         TestHelper.Expected<Shapes>( Shapes.Circle, () =>
+            {
+               return arguments.CaseSensitiveEnumValue;
+            } );
+         TestHelper.Expected<Shapes>( Shapes.Square, () =>
+         {
+            return arguments.CaseSensitiveEnumCompound;
+         } );
+
+         args = args2;
+         TestHelper.ExpectedException<CommandLineException>( () =>
+            {
+               arguments = commandLine.Parse( args );
+            } );
+
+         args = args3;
+         TestHelper.ExpectedException<CommandLineException>( () =>
+         {
+            arguments = commandLine.Parse( args );
+         } );
+      }
 // #endif
    }
 }
