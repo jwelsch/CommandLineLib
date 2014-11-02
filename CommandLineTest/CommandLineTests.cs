@@ -28,7 +28,7 @@ namespace CommandLineTest
                return arguments.Foo;
             } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentNotFoundException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-bar" } );
          } );
@@ -44,17 +44,17 @@ namespace CommandLineTest
             return arguments.Foo && arguments.Bar;
          } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentNotFoundException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-foo", "-bar1" } );
          } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentNotFoundException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-foo1", "-bar" } );
          } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentNotFoundException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-foo1", "-bar1" } );
          } );
@@ -63,7 +63,7 @@ namespace CommandLineTest
       [TestMethod]
       public void DuplicateSwitch()
       {
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<DuplicateArgumentException>( () =>
          {
             var commandLine = new CommandLine<OptionalSwitchArguments>();
             var arguments = commandLine.Parse( new string[] { "-foo", "-foo" } );
@@ -109,7 +109,7 @@ namespace CommandLineTest
             return arguments.Foo && arguments.Bar;
          } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentNotFoundException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-Foo", "-bar" } );
          } );
@@ -131,7 +131,7 @@ namespace CommandLineTest
             return arguments.Red && arguments.Green && arguments.Black && arguments.Blue;
          } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentOutOfOrderException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-red", "-green", "-blue", "-black" } );
          } );
@@ -147,7 +147,7 @@ namespace CommandLineTest
             return arguments.Red && arguments.Green && !arguments.Blue;
          } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<GroupNotAllowedException>( () =>
          {
             arguments = commandLine.Parse( new string[] { "-red", "-green", "-blue" } );
          } );
@@ -181,7 +181,7 @@ namespace CommandLineTest
             return arguments.Int32Value;
          } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ValueNotAcceptableException>( () =>
             {
                arguments = commandLine.Parse( notAcceptableValue.ToString() );
             } );
@@ -206,7 +206,7 @@ namespace CommandLineTest
 
          foreach ( var value in outOfRange )
          {
-            TestHelper.ExpectedException<CommandLineException>( () =>
+            TestHelper.ExpectedException<ValueOutOfRangeException>( () =>
             {
                var arguments = commandLine.Parse( value.ToString() );
             } );
@@ -246,7 +246,7 @@ namespace CommandLineTest
             return arguments.StringValue;
          } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ValueNotAcceptableException>( () =>
             {
                arguments = commandLine.Parse( unacceptableValue );
             } );
@@ -502,7 +502,7 @@ namespace CommandLineTest
             return arguments.Bar;
          } );
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<GroupNotAllowedException>( () =>
             {
                commandLine.Parse( args3 );
             } );
@@ -530,19 +530,19 @@ namespace CommandLineTest
          } );
 
          args = args2;
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentOutOfOrderException>( () =>
             {
                commandLine.Parse( args );
             } );
 
          args = args3;
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentFormatException>( () =>
          {
             commandLine.Parse( args );
          } );
 
          args = args4;
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentFormatException>( () =>
          {
             commandLine.Parse( args );
          } );
@@ -949,7 +949,7 @@ bar: This is an optional Int32 value that specifies bar.
          var args = new string[] { "-foo" };
          var commandLine = new CommandLine<EnumCompoundArguments>();
 
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<CompoundArgumentValueMissingException>( () =>
             {
                commandLine.Parse( args );
             } );
@@ -1207,13 +1207,13 @@ bar: This is an optional Int32 value that specifies bar.
          } );
 
          args = args2;
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentNotFoundException>( () =>
             {
                arguments = commandLine.Parse( args );
             } );
 
          args = args3;
-         TestHelper.ExpectedException<CommandLineException>( () =>
+         TestHelper.ExpectedException<ArgumentFormatException>( () =>
          {
             arguments = commandLine.Parse( args );
          } );

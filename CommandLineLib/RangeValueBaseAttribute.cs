@@ -13,7 +13,7 @@ namespace CommandLineLib
       {
          if ( !this.IsInRange( convertedValue ) )
          {
-            throw new CommandLineException( String.Format( "The value \"{0}\" is out of range for this argument \"{1}\".", convertedValue, this.ShortName ) );
+            throw new ValueOutOfRangeException( String.Format( "The value \"{0}\" is out of range for this argument \"{1}\".", convertedValue, this.ShortName ) );
          }
 
          return base.Validate( convertedValue );

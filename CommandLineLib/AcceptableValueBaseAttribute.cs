@@ -13,7 +13,7 @@ namespace CommandLineLib
       {
          if ( !this.IsAcceptable( convertedValue ) )
          {
-            throw new CommandLineException( String.Format( "The value \"{0}\" is not acceptable for this argument.", convertedValue ) );
+            throw new ValueNotAcceptableException( String.Format( "The value \"{0}\" is not acceptable for this argument.", convertedValue ) );
          }
 
          return true;

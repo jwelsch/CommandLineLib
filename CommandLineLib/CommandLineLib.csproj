@@ -80,14 +80,12 @@
     <Compile Include="RangeValueHelper.cs" />
     <Compile Include="IAttribute.cs" />
     <Compile Include="CommandLine.cs" />
-    <Compile Include="ArgumentTypeMismatchException.cs" />
     <Compile Include="CommandLineDeclarationException.cs" />
     <Compile Include="CommandLineException.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringValue.cs" />
     <Compile Include="Switch.cs" />
-    <Compile Include="UnacceptableArgumentException.cs" />
     <Compile Include="ValueBaseAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

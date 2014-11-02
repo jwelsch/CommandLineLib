@@ -206,20 +206,20 @@ namespace CommandLineLib
                {
                   if ( !this.IsGroupAllowed( acceptedGroups, unmatchedAttributeList[j].Groups ) )
                   {
-                     throw new CommandLineException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unmatchedAttributeList[j].ShortName ) );
+                     throw new GroupNotAllowedException( String.Format( "The argument \"{0}\" is not allowed because of its group.", unmatchedAttributeList[j].ShortName ) );
                   }
 
                   if ( ( unmatchedAttributeList[j].Ordinal != 0 )
                      && ( unmatchedAttributeList[j].Ordinal < currentOrdinal ) )
                   {
-                     throw new CommandLineException( String.Format( "The argument \"{0}\" is out of order.", unmatchedAttributeList[j].ShortName ) );
+                     throw new ArgumentOutOfOrderException( String.Format( "The argument \"{0}\" is out of order.", unmatchedAttributeList[j].ShortName ) );
                   }
 
                   if ( unmatchedAttributeList[j].IsCompound )
                   {
                      if ( i + 1 >= args.Length )
                      {
-                        throw new CommandLineException( String.Format( "Missing value for the compound argument \"{0}\".", unmatchedAttributeList[j].ShortName ) );
+                        throw new CompoundArgumentValueMissingException( String.Format( "Missing value for the compound argument \"{0}\".", unmatchedAttributeList[j].ShortName ) );
                      }
 
                      i++;
@@ -244,7 +244,7 @@ namespace CommandLineLib
                {
                   if ( argument.MatchArgument( args[i] ) )
                   {
-                     throw new CommandLineException( String.Format( "Duplicate \"{0}\" argument found.", argument.ShortName ) );
+                     throw new DuplicateArgumentException( String.Format( "Duplicate \"{0}\" argument found.", argument.ShortName ) );
                   }
                }
             }
@@ -257,7 +257,7 @@ namespace CommandLineLib
 
             if ( !argInfo.Optional && ( onlyBelongsToZero ? true : common.Count > 0 ) )
             {
-               throw new CommandLineException( String.Format( "The mandatory argument \"{0}\" was not found.", argInfo.ShortName ) );
+               throw new ArgumentNotFoundException( String.Format( "The mandatory argument \"{0}\" was not found.", argInfo.ShortName ) );
             }
          }
 

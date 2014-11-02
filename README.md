@@ -294,6 +294,30 @@ There are three overrides.  All automatically retrieved values are done so by us
   
 See the example code below.
 ***
+## Classes
+### General
+#### CommandLine
+Class that must be given the class that contains properties decorated with argument attributes as a type parameter in its constructor.  If construction is complete, then call Parse() and pass in the raw command line arguments that were passed into main().
+### Exceptions
+#### GroupNotAllowedException
+Thrown when a group not that is not allowed due to previous group(s) being present is in the command line arguments.
+#### ArgumentOutOfOrderException
+Thrown when arguments are passed out of order as specified by their Ordinals.
+#### CompoundArgumentValueMissingException
+Thrown when the value part of a compound argument is missing.
+#### DuplicateArgumentException
+Thrown when the same argument is present in the command line arguments.
+#### ArgumentNotFoundException
+Thrown when a mandatory argument was not detected.
+#### ValueNotAcceptableException
+Thrown when a value is not found in the acceptable values for an argument.
+#### ArgumentFormatException
+Thrown when a value cannot be formatted to its specified type.
+#### ValueOutOfRangeException
+Thrown when a value is found to be out of the specified range for an argument.
+#### ArgumentTypeMismatchException
+Thrown when the type expected by an argument attribute does not match the type specified for its property.
+***
 ## Example Code
 ```
 using CommandLineLib;

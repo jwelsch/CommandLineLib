@@ -55,7 +55,7 @@ namespace CommandLineLib
 
          if ( converted == null )
          {
-            throw new CommandLineException( String.Format( "The value \"{0}\" could not be converted into type \"{1}\" for argument \"{2}\".", argument, this.ValueType.Name, this.ShortName ) );
+            throw new ArgumentFormatException( String.Format( "The value \"{0}\" could not be converted into type \"{1}\" for argument \"{2}\".", argument, this.ValueType.Name, this.ShortName ) );
          }
 
          if ( !this.Validate( converted ) )
