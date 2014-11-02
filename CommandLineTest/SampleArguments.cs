@@ -1158,4 +1158,10 @@ namespace CommandLineTest
          private set;
       }
    }
+
+   public class NotAPropertyArgument
+   {
+      [Int32Value( 1 )]
+      public int Value;
+   }
 }

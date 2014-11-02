@@ -20,7 +20,7 @@ namespace CommandLineLib
       {
          if ( !property.PropertyType.IsEnum )
          {
-            throw new CommandLineDeclarationException( String.Format( "The argument \"{0}\" does not decorate a property or field that is an enum.", this.ShortName ) );
+            throw new ArgumentTypeMismatchException( String.Format( "The argument \"{0}\" does not decorate a property or field that is an enum.", this.ShortName ) );
          }
 
          this.ValueType = property.PropertyType;

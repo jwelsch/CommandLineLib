@@ -299,24 +299,40 @@ See the example code below.
 #### CommandLine
 Class that must be given the class that contains properties decorated with argument attributes as a type parameter in its constructor.  If construction is complete, then call Parse() and pass in the raw command line arguments that were passed into main().
 ### Exceptions
-#### GroupNotAllowedException
-Thrown when a group not that is not allowed due to previous group(s) being present is in the command line arguments.
+#### AmbiguousArgumentException
+Thrown when a required value argument is directly followed by an optional value argument.
+#### ArgumentFormatException
+Thrown when a value cannot be formatted to its specified type.
+#### ArgumentNotFoundException
+Thrown when a mandatory argument was not detected.
 #### ArgumentOutOfOrderException
 Thrown when arguments are passed out of order as specified by their Ordinals.
+#### ArgumentTypeMismatchException
+Thrown when the type expected by an argument attribute does not match the type specified for its property.
+#### BadIdentifierException
+Thrown when an identifier or alias is not correctly formatted or contains invalid characters.
 #### CompoundArgumentValueMissingException
 Thrown when the value part of a compound argument is missing.
 #### DuplicateArgumentException
-Thrown when the same argument is present in the command line arguments.
-#### ArgumentNotFoundException
-Thrown when a mandatory argument was not detected.
+Thrown when the same argument is present more than once in the command line arguments.
+#### DuplicateIdentifierException
+Thrown when the identifier or aliases of an argument are not unique.
+#### DuplicateOrdinalException
+Thrown when multiple arguments are declared with the same ordinal.
+#### GroupNotAllowedException
+Thrown when a group not that is not allowed due to previous group(s) being present is in the command line arguments.
+#### InvalidMemberException
+Thrown when a member that is not a property is decorated with a command line argument attribute.
+#### NoCommandLineAttributesFoundException
+Thrown when no command line attributes are found on the class passed as the type parameter to the CommandLine constructor.
+#### SharedIdentifierException
+Thrown when multiple arguments have the same identifier or alias.
+#### UnknownAttributeException
+Thrown when an unknown command line attribute type is encountered.
 #### ValueNotAcceptableException
 Thrown when a value is not found in the acceptable values for an argument.
-#### ArgumentFormatException
-Thrown when a value cannot be formatted to its specified type.
 #### ValueOutOfRangeException
 Thrown when a value is found to be out of the specified range for an argument.
-#### ArgumentTypeMismatchException
-Thrown when the type expected by an argument attribute does not match the type specified for its property.
 ***
 ## Example Code
 ```

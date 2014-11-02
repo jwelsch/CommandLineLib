@@ -56,7 +56,7 @@ namespace CommandLineLib
 
                if ( propertyInfo == null )
                {
-                  throw new CommandLineDeclarationException( String.Format( "\"{0}\" is not a property and cannot have a command line attribute.", memberInfo.Name ) );
+                  throw new InvalidMemberException( String.Format( "\"{0}\" is not a property and cannot have a command line attribute.", memberInfo.Name ) );
                }
 
                attribute.SetProperty( propertyInfo );
@@ -66,7 +66,7 @@ namespace CommandLineLib
 
          if ( this.attributes.Count == 0 )
          {
-            throw new CommandLineDeclarationException( String.Format( "No command line attributes found on class \"{0}\".", typeof( T ).Name ) );
+            throw new NoCommandLineAttributesFoundException( String.Format( "No command line attributes found on class \"{0}\".", typeof( T ).Name ) );
          }
 
          this.attributes.Sort( ( arg1, arg2 ) =>
@@ -112,7 +112,7 @@ namespace CommandLineLib
                      || ( previousAttribute as IValueAttribute != null ) ) )
                   {
                      {
-                        throw new CommandLineDeclarationException( String.Format( "A value argument was found with the same ordinal ({0}) as another argument.", attribute.Ordinal ) );
+                        throw new DuplicateOrdinalException( String.Format( "A value argument was found with the same ordinal ({0}) as another argument.", attribute.Ordinal ) );
                      }
                   }
                }
@@ -129,7 +129,7 @@ namespace CommandLineLib
                }
                else if ( foundOptionalValue )
                {
-                  throw new CommandLineDeclarationException( String.Format( "The required value argument, \"{0}\", cannot follow an optional value argument unless they are separated by a switch or compound argument.", attribute.ShortName ) );
+                  throw new AmbiguousArgumentException( String.Format( "The required value argument, \"{0}\", cannot follow an optional value argument unless they are separated by a switch or compound argument.", attribute.ShortName ) );
                }
             }
             else if ( attribute as ISwitchAttribute != null )
@@ -138,7 +138,7 @@ namespace CommandLineLib
             }
             else
             {
-               throw new CommandLineDeclarationException( String.Format( "Unknown argument type \"{0}\".", attribute.GetType().Name ) );
+               throw new UnknownAttributeException( String.Format( "Unknown argument type \"{0}\".", attribute.GetType().Name ) );
             }
          }
       }
@@ -154,7 +154,7 @@ namespace CommandLineLib
 
                if ( switchAttributeIdentifiers.ContainsDuplicate<string>() )
                {
-                  throw new CommandLineDeclarationException( String.Format( "The argument \"{0}\" contains a duplicate alias or identifier.", switchAttribute.ShortName ) );
+                  throw new DuplicateIdentifierException( String.Format( "The argument \"{0}\" contains a duplicate alias or identifier.", switchAttribute.ShortName ) );
                }
 
                for ( var j = 0; j < switchAttributeIdentifiers.Length; j++ )
@@ -163,7 +163,7 @@ namespace CommandLineLib
                   {
                      if ( Char.IsWhiteSpace( c ) )
                      {
-                        throw new CommandLineDeclarationException( String.Format( "The identifier or alias for the switch or compound argument, \"{0}\", cannot contain whitespace characters.", switchAttribute.Identifier ) );
+                        throw new BadIdentifierException( String.Format( "The identifier or alias for the switch or compound argument, \"{0}\", cannot contain whitespace characters.", switchAttribute.Identifier ) );
                      }
                   }
 
@@ -174,7 +174,7 @@ namespace CommandLineLib
                      {
                         if ( otherSwitch.MatchArgument( switchAttributeIdentifiers[j] ) )
                         {
-                           throw new CommandLineDeclarationException( String.Format( "More than one switch or compound argument has the same identifier or alias \"{0}\".", switchAttribute.ToString() ) );
+                           throw new SharedIdentifierException( String.Format( "More than one switch or compound argument has the same identifier or alias \"{0}\".", switchAttribute.ToString() ) );
                         }
                      }
                   }

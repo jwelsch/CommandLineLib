@@ -12,7 +12,7 @@ namespace CommandLineTest
       [TestMethod]
       public void NoCommandLineAttributes()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<NoCommandLineAttributesFoundException>( () =>
             {
                var commandLine = new CommandLine<EmptyArguments>();
             } );
@@ -272,7 +272,7 @@ namespace CommandLineTest
       [TestMethod]
       public void SameOrdinalValueArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<DuplicateOrdinalException>( () =>
             {
                var commandLine = new CommandLine<SameOrdinalValueArguments>();
             } );
@@ -281,7 +281,7 @@ namespace CommandLineTest
       [TestMethod]
       public void SameOrdinalValueSwitchArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<DuplicateOrdinalException>( () =>
          {
             var commandLine = new CommandLine<SameOrdinalValueSwitchArguments>();
          } );
@@ -348,7 +348,7 @@ namespace CommandLineTest
       [TestMethod]
       public void IllegalOptionalValueArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<AmbiguousArgumentException>( () =>
          {
             var commandLine = new CommandLine<IllegalOptionalValueArguments>();
          } );
@@ -560,7 +560,7 @@ namespace CommandLineTest
       [TestMethod]
       public void SamePrefixLabelSwitchArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<SharedIdentifierException>( () =>
             {
                var commandLine = new CommandLine<SamePrefixLabelSwitchArguments>();
             } );
@@ -569,7 +569,7 @@ namespace CommandLineTest
       [TestMethod]
       public void SamePrefixLabelCompoundArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<SharedIdentifierException>( () =>
          {
             var commandLine = new CommandLine<SamePrefixLabelCompoundArguments>();
          } );
@@ -578,7 +578,7 @@ namespace CommandLineTest
       [TestMethod]
       public void SamePrefixLabelSwitchCompoundArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<SharedIdentifierException>( () =>
          {
             var commandLine = new CommandLine<SamePrefixLabelSwitchCompoundArguments>();
          } );
@@ -599,7 +599,7 @@ namespace CommandLineTest
       [TestMethod]
       public void InvalidEnumValueArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
             {
                var commandLine = new CommandLine<InvalidEnumValueArguments>();
             } );
@@ -621,7 +621,7 @@ namespace CommandLineTest
       [TestMethod]
       public void InvalidEnumCompoundArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<ArgumentTypeMismatchException>( () =>
          {
             var commandLine = new CommandLine<InvalidEnumCompoundArguments>();
          } );
@@ -852,22 +852,22 @@ bar: This is an optional Int32 value that specifies bar.
       [TestMethod]
       public void InvalidCharacterSwitchArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<BadIdentifierException>( () =>
             {
                var commandLine = new CommandLine<InvalidCharacterSwitchArguments1>();
             } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<BadIdentifierException>( () =>
          {
             var commandLine = new CommandLine<InvalidCharacterSwitchArguments2>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<BadIdentifierException>( () =>
          {
             var commandLine = new CommandLine<InvalidCharacterSwitchArguments3>();
          } );
 
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<BadIdentifierException>( () =>
          {
             var commandLine = new CommandLine<InvalidCharacterSwitchArguments4>();
          } );
@@ -958,7 +958,7 @@ bar: This is an optional Int32 value that specifies bar.
       [TestMethod]
       public void SameAliasArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<DuplicateIdentifierException>( () =>
             {
                var commandLine = new CommandLine<SameAliasArguments>();
             } );
@@ -967,7 +967,7 @@ bar: This is an optional Int32 value that specifies bar.
       [TestMethod]
       public void SameIdentifierAndAliasArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<DuplicateIdentifierException>( () =>
          {
             var commandLine = new CommandLine<SameIdentifierAndAliasArguments>();
          } );
@@ -976,7 +976,7 @@ bar: This is an optional Int32 value that specifies bar.
       [TestMethod]
       public void TwoSameAliasArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<SharedIdentifierException>( () =>
          {
             var commandLine = new CommandLine<TwoSameAliasArguments>();
          } );
@@ -985,7 +985,7 @@ bar: This is an optional Int32 value that specifies bar.
       [TestMethod]
       public void TwoSameIdentifierAndAliasArguments()
       {
-         TestHelper.ExpectedException<CommandLineDeclarationException>( () =>
+         TestHelper.ExpectedException<SharedIdentifierException>( () =>
          {
             var commandLine = new CommandLine<TwoSameIdentifierAndAliasArguments>();
          } );
@@ -1217,6 +1217,15 @@ bar: This is an optional Int32 value that specifies bar.
          {
             arguments = commandLine.Parse( args );
          } );
+      }
+
+      [TestMethod]
+      public void NotAProperty()
+      {
+         TestHelper.ExpectedException<InvalidMemberException>( () =>
+            {
+               var commandLine = new CommandLine<NotAPropertyArgument>();
+            } );
       }
 // #endif
    }

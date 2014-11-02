@@ -52,7 +52,7 @@ namespace CommandLineLib
    #region GroupNotAllowedException
 
    /// <summary>
-   /// Thrown when there is an error encountered with processing the command line arguments.
+   /// Thrown when a group not that is not allowed due to previous group(s) being present is in the command line arguments.
    /// </summary>
    [Serializable]
    public class GroupNotAllowedException : CommandLineException
@@ -99,7 +99,7 @@ namespace CommandLineLib
    #region ArgumentOutOfOrderException
 
    /// <summary>
-   /// Thrown when there is an error encountered with processing the command line arguments.
+   /// Thrown when arguments are passed out of order as specified by their Ordinals.
    /// </summary>
    [Serializable]
    public class ArgumentOutOfOrderException : CommandLineException
@@ -146,7 +146,7 @@ namespace CommandLineLib
    #region CompoundArgumentValueMissingException
 
    /// <summary>
-   /// Thrown when there is an error encountered with processing the command line arguments.
+   /// Thrown when the value part of a compound argument is missing.
    /// </summary>
    [Serializable]
    public class CompoundArgumentValueMissingException : CommandLineException
@@ -193,7 +193,7 @@ namespace CommandLineLib
    #region DuplicateArgumentException
 
    /// <summary>
-   /// Thrown when there is an error encountered with processing the command line arguments.
+   /// Thrown when the same argument is present more than once in the command line arguments.
    /// </summary>
    [Serializable]
    public class DuplicateArgumentException : CommandLineException
@@ -240,7 +240,7 @@ namespace CommandLineLib
    #region ArgumentNotFoundException
 
    /// <summary>
-   /// Thrown when there is an error encountered with processing the command line arguments.
+   /// Thrown when a mandatory argument was not detected.
    /// </summary>
    [Serializable]
    public class ArgumentNotFoundException : CommandLineException
@@ -287,7 +287,7 @@ namespace CommandLineLib
    #region ValueNotAcceptableException
 
    /// <summary>
-   /// Thrown when there is an error encountered with processing the command line arguments.
+   /// Thrown when a value is not found in the acceptable values for an argument.
    /// </summary>
    [Serializable]
    public class ValueNotAcceptableException : CommandLineException
@@ -334,7 +334,7 @@ namespace CommandLineLib
    #region ArgumentFormatException
 
    /// <summary>
-   /// Thrown when there is an error encountered with processing the command line arguments.
+   /// Thrown when a value cannot be formatted to its specified type.
    /// </summary>
    [Serializable]
    public class ArgumentFormatException : CommandLineException
@@ -381,7 +381,7 @@ namespace CommandLineLib
    #region ValueOutOfRangeException
 
    /// <summary>
-   /// Thrown when there is an error encountered with processing the command line arguments.
+   /// Thrown when a value is found to be out of the specified range for an argument.
    /// </summary>
    [Serializable]
    public class ValueOutOfRangeException : CommandLineException
@@ -428,7 +428,7 @@ namespace CommandLineLib
    #region ArgumentTypeMismatchException
 
    /// <summary>
-   /// Thrown when the type of a parameter of a value argument does not match.
+   /// Thrown when the type expected by an argument attribute does not match the type specified for its property.
    /// </summary>
    [Serializable]
    public class ArgumentTypeMismatchException : Exception
