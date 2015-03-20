@@ -1164,4 +1164,19 @@ namespace CommandLineTest
       [Int32Value( 1 )]
       public int Value;
    }
+
+   public class SwitchReverse
+   {
+      [Switch( "-foo", Optional = true, Reverse = true )]
+      public bool Foo
+      {
+         get;
+         private set;
+      }
+
+      public SwitchReverse()
+      {
+         this.Foo = true;
+      }
+   }
 }

@@ -1061,44 +1061,6 @@ bar: This is an optional Int32 value that specifies bar.
          } );
       }
 
-      //[TestMethod]
-      //public void Tvdb2FileCommandLineArguments()
-      //{
-      //   var args = new string[] { "-season", @"C:\Temp\Buffy the Vampire Slayer\Season 3", "-seriesId", "70327", "-dryRun", "-collapseMultiPart" };
-      //   var commandLine = new CommandLine<Tvdb2FileCommandLineArguments>();
-      //   var arguments = commandLine.Parse( args );
-
-      //   TestHelper.Expected<string>( args[1], () =>
-      //      {
-      //         return arguments.SeasonPath;
-      //      } );
-
-      //   TestHelper.Expected<string>( null, () =>
-      //   {
-      //      return arguments.SeriesSearchTerms;
-      //   } );
-
-      //   TestHelper.Expected<int>( Int32.Parse( args[3] ), () =>
-      //   {
-      //      return arguments.SeriesId;
-      //   } );
-
-      //   TestHelper.Expected<bool>( true, () =>
-      //   {
-      //      return arguments.DryRun;
-      //   } );
-
-      //   TestHelper.Expected<bool>( true, () =>
-      //   {
-      //      return arguments.CollapseMultiPart;
-      //   } );
-
-      //   TestHelper.Expected<bool>( false, () =>
-      //   {
-      //      return arguments.ForceUpdate;
-      //   } );
-      //}
-
       [TestMethod]
       public void GroupOptionalPrecedence()
       {
@@ -1227,6 +1189,25 @@ bar: This is an optional Int32 value that specifies bar.
                var commandLine = new CommandLine<NotAPropertyArgument>();
             } );
       }
-// #endif
+//#endif
+
+      [TestMethod]
+      public void SwitchReverse()
+      {
+         var commandLine = new CommandLine<SwitchReverse>();
+         var arguments = commandLine.Parse( "-foo" );
+
+         TestHelper.Expected<bool>( false, () =>
+            {
+               return arguments.Foo;
+            } );
+
+         arguments = commandLine.Parse( "" );
+
+         TestHelper.Expected<bool>( true, () =>
+         {
+            return arguments.Foo;
+         } );
+      }
    }
 }

@@ -198,6 +198,11 @@ namespace CommandLineLib
 
          for ( var i = 0; i < args.Length; i++ )
          {
+            if ( args[i].Length == 0 )
+            {
+               continue;
+            }
+
             var matched = false;
 
             for ( var j = 0; j < unmatchedAttributeList.Count; j++ )

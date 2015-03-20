@@ -31,6 +31,12 @@ namespace CommandLineLib
          set;
       }
 
+      public bool Reverse
+      {
+         get;
+         set;
+      }
+
       public string[] AllIdentifiers()
       {
          var identifiers = new List<string>();
@@ -73,7 +79,7 @@ namespace CommandLineLib
 
       public override bool SetArgument( object instance, string argument )
       {
-         this.Property.SetValue( instance, true );
+         this.Property.SetValue( instance, this.Reverse ? false : true );
 
          return true;
       }

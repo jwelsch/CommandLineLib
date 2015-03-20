@@ -180,9 +180,9 @@ There are many attributes that can be used based on the expected type of an argu
 ### Switch
 * Switch argument
 * Property type: System.Boolean
-* If present, the property is set to true.
+* If present, the property is set to true (or false if Reverse is set to true).
 * Non-optional: Indicator
-* Optional: Aliases, CaseSensitive, Description, Groups, Optional, Ordinal, ShortName
+* Optional: Aliases, CaseSensitive, Description, Groups, Optional, Ordinal, ShortName, Reverse
 ### UInt16Compound
 * Compound argument
 * Property type: System.UInt16
@@ -276,6 +276,8 @@ Specified the order that the argument should appear on the command line.  Zero o
 The maximum (inclusive) allowed value of a value argument.  Defaults to system minimum value for that type.
 ### RangeMin
 The minimum (inclusive) allowed value of a value argument.  Defaults to system maximum value for that type.
+### Reverse
+Reverses the final value of a switch.  Normally, if a switch is found on the command line, it's corresponding property is set to true.  If Reverse is set to true, when the switch is found on the command line, the corresponding property is set to false.  For best results, be sure to set the property to true in the containing class's constructor.
 ### ShortName
 A short descriptor for the argument.  Used in generating help.  Defaults to the Indicator for switches and compounds.  For values it defaults to the name of the property.
 ### ValueCaseSensitive
